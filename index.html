@@ -144,7 +144,7 @@
   }
   .trust-chip .icon{width:14px; height:14px;}
 
-  /* HERO VISUAL: chaos -> order */
+  /* HERO VISUAL */
   .hero-visual{display:flex; align-items:center; gap:14px; position:relative; z-index:2;}
   .chaos{position:relative; width:120px; height:230px; flex-shrink:0;}
   .chaos-item{position:absolute; color:#9FB3CC;}
@@ -198,7 +198,7 @@
   .stamp--hero{bottom:-18px; right:-14px;}
   .stamp--plan{position:static; transform:rotate(-8deg); width:112px; height:112px; font-size:11px; background:rgba(139,92,246,0.08); flex-shrink:0;}
 
-  /* Service cards */
+  /* Grids */
   .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
   .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
   .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
@@ -250,6 +250,7 @@
   }
   .plan-card:hover{transform:translateY(-5px); box-shadow:var(--shadow-soft);}
   .plan-card .plan-price{font-family:var(--font-mono); font-size:26px; color:var(--blue); font-weight:600; margin:10px 0 4px;}
+  .plan-card .plan-price-sub{font-family:var(--font-mono); font-size:12px; color:var(--gray-600); margin-bottom:6px;}
   .plan-card p.desc{color:var(--gray-600); font-size:14.5px; margin-bottom:18px;}
   .plan-card ul{margin-bottom:24px; flex:1;}
   .plan-card ul li{display:flex; gap:9px; font-size:14.5px; color:var(--gray-900); padding:6px 0; align-items:flex-start;}
@@ -278,7 +279,7 @@
   .example-card h3{font-size:18px; margin:16px 0 10px;}
   .example-card ul{margin-bottom:20px; flex:1;}
   .example-card ul li{font-size:14px; color:var(--gray-600); padding:4px 0; display:flex; gap:8px;}
-  .example-card ul li::before{content:"—"; color:var(--celeste); flex-shrink:0;}
+  .example-card ul li::before{content:"✓"; color:var(--celeste); flex-shrink:0;}
 
   /* Device mockups */
   .mockup-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:34px;}
@@ -456,6 +457,8 @@
   <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
   <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
   <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9z"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2l7 4v5c0 5-3.5 9.7-7 11-3.5-1.3-7-6-7-11V6l7-4z"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></symbol>
 </svg>
 
 <!-- NAV -->
@@ -514,18 +517,18 @@
         <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px;"><use href="#i-compass"/></svg>
         Empresa · SII · Web · Publicidad
       </span>
-      <h1>Creamos tu empresa y la dejamos lista para vender</h1>
-      <p class="lead">Te ayudamos a formalizar tu negocio, iniciar actividades en SII, crear tu página web y acompañarte mes a mes con contabilidad, soporte técnico y publicidad.</p>
+      <h1>Creamos tu empresa y la dejamos lista para crecer</h1>
+      <p class="lead">Formalizamos tu negocio, iniciamos actividades en SII, creamos tu página web y te acompañamos mes a mes con contabilidad, soporte técnico y publicidad.</p>
       <div class="btn-row">
         <a id="wa-hero" href="#" target="_blank" rel="noopener" class="btn btn--primary">
           <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Cotizar por WhatsApp
         </a>
-        <a href="#planes-web" class="btn btn--outline-light">Ver planes</a>
+        <a href="#planes-web" class="btn btn--outline-light">Ver planes web</a>
         <a href="#starter-pack" class="btn btn--ghost-light">Crear mi empresa <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#i-arrow"/></svg></a>
       </div>
       <div class="hero-trust">
         <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg>Empresa formal</span>
-        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-doc-check"/></svg>Inicio de actividades</span>
+        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-doc-check"/></svg>Inicio actividades SII</span>
         <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-browser"/></svg>Página web</span>
         <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg>Publicidad mensual</span>
       </div>
@@ -549,7 +552,7 @@
       <div class="order-card">
         <div class="browser-bar">
           <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-          <span class="url-pill">tuempresafacilhoy.cl</span>
+          <span class="url-pill">tuempresafacil.cl</span>
         </div>
         <div class="notebook-inner" style="height:auto;padding:0;">
           <div class="order-hero-block"></div>
@@ -574,7 +577,7 @@
       <div class="card reveal">
         <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></div>
         <h3>Creación legal de empresa</h3>
-        <p>Apoyo para formalizar tu negocio de forma ordenada.</p>
+        <p>Apoyo para formalizar tu negocio de forma ordenada y profesional.</p>
       </div>
       <div class="card reveal">
         <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-doc-check"/></svg></div>
@@ -597,17 +600,17 @@
         <p>Acompañamiento mensual para mantener tu negocio más ordenado.</p>
       </div>
       <div class="card reveal">
-        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
-        <h3>Soporte técnico web</h3>
-        <p>Revisión, monitoreo y apoyo técnico para tu página.</p>
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-image"/></svg></div>
+        <h3>Publicidad mensual</h3>
+        <p>4 imágenes publicitarias al mes para tus redes sociales, listas para publicar.</p>
       </div>
     </div>
-    <div class="grid-3" style="margin-top:24px; grid-template-columns:repeat(3,1fr);">
+    <div class="grid-3" style="margin-top:24px;">
       <div></div>
       <div class="card reveal">
-        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg></div>
-        <h3>Publicidad mensual</h3>
-        <p>Creación de contenido gráfico para redes sociales.</p>
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+        <h3>Soporte técnico web</h3>
+        <p>Revisión, monitoreo mensual y apoyo técnico continuo para tu página.</p>
       </div>
       <div></div>
     </div>
@@ -622,8 +625,8 @@
       <div class="starter-top">
         <div style="max-width:600px;">
           <span class="eyebrow eyebrow--light">Plan más elegido</span>
-          <h2 style="font-size:clamp(26px,3vw,36px);">Starter Pack Empresa Lista</h2>
-          <p style="color:#C9D6E8; margin-top:14px; font-size:16.5px;">Ideal para emprendedores que quieren partir formal, vender profesional y tener presencia digital desde el inicio.</p>
+          <h2 style="font-size:clamp(26px,3vw,36px);">Starter Pack — Empresa Lista</h2>
+          <p style="color:#C9D6E8; margin-top:14px; font-size:16.5px;">Ideal para emprendedores que quieren partir formal, vender profesional y tener presencia digital desde el inicio. Solución rápida, clara y profesional.</p>
         </div>
         <div class="stamp stamp--plan">PACK<br>RECOMENDADO</div>
       </div>
@@ -634,7 +637,7 @@
           <div class="value">$119.990</div>
         </div>
         <div class="price-block">
-          <div class="label">Mensualidad desde</div>
+          <div class="label">Mensualmente</div>
           <div class="value">$29.990 <span>/ mes</span></div>
         </div>
       </div>
@@ -643,7 +646,7 @@
         <div>
           <h4>Incluye cuota inicial</h4>
           <ul>
-            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación de empresa estándar</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación legal de empresa estándar</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Apoyo en inicio de actividades SII</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Configuración inicial para facturar</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Página web base</li>
@@ -657,7 +660,7 @@
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Contabilidad mensual básica</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Soporte técnico de página web</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual web</li>
-            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Publicidad mensual + 4 imágenes al mes</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>4 imágenes publicitarias al mes</li>
             <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Asesoría técnica básica</li>
           </ul>
         </div>
@@ -680,62 +683,103 @@
       <p>Planes independientes según el objetivo de tu negocio: presencia básica, ventas o una estructura empresarial completa.</p>
     </div>
     <div class="grid-3">
+
+      <!-- Mini Página -->
       <div class="plan-card reveal">
         <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">Mini Página</span>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--purple-deep); background:rgba(139,92,246,0.08); display:inline-block; padding:4px 10px; border-radius:999px; margin-bottom:6px;">Servicio rápido</div>
         <div class="plan-price">$49.990</div>
-        <p class="desc">Servicio rápido para emprendedores que necesitan presencia online básica.</p>
+        <div class="plan-price-sub">Pago único</div>
+        <p class="desc">Creación rápida de tu página web y dominio en NIC Chile. Ideal para emprendedores que necesitan presencia online cuanto antes.</p>
         <ul>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación rápida de página web HTML</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Dominio en NIC Chile</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación de página web (HTML)</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Dominio incluido en NIC Chile</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>5 cuentas de correo corporativo</li>
           <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Botón de WhatsApp, Instagram y Facebook</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Número de teléfono visible</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual y asesoría técnica básica</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual y asesoría técnica</li>
           <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>4 imágenes publicitarias al mes</li>
         </ul>
-        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+        <a id="wa-mini" href="#" target="_blank" rel="noopener" class="btn btn--outline btn--block btn--sm">Empezar ahora</a>
       </div>
 
-      <div class="plan-card reveal">
+      <!-- One Page Vendedor -->
+      <div class="plan-card reveal" style="border:2px solid var(--blue); position:relative;">
+        <div style="position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:linear-gradient(120deg,var(--blue),var(--celeste)); color:white; font-family:var(--font-mono); font-size:11px; padding:5px 14px; border-radius:999px; white-space:nowrap;">MÁS POPULAR</div>
         <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">One Page Vendedor</span>
-        <div class="plan-price">Cotizar</div>
-        <p class="desc">Página enfocada en ventas para emprendedores o proveedores que quieren mostrar productos o servicios.</p>
+        <div class="plan-price">$129.990</div>
+        <div class="plan-price-sub">Pago único</div>
+        <p class="desc">Página enfocada en ventas para emprendedores o proveedores que quieren mostrar productos o servicios y cerrar clientes.</p>
         <ul>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Página web enfocada en venta</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Sección de productos o servicios</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Conexión con WhatsApp e Instagram</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Desarrollo de página web conectada a ventas</li>
           <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Portal o sección de vendedor</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Gestión básica de productos o pedidos</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Diseño adaptable a celular y computador</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>10 cuentas de correo corporativo</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Conexión con WhatsApp e Instagram</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual y asesoría técnica</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>4 imágenes publicitarias al mes</li>
         </ul>
-        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+        <a id="wa-onepage" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--block btn--sm">Empezar ahora</a>
       </div>
 
+      <!-- Multi Página Empresarial -->
       <div class="plan-card reveal">
         <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">Multi Página Empresarial</span>
-        <div class="plan-price">Cotizar</div>
-        <p class="desc">Ecosistema web completo para negocios que necesitan una estructura más profesional.</p>
+        <div class="plan-price">$249.990</div>
+        <div class="plan-price-sub">Pago único</div>
+        <p class="desc">Ecosistema web completo para negocios que necesitan una estructura más profesional y preparada para crecer.</p>
         <ul>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Inicio, Nosotros, Servicios, Productos y Contacto</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Secciones para organización interna</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Gestión comercial</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Soporte técnico</li>
-          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Preparada para crecer con la empresa</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Desarrollo de múltiples páginas</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Estructura para tu organización</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Servicios / Productos / Contacto</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>20 cuentas de correo corporativo</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual y asesoría técnica</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>4 imágenes publicitarias al mes</li>
         </ul>
-        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+        <a id="wa-multi" href="#" target="_blank" rel="noopener" class="btn btn--outline btn--block btn--sm">Empezar ahora</a>
       </div>
     </div>
 
+    <!-- Correos corporativos -->
     <div class="email-note reveal">
       <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-mail"/></svg></div>
       <div>
-        <h3 style="font-size:17px; margin-bottom:6px;">Correos corporativos disponibles</h3>
-        <p style="color:var(--gray-600); font-size:14.5px;">Podemos generar correos corporativos en cualquier plan por costo adicional de hosting/cPanel.</p>
+        <h3 style="font-size:17px; margin-bottom:6px;">Correos corporativos disponibles en cualquier plan</h3>
+        <p style="color:var(--gray-600); font-size:14.5px;">Configuramos correos corporativos por costo adicional de hosting/cPanel según el plan que elijas.</p>
         <div class="email-note-values">
           <div><b>Plan 5GB</b> — 5 cuentas de correo</div>
           <div><b>Plan 10GB</b> — 10 cuentas de correo</div>
           <div><b>Plan 20GB</b> — 20 cuentas de correo</div>
         </div>
-        <p style="color:var(--gray-600); font-size:13px; margin-top:10px;">Servicio de hosting/cPanel disponible desde $29.990 anual según plan contratado.</p>
+        <p style="color:var(--gray-600); font-size:13px; margin-top:10px;">Servicio de hosting/cPanel disponible desde <strong>$29.990 anual</strong> según plan contratado.</p>
+      </div>
+    </div>
+
+    <!-- Beneficios incluidos en todos los planes -->
+    <div style="margin-top:56px;">
+      <div class="section-head center reveal" style="margin-bottom:32px;">
+        <span class="eyebrow eyebrow--blue">Todos los planes incluyen</span>
+        <h2>Más que solo una página web</h2>
+      </div>
+      <div class="grid-4">
+        <div class="card reveal" style="text-align:center; padding:24px;">
+          <div class="card-icon" style="margin:0 auto 16px;"><svg class="icon" viewBox="0 0 24 24"><use href="#i-globe"/></svg></div>
+          <h3 style="font-size:15px;">Monitoreo mensual</h3>
+          <p style="font-size:13.5px;">Supervisamos el estado de tu web cada mes.</p>
+        </div>
+        <div class="card reveal" style="text-align:center; padding:24px;">
+          <div class="card-icon" style="margin:0 auto 16px;"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+          <h3 style="font-size:15px;">Asesoría técnica</h3>
+          <p style="font-size:13.5px;">Te acompañamos y resolvemos tus dudas.</p>
+        </div>
+        <div class="card reveal" style="text-align:center; padding:24px;">
+          <div class="card-icon" style="margin:0 auto 16px;"><svg class="icon" viewBox="0 0 24 24"><use href="#i-image"/></svg></div>
+          <h3 style="font-size:15px;">4 imágenes al mes</h3>
+          <p style="font-size:13.5px;">Creamos 4 imágenes publicitarias cada mes.</p>
+        </div>
+        <div class="card reveal" style="text-align:center; padding:24px;">
+          <div class="card-icon" style="margin:0 auto 16px;"><svg class="icon" viewBox="0 0 24 24"><use href="#i-shield"/></svg></div>
+          <h3 style="font-size:15px;">Soporte confiable</h3>
+          <p style="font-size:13.5px;">Estamos contigo cuando más lo necesitas.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -745,7 +789,7 @@
 <section class="section" id="ejemplos">
   <div class="container">
     <div class="section-head reveal">
-      <span class="eyebrow eyebrow--blue">Ejemplos de proyectos que podemos crear</span>
+      <span class="eyebrow eyebrow--blue">Ejemplos de proyectos</span>
       <h2>Ideas y prototipos posibles según tu rubro</h2>
       <p>Estos son ejemplos demostrativos de proyectos que podemos desarrollar para distintos rubros. Cada negocio se adapta según sus necesidades, servicios, productos y objetivos comerciales.</p>
     </div>
@@ -777,12 +821,12 @@
       <div class="step reveal">
         <div class="step-num">1</div>
         <h3>Nos escribes por WhatsApp o Instagram</h3>
-        <p>Conversamos sobre tu idea, rubro y objetivo.</p>
+        <p>Conversamos sobre tu idea, rubro y objetivo de negocio.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">2</div>
         <h3>Evaluamos lo que necesitas</h3>
-        <p>Definimos si necesitas crear empresa, página web, contabilidad, publicidad o un pack completo.</p>
+        <p>Definimos si necesitas empresa, página web, contabilidad, publicidad o un pack completo.</p>
       </div>
       <div class="step reveal">
         <div class="step-num">3</div>
@@ -797,7 +841,7 @@
       <div class="step reveal">
         <div class="step-num">5</div>
         <h3>Te acompañamos mes a mes</h3>
-        <p>Contabilidad básica, soporte técnico y publicidad mensual.</p>
+        <p>Contabilidad básica, soporte técnico, monitoreo y publicidad mensual.</p>
       </div>
     </div>
   </div>
@@ -831,8 +875,8 @@
       </div>
       <div>
         <div class="benefit reveal">
-          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg></div>
-          <div><h4>Publicidad mensual incluida en planes</h4><p>Contenido gráfico listo para tus redes sociales.</p></div>
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-image"/></svg></div>
+          <div><h4>Publicidad mensual incluida</h4><p>4 imágenes publicitarias listas para tus redes sociales cada mes.</p></div>
         </div>
         <div class="benefit reveal">
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
@@ -840,7 +884,7 @@
         </div>
         <div class="benefit reveal">
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-compass"/></svg></div>
-          <div><h4>Orientación para formalizar tu negocio</h4><p>Acompañamiento en el proceso de formalización.</p></div>
+          <div><h4>Orientación para formalizar tu negocio</h4><p>Acompañamiento real en el proceso de formalización.</p></div>
         </div>
         <div class="benefit reveal" style="border-bottom:none;">
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-rocket"/></svg></div>
@@ -875,19 +919,19 @@
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg></div>
           <div><div class="m-label">WhatsApp</div><div class="m-value">+56 9 9593 2848</div></div>
         </a>
-        <a class="contact-method" href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener">
+        <a class="contact-method" href="https://www.instagram.com/tu_empresa_facil" target="_blank" rel="noopener">
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-instagram"/></svg></div>
           <div><div class="m-label">Instagram</div><div class="m-value">@tu_empresa_facil</div></div>
         </a>
         <div class="contact-method">
           <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-globe"/></svg></div>
-          <div><div class="m-label">Sitio web</div><div class="m-value">www.tuempresafacilhoy.cl</div></div>
+          <div><div class="m-label">Sitio web</div><div class="m-value">www.tuempresafacil.cl</div></div>
         </div>
       </div>
 
       <div class="btn-row">
         <a id="wa-cta1" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Cotizar por WhatsApp</a>
-        <a href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener" class="btn btn--outline-light btn--sm">Ver Instagram</a>
+        <a href="https://www.instagram.com/tu_empresa_facil" target="_blank" rel="noopener" class="btn btn--outline-light btn--sm">Ver Instagram</a>
       </div>
     </div>
 
@@ -922,10 +966,12 @@
           </select>
         </div>
         <div class="field">
-          <label for="f-web">¿Necesitas página web?</label>
+          <label for="f-web">¿Qué plan te interesa?</label>
           <select id="f-web">
-            <option value="Sí">Sí</option>
-            <option value="No">No</option>
+            <option value="Starter Pack ($119.990 + $29.990/mes)">Starter Pack</option>
+            <option value="Mini Página ($49.990)">Mini Página</option>
+            <option value="One Page Vendedor ($129.990)">One Page Vendedor</option>
+            <option value="Multi Página Empresarial ($249.990)">Multi Página Empresarial</option>
             <option value="Aún no sé">Aún no sé</option>
           </select>
         </div>
@@ -963,16 +1009,17 @@
         </div>
         <div class="footer-col">
           <h5>Contacto</h5>
-          <a href="#" id="wa-footer" target="_blank" rel="noopener">WhatsApp</a>
-          <a href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
+          <a href="#" id="wa-footer" target="_blank" rel="noopener">WhatsApp +56 9 9593 2848</a>
+          <a href="https://www.instagram.com/tu_empresa_facil" target="_blank" rel="noopener">@tu_empresa_facil</a>
           <a href="#contacto">Formulario de contacto</a>
+          <a href="http://www.tuempresafacil.cl" target="_blank" rel="noopener">www.tuempresafacil.cl</a>
         </div>
       </div>
     </div>
     <p class="legal-note">Tu Empresa Fácil ofrece acompañamiento y orientación en procesos de formalización, tributarios y de desarrollo web. No garantizamos resultados tributarios o legales específicos, ya que estos dependen de organismos oficiales y de la situación particular de cada negocio.</p>
     <div class="footer-bottom">
       <span>© 2026 Tu Empresa Fácil. Todos los derechos reservados.</span>
-      <span>www.tuempresafacilhoy.cl</span>
+      <span>www.tuempresafacil.cl</span>
     </div>
   </div>
 </footer>
@@ -997,10 +1044,14 @@
   const WA_PHONE = "56995932848";
   function waLink(msg){ return "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(msg); }
 
+  // Set all WhatsApp links
   document.querySelectorAll("#wa-nav, #wa-mobile, #wa-hero, #wa-method, #wa-cta1, #wa-footer, #wa-float").forEach(el=>{
     el.href = waLink("Hola, quiero cotizar los servicios de Tu Empresa Fácil.");
   });
-  document.getElementById("wa-starter").href = waLink("Hola, quiero más información sobre el Starter Pack Empresa Lista.");
+  document.getElementById("wa-starter").href = waLink("Hola, quiero más información sobre el Starter Pack Empresa Lista ($119.990 + $29.990/mes).");
+  document.getElementById("wa-mini").href = waLink("Hola, me interesa el plan Mini Página ($49.990). ¿Pueden darme más información?");
+  document.getElementById("wa-onepage").href = waLink("Hola, me interesa el plan One Page Vendedor ($129.990). ¿Pueden darme más información?");
+  document.getElementById("wa-multi").href = waLink("Hola, me interesa el plan Multi Página Empresarial ($249.990). ¿Pueden darme más información?");
 
   // Mobile nav
   const navToggle = document.getElementById("navToggle");
@@ -1049,12 +1100,12 @@
     const ex = examples[btn.dataset.i];
     document.getElementById("modalTitle").textContent = ex.tag;
     document.getElementById("modalDesc").textContent = ex.desc;
-    document.getElementById("modalList").innerHTML = ex.items.map(it=>`<li>${it}</li>`).join("");
-    document.getElementById("modalWa").href = waLink("Hola, me interesa un proyecto web para el rubro: " + ex.tag + ".");
+    document.getElementById("modalList").innerHTML = ex.items.map(it=>`<li style="padding:5px 0; color:var(--gray-600); font-size:14.5px; display:flex; gap:8px; align-items:center;"><svg style="width:15px;height:15px;stroke:var(--celeste);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>${it}</li>`).join("");
+    document.getElementById("modalWa").href = waLink("Hola, me interesa un proyecto web para el rubro: " + ex.tag + ". ¿Pueden darme más información?");
     modalBackdrop.classList.add("open");
   });
 
-  // Mockups (abstract device previews)
+  // Mockups
   const mockups = [
     {device:"notebook", label:"Landing de servicios", colors:["#1857C9","#4FC3F7","#8B5CF6"]},
     {device:"phone", label:"Página de ventas", colors:["#8B5CF6","#1857C9","#4FC3F7"]},
@@ -1105,15 +1156,17 @@
 
   // FAQ
   const faqs = [
-    {q:"¿Ustedes crean la empresa completa?", a:"Acompañamos el proceso de creación estándar de empresa y orientación inicial para comenzar formalmente."},
-    {q:"¿Incluye inicio de actividades en SII?", a:"Sí, el Starter Pack considera apoyo en el inicio de actividades y configuración inicial para comenzar a operar."},
-    {q:"¿Puedo contratar solo la página web?", a:"Sí, contamos con planes web independientes para presencia digital, ventas o estructura empresarial."},
-    {q:"¿La mensualidad es obligatoria?", a:"La mensualidad permite mantener contabilidad básica, soporte técnico web, monitoreo y publicidad mensual."},
-    {q:"¿Cuántas imágenes publicitarias incluye el plan mensual?", a:"Incluye 4 imágenes publicitarias al mes."},
-    {q:"¿Puedo tener correos corporativos?", a:"Sí, podemos configurar correos corporativos en cualquier plan por costo adicional de hosting/cPanel."},
+    {q:"¿Ustedes crean la empresa completa?", a:"Acompañamos el proceso de creación estándar de empresa y orientación inicial para comenzar formalmente. Te guiamos en cada paso del proceso."},
+    {q:"¿Incluye inicio de actividades en SII?", a:"Sí, el Starter Pack considera apoyo en el inicio de actividades y configuración inicial para comenzar a operar tributariamente."},
+    {q:"¿Puedo contratar solo la página web?", a:"Sí, contamos con tres planes web independientes: Mini Página ($49.990), One Page Vendedor ($129.990) y Multi Página Empresarial ($249.990), todos con pago único."},
+    {q:"¿Qué incluye la mensualidad del Starter Pack?", a:"La mensualidad de $29.990/mes incluye contabilidad básica, soporte técnico web, monitoreo mensual, 4 imágenes publicitarias al mes y asesoría técnica básica."},
+    {q:"¿Cuántas imágenes publicitarias incluye cada plan?", a:"Todos los planes incluyen 4 imágenes publicitarias al mes, listas para publicar en tus redes sociales."},
+    {q:"¿Puedo tener correos corporativos?", a:"Sí, configuramos correos corporativos en cualquier plan por costo adicional de hosting/cPanel. Disponible desde $29.990 anual con planes de 5, 10 o 20 cuentas."},
+    {q:"¿Cuánto demora tener mi página web lista?", a:"Los tiempos dependen del plan y la complejidad del proyecto. Para la Mini Página el proceso es rápido. Te informamos el plazo exacto al momento de cotizar."},
+    {q:"¿Qué diferencia hay entre los planes web?", a:"Mini Página es presencia básica online. One Page Vendedor está enfocada en ventas con portal de vendedor. Multi Página Empresarial es un ecosistema web completo con múltiples secciones y mayor capacidad."},
   ];
   const faqList = document.getElementById("faqList");
-  faqs.forEach((f,i)=>{
+  faqs.forEach((f)=>{
     const item = document.createElement("div");
     item.className = "faq-item";
     item.innerHTML = `
@@ -1140,13 +1193,13 @@
     const correo = document.getElementById("f-correo").value;
     const rubro = document.getElementById("f-rubro").value;
     const empresa = document.getElementById("f-empresa").value;
-    const web = document.getElementById("f-web").value;
+    const plan = document.getElementById("f-web").value;
     const mensaje = document.getElementById("f-mensaje").value;
     let msg = `Hola, quiero contactarme con Tu Empresa Fácil.\n`;
     msg += `Nombre: ${nombre}\nTeléfono: ${telefono}\n`;
     if(correo) msg += `Correo: ${correo}\n`;
     if(rubro) msg += `Rubro: ${rubro}\n`;
-    msg += `¿Ya tiene empresa creada?: ${empresa}\n¿Necesita página web?: ${web}\n`;
+    msg += `¿Ya tiene empresa creada?: ${empresa}\nPlan de interés: ${plan}\n`;
     if(mensaje) msg += `Mensaje: ${mensaje}`;
     window.open(waLink(msg), "_blank");
   });

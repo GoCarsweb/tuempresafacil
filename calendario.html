@@ -559,6 +559,19 @@
       const month = MONTHS_ES[d.getMonth()];
       const year = d.getFullYear();
 
+      // Enviar notificación por email via Resend
+      const fechaStr = `${dayName} ${day} de ${month} ${year}`;
+      fetch("/api/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre, telefono, correo, servicio, mensaje,
+          fecha: fechaStr,
+          hora: selectedSlot,
+          horaFin: SLOT_END[selectedSlot]
+        })
+      }).catch(() => {});
+
       document.getElementById("successDetail").innerHTML = `
         <div><span>Cliente</span><span>${nombre}</span></div>
         <div><span>Teléfono</span><span>${telefono}</span></div>

@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu Empresa Fácil | Crea tu empresa, tu web y vende profesional</title>
+<meta name="description" content="Formaliza tu negocio, inicia actividades en SII, crea tu página web y recibe acompañamiento mensual en contabilidad, soporte técnico y publicidad. Tu Empresa Fácil te acompaña de principio a fin.">
+<meta name="theme-color" content="#0A2540">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A2540;
+    --navy-soft:#0F3059;
+    --blue:#1857C9;
+    --blue-2:#2E6EE0;
+    --celeste:#4FC3F7;
+    --white:#FFFFFF;
+    --gray-900:#1E2530;
+    --gray-600:#5B6472;
+    --gray-300:#B9C3D0;
+    --bg-soft:#F4F8FC;
+    --bg-soft-2:#EEF3FA;
+    --purple:#8B5CF6;
+    --purple-deep:#6D28D9;
+    --radius-lg:22px;
+    --radius-md:14px;
+    --radius-sm:8px;
+    --shadow-soft:0 20px 45px -20px rgba(10,37,64,0.18);
+    --shadow-tight:0 8px 22px -10px rgba(10,37,64,0.22);
+    --font-display:'Space Grotesk', sans-serif;
+    --font-body:'Inter', sans-serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --font-hand:'Caveat', cursive;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:88px;}
+  body{
+    margin:0;
+    font-family:var(--font-body);
+    color:var(--gray-900);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+    line-height:1.55;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{margin:0; padding:0; list-style:none;}
+  h1,h2,h3,h4{font-family:var(--font-display); margin:0; color:var(--navy); line-height:1.15;}
+  p{margin:0;}
+  button{font-family:inherit; cursor:pointer;}
+
+  ::selection{background:var(--celeste); color:var(--navy);}
+
+  .icon{width:22px; height:22px; stroke:currentColor; fill:none; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;}
+  .icon-fill{fill:currentColor; stroke:none;}
+
+  .container{max-width:1180px; margin:0 auto; padding:0 24px;}
+  .section{padding:100px 0;}
+  .section--alt{background:var(--bg-soft);}
+  .section--navy{background:linear-gradient(160deg, var(--navy) 0%, var(--navy-soft) 55%, var(--blue) 130%); color:var(--white);}
+  .section--navy h2, .section--navy h3{color:var(--white);}
+
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--font-mono); font-size:12px; letter-spacing:0.09em; text-transform:uppercase;
+    color:var(--purple-deep); background:rgba(139,92,246,0.1);
+    padding:7px 14px; border-radius:999px; font-weight:600; margin-bottom:18px;
+  }
+  .eyebrow--light{color:#D9C6FF; background:rgba(139,92,246,0.22);}
+  .eyebrow--blue{color:var(--blue); background:rgba(24,87,201,0.08);}
+
+  .section-head{max-width:680px; margin:0 0 56px;}
+  .section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+  .section-head h2{font-size:clamp(28px,3.4vw,40px); margin-bottom:14px;}
+  .section-head p{color:var(--gray-600); font-size:17px;}
+  .section--navy .section-head p{color:#C9D6E8;}
+
+  /* Buttons */
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    padding:15px 28px; border-radius:12px; font-weight:600; font-size:15.5px;
+    border:2px solid transparent; transition:transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
+    white-space:nowrap;
+  }
+  .btn .icon{width:18px; height:18px;}
+  .btn--primary{background:linear-gradient(120deg, var(--blue), var(--celeste)); color:var(--white); box-shadow:0 14px 30px -12px rgba(24,87,201,0.55);}
+  .btn--primary:hover{transform:translateY(-2px); box-shadow:0 18px 36px -12px rgba(24,87,201,0.6);}
+  .btn--outline{border-color:var(--navy); color:var(--navy); background:transparent;}
+  .btn--outline:hover{background:var(--navy); color:var(--white); transform:translateY(-2px);}
+  .btn--outline-light{border-color:rgba(255,255,255,0.55); color:var(--white); background:transparent;}
+  .btn--outline-light:hover{background:rgba(255,255,255,0.12); border-color:var(--white); transform:translateY(-2px);}
+  .btn--ghost{color:var(--blue); padding:15px 6px;}
+  .btn--ghost:hover{color:var(--purple-deep);}
+  .btn--ghost-light{color:var(--white); padding:15px 6px;}
+  .btn--ghost-light:hover{color:var(--celeste);}
+  .btn--sm{padding:11px 20px; font-size:14px; border-radius:10px;}
+  .btn--block{width:100%;}
+  .btn-row{display:flex; flex-wrap:wrap; gap:14px; align-items:center;}
+
+  /* NAV */
+  .nav{
+    position:sticky; top:0; z-index:200;
+    background:rgba(10,37,64,0.92); backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1180px; margin:0 auto;}
+  .brand{display:flex; align-items:center; gap:10px; color:var(--white); font-family:var(--font-display); font-weight:700; font-size:18.5px;}
+  .brand-mark{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--celeste), var(--purple)); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .brand-mark svg{width:18px; height:18px; stroke:var(--navy); stroke-width:2;}
+  .nav-links{display:flex; align-items:center; gap:30px;}
+  .nav-links a{color:#D7E1EF; font-size:14.5px; font-weight:500; transition:color .15s ease;}
+  .nav-links a:hover{color:var(--celeste);}
+  .nav-cta{display:flex; align-items:center; gap:14px;}
+  .nav-toggle{display:none; background:none; border:none; color:var(--white); padding:6px;}
+  .nav-toggle svg{width:26px; height:26px;}
+
+  .mobile-panel{
+    display:none; position:fixed; inset:0; z-index:300;
+    background:var(--navy); padding:26px 24px;
+    flex-direction:column; gap:6px;
+  }
+  .mobile-panel.open{display:flex;}
+  .mobile-panel-top{display:flex; justify-content:space-between; align-items:center; margin-bottom:24px;}
+  .mobile-panel a{color:var(--white); font-size:19px; font-weight:600; padding:14px 4px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .mobile-panel .btn{margin-top:20px;}
+
+  /* HERO */
+  .hero{position:relative; overflow:hidden; padding:88px 0 70px;}
+  .blob{position:absolute; border-radius:50%; filter:blur(60px); opacity:0.35; pointer-events:none;}
+  .blob--1{width:420px; height:420px; background:var(--celeste); top:-140px; right:-120px;}
+  .blob--2{width:360px; height:360px; background:var(--purple); bottom:-160px; left:-100px; opacity:0.25;}
+
+  .hero-grid{display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center; position:relative; z-index:2;}
+  .hero-copy h1{color:var(--white); font-size:clamp(32px,4.6vw,54px); letter-spacing:-0.01em;}
+  .hero-copy p.lead{color:#CBD8EA; font-size:18px; margin:22px 0 32px; max-width:520px;}
+  .hero-trust{display:flex; flex-wrap:wrap; gap:10px; margin-top:36px;}
+  .trust-chip{
+    display:flex; align-items:center; gap:7px; font-family:var(--font-mono); font-size:12px;
+    color:#D7E1EF; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14);
+    padding:8px 13px; border-radius:999px;
+  }
+  .trust-chip .icon{width:14px; height:14px;}
+
+  /* HERO VISUAL: chaos -> order */
+  .hero-visual{display:flex; align-items:center; gap:14px; position:relative; z-index:2;}
+  .chaos{position:relative; width:120px; height:230px; flex-shrink:0;}
+  .chaos-item{position:absolute; color:#9FB3CC;}
+  .chaos-note{
+    font-family:var(--font-hand); font-size:26px; color:var(--celeste);
+    background:rgba(255,255,255,0.07); border:1px dashed rgba(255,255,255,0.35);
+    padding:6px 16px; border-radius:8px; transform:rotate(-9deg);
+    top:6px; left:2px;
+  }
+  .chaos-q{position:absolute; font-family:var(--font-display); font-weight:700; font-size:30px; color:rgba(255,255,255,0.3); top:74px; left:58px; transform:rotate(8deg);}
+  .chaos-scribble{top:118px; left:0;}
+  .chaos-scribble svg{width:90px; height:40px;}
+  .chaos-dot{position:absolute; width:9px; height:9px; border-radius:50%; background:var(--purple);}
+  .chaos-dot.d1{top:10px; left:96px;}
+  .chaos-dot.d2{top:168px; left:70px;}
+  .chaos-dot.d3{top:190px; left:14px;}
+
+  .transform-arrow{display:flex; flex-direction:column; align-items:center; gap:6px; color:var(--purple); flex-shrink:0;}
+  .transform-arrow svg{width:46px; height:46px;}
+  .transform-arrow span{font-family:var(--font-mono); font-size:10.5px; color:#B9C3D0; letter-spacing:0.08em; text-align:center; text-transform:uppercase;}
+
+  .order-card{
+    position:relative; background:var(--white); border-radius:18px; padding:16px;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,0.45); flex:1; min-width:0;
+  }
+  .order-card .browser-bar{display:flex; align-items:center; gap:6px; margin-bottom:12px;}
+  .order-card .dot{width:8px; height:8px; border-radius:50%; background:var(--gray-300);}
+  .order-card .url-pill{margin-left:8px; flex:1; background:var(--bg-soft); border-radius:6px; height:16px; font-family:var(--font-mono); font-size:9px; color:var(--gray-600); display:flex; align-items:center; padding:0 8px; overflow:hidden; white-space:nowrap;}
+  .order-hero-block{height:64px; border-radius:10px; background:linear-gradient(120deg, var(--blue), var(--celeste)); margin-bottom:10px; position:relative; overflow:hidden;}
+  .order-hero-block::after{content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0.15), transparent);}
+  .order-lines{display:flex; flex-direction:column; gap:6px; margin-bottom:12px;}
+  .order-lines span{display:block; height:6px; border-radius:4px; background:var(--bg-soft-2);}
+  .order-lines span:nth-child(1){width:70%;}
+  .order-lines span:nth-child(2){width:45%;}
+  .order-chart{display:flex; align-items:flex-end; gap:5px; height:44px; margin-top:6px;}
+  .order-chart i{flex:1; background:linear-gradient(180deg, var(--purple), var(--blue)); border-radius:4px 4px 0 0; animation:growUp 1.4s ease forwards; transform-origin:bottom;}
+  .order-chart i:nth-child(1){height:35%; animation-delay:.1s;}
+  .order-chart i:nth-child(2){height:55%; animation-delay:.25s;}
+  .order-chart i:nth-child(3){height:40%; animation-delay:.4s;}
+  .order-chart i:nth-child(4){height:75%; animation-delay:.55s;}
+  .order-chart i:nth-child(5){height:100%; animation-delay:.7s;}
+  @keyframes growUp{from{transform:scaleY(0);} to{transform:scaleY(1);}}
+
+  .stamp{
+    position:absolute; width:96px; height:96px; border-radius:50%;
+    border:2px dashed var(--purple); display:flex; align-items:center; justify-content:center;
+    text-align:center; transform:rotate(-11deg); background:rgba(139,92,246,0.06);
+    font-family:var(--font-mono); font-size:10px; font-weight:700; color:var(--purple-deep);
+    letter-spacing:0.03em; line-height:1.25; padding:8px;
+  }
+  .stamp--hero{bottom:-18px; right:-14px;}
+  .stamp--plan{position:static; transform:rotate(-8deg); width:112px; height:112px; font-size:11px; background:rgba(139,92,246,0.08); flex-shrink:0;}
+
+  /* Service cards */
+  .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:24px;}
+  .grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:24px;}
+  .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:22px;}
+
+  .card{
+    background:var(--white); border-radius:var(--radius-lg); padding:32px;
+    border:1px solid rgba(10,37,64,0.06); box-shadow:var(--shadow-tight);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover{transform:translateY(-5px); box-shadow:var(--shadow-soft);}
+  .card-icon{
+    width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(24,87,201,0.1), rgba(79,195,247,0.16)); color:var(--blue); margin-bottom:20px;
+  }
+  .card h3{font-size:19px; margin-bottom:10px;}
+  .card p{color:var(--gray-600); font-size:15px;}
+
+  /* STARTER PACK */
+  .plan-feature{
+    display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:8px;
+  }
+  .plan-feature h4{
+    font-family:var(--font-mono); text-transform:uppercase; letter-spacing:0.07em; font-size:12.5px;
+    color:var(--celeste); margin-bottom:16px; font-weight:600;
+  }
+  .plan-feature ul li{display:flex; gap:10px; align-items:flex-start; padding:8px 0; font-size:15px; color:#DCE6F2;}
+  .plan-feature ul li .icon{width:17px; height:17px; color:var(--celeste); flex-shrink:0; margin-top:2px;}
+
+  .starter-card{
+    background:linear-gradient(155deg, var(--navy) 0%, #123a68 60%, var(--blue) 140%);
+    border-radius:28px; padding:52px; color:var(--white); position:relative; overflow:hidden;
+    box-shadow:0 40px 70px -30px rgba(10,37,64,0.5);
+  }
+  .starter-top{display:flex; justify-content:space-between; align-items:flex-start; gap:24px; flex-wrap:wrap;}
+  .starter-price-box{
+    display:flex; gap:28px; flex-wrap:wrap; margin:28px 0 6px;
+    padding:24px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:18px;
+  }
+  .price-block .label{font-family:var(--font-mono); font-size:11.5px; text-transform:uppercase; letter-spacing:0.07em; color:#A9BEDA;}
+  .price-block .value{font-family:var(--font-display); font-size:32px; font-weight:700; margin-top:4px;}
+  .price-block .value span{font-size:16px; font-weight:500; color:#A9BEDA;}
+  .starter-support-text{color:#C9D6E8; font-size:14.5px; margin-top:26px; max-width:520px;}
+
+  /* Web plans */
+  .plan-card{
+    background:var(--white); border-radius:var(--radius-lg); padding:34px;
+    border:1px solid rgba(10,37,64,0.08); box-shadow:var(--shadow-tight); display:flex; flex-direction:column;
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .plan-card:hover{transform:translateY(-5px); box-shadow:var(--shadow-soft);}
+  .plan-card .plan-price{font-family:var(--font-mono); font-size:26px; color:var(--blue); font-weight:600; margin:10px 0 4px;}
+  .plan-card p.desc{color:var(--gray-600); font-size:14.5px; margin-bottom:18px;}
+  .plan-card ul{margin-bottom:24px; flex:1;}
+  .plan-card ul li{display:flex; gap:9px; font-size:14.5px; color:var(--gray-900); padding:6px 0; align-items:flex-start;}
+  .plan-card ul li .icon{width:16px; height:16px; color:var(--purple); flex-shrink:0; margin-top:3px;}
+
+  .email-note{
+    margin-top:44px; background:var(--white); border:1px dashed rgba(24,87,201,0.35); border-radius:var(--radius-md);
+    padding:28px 32px; display:flex; gap:22px; align-items:center; flex-wrap:wrap;
+  }
+  .email-note .card-icon{margin-bottom:0;}
+  .email-note-values{display:flex; gap:24px; flex-wrap:wrap; margin-top:10px;}
+  .email-note-values div{font-family:var(--font-mono); font-size:13px; color:var(--gray-600);}
+  .email-note-values b{color:var(--navy);}
+
+  /* Examples */
+  .example-card{
+    background:var(--white); border-radius:var(--radius-lg); padding:28px; border:1px solid rgba(10,37,64,0.07);
+    box-shadow:var(--shadow-tight); display:flex; flex-direction:column; transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .example-card:hover{transform:translateY(-5px); box-shadow:var(--shadow-soft);}
+  .example-top{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .example-tag{
+    font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em;
+    color:var(--purple-deep); background:rgba(139,92,246,0.1); padding:5px 10px; border-radius:999px; white-space:nowrap;
+  }
+  .example-card h3{font-size:18px; margin:16px 0 10px;}
+  .example-card ul{margin-bottom:20px; flex:1;}
+  .example-card ul li{font-size:14px; color:var(--gray-600); padding:4px 0; display:flex; gap:8px;}
+  .example-card ul li::before{content:"—"; color:var(--celeste); flex-shrink:0;}
+
+  /* Device mockups */
+  .mockup-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:34px;}
+  .mockup-item{text-align:center;}
+  .mockup-label{font-family:var(--font-mono); font-size:12.5px; color:var(--gray-600); margin-top:16px;}
+  .mockup-label b{color:var(--navy); display:block; font-family:var(--font-display); font-size:15px; margin-bottom:2px;}
+
+  .device{margin:0 auto;}
+  .device.notebook{width:100%; max-width:280px;}
+  .notebook-screen{
+    background:var(--navy); border-radius:12px 12px 4px 4px; padding:10px 10px 14px;
+    box-shadow:0 20px 40px -18px rgba(10,37,64,0.4);
+  }
+  .notebook-inner{background:var(--white); border-radius:6px; padding:10px; height:150px; overflow:hidden;}
+  .notebook-base{height:9px; background:linear-gradient(90deg, #0F3059, #1B4E86, #0F3059); border-radius:0 0 8px 8px; margin:0 18px;}
+
+  .device.phone{width:120px; margin:0 auto;}
+  .phone-screen{
+    background:var(--navy); border-radius:22px; padding:10px 8px; box-shadow:0 20px 40px -18px rgba(10,37,64,0.4);
+  }
+  .phone-notch{width:36px; height:5px; background:rgba(255,255,255,0.25); border-radius:4px; margin:0 auto 8px;}
+  .phone-inner{background:var(--white); border-radius:12px; padding:8px; height:210px; overflow:hidden;}
+
+  .mini-nav{display:flex; gap:4px; margin-bottom:6px;}
+  .mini-nav span{height:5px; border-radius:3px; background:var(--bg-soft-2);}
+  .mini-hero{border-radius:6px; height:38px; margin-bottom:6px;}
+  .mini-row{display:flex; gap:5px; margin-bottom:6px;}
+  .mini-row div{flex:1; border-radius:5px; height:24px;}
+  .mini-lines span{display:block; height:4px; border-radius:3px; background:var(--bg-soft-2); margin-bottom:4px;}
+  .mini-chip{display:inline-block; font-family:var(--font-mono); font-size:7px; padding:3px 6px; border-radius:999px; margin-top:4px;}
+  .mini-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:5px;}
+  .mini-grid div{border-radius:5px; height:26px;}
+
+  /* Cómo funciona */
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:20px; position:relative;}
+  .step{position:relative; padding-top:8px;}
+  .step-num{
+    font-family:var(--font-mono); font-weight:700; font-size:14px; color:var(--white);
+    background:linear-gradient(135deg, var(--blue), var(--purple)); width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  }
+  .step h3{font-size:16.5px; margin-bottom:8px;}
+  .step p{font-size:14px; color:var(--gray-600);}
+  .step-line{position:absolute; top:28px; left:56%; width:88%; height:2px; background:repeating-linear-gradient(90deg, var(--gray-300) 0 6px, transparent 6px 12px);}
+
+  /* Por qué elegirnos */
+  .benefit{display:flex; gap:16px; align-items:flex-start; padding:20px 0; border-bottom:1px solid rgba(10,37,64,0.08);}
+  .benefit .card-icon{width:44px; height:44px; border-radius:12px; margin-bottom:0; flex-shrink:0;}
+  .benefit h4{font-size:15.5px; color:var(--navy); margin-bottom:4px; font-family:var(--font-body); font-weight:600;}
+  .benefit p{font-size:14px; color:var(--gray-600);}
+
+  /* FAQ */
+  .faq-item{border-bottom:1px solid rgba(10,37,64,0.1);}
+  .faq-q{
+    width:100%; background:none; border:none; text-align:left; padding:22px 4px; display:flex; justify-content:space-between;
+    align-items:center; gap:16px; font-family:var(--font-display); font-weight:600; font-size:16.5px; color:var(--navy);
+  }
+  .faq-q .icon{color:var(--purple); transition:transform .25s ease; flex-shrink:0;}
+  .faq-item.open .faq-q .icon{transform:rotate(180deg);}
+  .faq-a{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .faq-a p{padding:0 4px 22px; color:var(--gray-600); font-size:15px; max-width:720px;}
+
+  /* Contact */
+  .contact-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:56px; align-items:start;}
+  .contact-info h2{color:var(--white);}
+  .contact-methods{display:flex; flex-direction:column; gap:14px; margin:28px 0 34px;}
+  .contact-method{
+    display:flex; align-items:center; gap:14px; background:rgba(255,255,255,0.07);
+    border:1px solid rgba(255,255,255,0.12); padding:16px 18px; border-radius:14px; transition:background .2s ease;
+  }
+  .contact-method:hover{background:rgba(255,255,255,0.13);}
+  .contact-method .card-icon{background:rgba(255,255,255,0.12); color:var(--celeste); margin-bottom:0;}
+  .contact-method .m-label{font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:#A9BEDA;}
+  .contact-method .m-value{font-weight:600; font-size:15px; color:var(--white);}
+
+  .form-card{background:var(--white); border-radius:var(--radius-lg); padding:38px; box-shadow:0 30px 60px -25px rgba(0,0,0,0.4);}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--navy); margin-bottom:7px;}
+  .field input, .field select, .field textarea{
+    width:100%; border:1.5px solid #DCE4EF; border-radius:10px; padding:12px 14px; font-family:inherit;
+    font-size:14.5px; color:var(--gray-900); background:var(--bg-soft); transition:border-color .15s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none; border-color:var(--blue); background:var(--white);}
+  .field textarea{resize:vertical; min-height:90px;}
+
+  /* Footer */
+  footer{background:var(--navy); color:#B9C3D0; padding:56px 0 26px;}
+  .footer-top{display:flex; justify-content:space-between; gap:40px; flex-wrap:wrap; padding-bottom:36px; border-bottom:1px solid rgba(255,255,255,0.08);}
+  .footer-brand .brand{color:var(--white); margin-bottom:14px;}
+  .footer-brand p{max-width:320px; font-size:14.5px; color:#9FB0C7;}
+  .footer-cols{display:flex; gap:60px; flex-wrap:wrap;}
+  .footer-col h5{font-family:var(--font-mono); font-size:12px; text-transform:uppercase; letter-spacing:0.07em; color:#7C90AC; margin-bottom:14px;}
+  .footer-col a{display:block; font-size:14.5px; color:#C6D2E3; padding:5px 0; transition:color .15s ease;}
+  .footer-col a:hover{color:var(--celeste);}
+  .footer-bottom{display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; padding-top:24px; font-size:12.5px; color:#7C90AC;}
+  .legal-note{max-width:820px; font-size:12.5px; color:#7C90AC; padding-top:20px; line-height:1.6;}
+
+  /* WhatsApp floating button */
+  .wa-float{
+    position:fixed; bottom:26px; right:26px; z-index:250; width:60px; height:60px; border-radius:50%;
+    background:linear-gradient(135deg, var(--blue), var(--celeste)); color:var(--white); display:flex;
+    align-items:center; justify-content:center; box-shadow:0 14px 30px -10px rgba(24,87,201,0.6);
+    border:none; animation:float 2.6s ease-in-out infinite;
+  }
+  .wa-float svg{width:28px; height:28px;}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-6px);}}
+
+  /* Modal */
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(10,20,35,0.6); backdrop-filter:blur(3px); z-index:400;
+    display:none; align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-backdrop.open{display:flex;}
+  .modal{background:var(--white); border-radius:var(--radius-lg); max-width:520px; width:100%; padding:36px; position:relative; max-height:85vh; overflow-y:auto;}
+  .modal-close{position:absolute; top:18px; right:18px; background:var(--bg-soft); border:none; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--navy);}
+  .modal-close .icon{width:18px; height:18px;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  @media (max-width:1020px){
+    .grid-3, .grid-4{grid-template-columns:repeat(2,1fr);}
+    .plan-feature{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .steps{grid-template-columns:repeat(2,1fr);}
+    .step-line{display:none;}
+    .hero-grid{grid-template-columns:1fr; gap:48px;}
+    .hero-visual{max-width:520px;}
+    .mockup-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:760px){
+    .nav-links, .nav-cta .btn--outline-light, .nav-cta .btn--outline{display:none;}
+    .nav-toggle{display:flex;}
+    .section{padding:66px 0;}
+    .grid-3, .grid-4, .grid-2{grid-template-columns:1fr;}
+    .steps{grid-template-columns:1fr;}
+    .starter-card, .form-card{padding:28px;}
+    .starter-price-box{flex-direction:column; gap:16px;}
+    .form-row{grid-template-columns:1fr;}
+    .mockup-grid{grid-template-columns:1fr;}
+    .hero-visual{flex-direction:column;}
+    .transform-arrow svg{transform:rotate(90deg);}
+    .chaos{width:100%; height:120px;}
+    .footer-cols{gap:32px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ICON SPRITE -->
+<svg style="display:none">
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M3 12h18"/></symbol>
+  <symbol id="i-doc-check" viewBox="0 0 24 24"><path d="M7 2h7l5 5v13a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"/><path d="M14 2v5h5"/><path d="M9 14l2 2 4-4"/></symbol>
+  <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M6 2h12v18l-2-1-2 1-2-1-2 1-2-1-2 1V2z"/><path d="M9 7h6M9 11h6M9 15h4"/></symbol>
+  <symbol id="i-browser" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8.5h20"/><circle class="icon-fill" cx="5.5" cy="6.2" r="0.6"/><circle class="icon-fill" cx="7.7" cy="6.2" r="0.6"/><circle class="icon-fill" cx="9.9" cy="6.2" r="0.6"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+  <symbol id="i-wrench" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.6 5.6L3 18l3 3 6.1-6.1a4 4 0 0 0 5.6-5.6l-2.8 2.8-2-2z"/></symbol>
+  <symbol id="i-megaphone" viewBox="0 0 24 24"><path d="M3 10v4a1 1 0 0 0 1 1h2l9 4V5L6 9H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6"/><path d="M6 15v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-3"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/><path d="M8.5 9.3c.3 2.9 2.7 5.3 5.6 5.6"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle class="icon-fill" cx="17.4" cy="6.6" r="0.9"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M15.2 8.8l-2.1 5.6-5.6 2.1 2.1-5.6z"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></symbol>
+  <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 1 1-4-7.2L21 3l-1.2 4.3a8.4 8.4 0 0 1 1.2 4.2z"/></symbol>
+  <symbol id="i-rocket" viewBox="0 0 24 24"><path d="M12 2c3 2 5 6 5 10 0 2-1 4-2 5l-3 3-3-3c-1-1-2-3-2-5 0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.6"/><path d="M8 17l-3 4M16 17l3 4"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 12l10 5 10-5"/><path d="M2 17l10 5 10-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9z"/></symbol>
+</svg>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#inicio" class="brand">
+      <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><use href="#i-zap"/></svg></span>
+      Tu Empresa Fácil
+    </a>
+    <div class="nav-links">
+      <a href="#que-hacemos">Qué hacemos</a>
+      <a href="#starter-pack">Starter Pack</a>
+      <a href="#planes-web">Planes web</a>
+      <a href="#ejemplos">Ejemplos</a>
+      <a href="#como-funciona">Cómo funciona</a>
+      <a href="#faq">Preguntas</a>
+    </div>
+    <div class="nav-cta">
+      <a href="#contacto" class="btn btn--outline-light btn--sm">Contacto</a>
+      <a id="wa-nav" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm">
+        <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Cotizar
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-panel" id="mobilePanel">
+  <div class="mobile-panel-top">
+    <span class="brand" style="color:white;">Tu Empresa Fácil</span>
+    <button class="nav-toggle" id="navClose" style="display:flex;" aria-label="Cerrar menú">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><use href="#i-x"/></svg>
+    </button>
+  </div>
+  <a href="#que-hacemos" class="mobile-link">Qué hacemos</a>
+  <a href="#starter-pack" class="mobile-link">Starter Pack</a>
+  <a href="#planes-web" class="mobile-link">Planes web</a>
+  <a href="#ejemplos" class="mobile-link">Ejemplos</a>
+  <a href="#como-funciona" class="mobile-link">Cómo funciona</a>
+  <a href="#faq" class="mobile-link">Preguntas</a>
+  <a href="#contacto" class="mobile-link">Contacto</a>
+  <a id="wa-mobile" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--block">
+    <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Cotizar por WhatsApp
+  </a>
+</div>
+
+<!-- HERO -->
+<section class="hero section--navy" id="inicio">
+  <div class="blob blob--1"></div>
+  <div class="blob blob--2"></div>
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <span class="eyebrow eyebrow--light">
+        <svg class="icon" viewBox="0 0 24 24" style="width:14px;height:14px;"><use href="#i-compass"/></svg>
+        Empresa · SII · Web · Publicidad
+      </span>
+      <h1>Creamos tu empresa y la dejamos lista para vender</h1>
+      <p class="lead">Te ayudamos a formalizar tu negocio, iniciar actividades en SII, crear tu página web y acompañarte mes a mes con contabilidad, soporte técnico y publicidad.</p>
+      <div class="btn-row">
+        <a id="wa-hero" href="#" target="_blank" rel="noopener" class="btn btn--primary">
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Cotizar por WhatsApp
+        </a>
+        <a href="#planes-web" class="btn btn--outline-light">Ver planes</a>
+        <a href="#starter-pack" class="btn btn--ghost-light">Crear mi empresa <svg class="icon" viewBox="0 0 24 24" style="width:16px;height:16px;"><use href="#i-arrow"/></svg></a>
+      </div>
+      <div class="hero-trust">
+        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg>Empresa formal</span>
+        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-doc-check"/></svg>Inicio de actividades</span>
+        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-browser"/></svg>Página web</span>
+        <span class="trust-chip"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg>Publicidad mensual</span>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="chaos">
+        <div class="chaos-item chaos-note">idea?</div>
+        <div class="chaos-item chaos-q">¿?</div>
+        <div class="chaos-item chaos-scribble">
+          <svg viewBox="0 0 90 40" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 30 C 20 5, 35 35, 50 15 S 80 5, 88 25"/></svg>
+        </div>
+        <span class="chaos-dot d1"></span>
+        <span class="chaos-dot d2"></span>
+        <span class="chaos-dot d3"></span>
+      </div>
+      <div class="transform-arrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><use href="#i-arrow"/></svg>
+        <span>Orden y<br>formalidad</span>
+      </div>
+      <div class="order-card">
+        <div class="browser-bar">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          <span class="url-pill">tuempresafacilhoy.cl</span>
+        </div>
+        <div class="notebook-inner" style="height:auto;padding:0;">
+          <div class="order-hero-block"></div>
+          <div class="order-lines"><span></span><span></span></div>
+          <div class="order-chart"><i></i><i></i><i></i><i></i><i></i></div>
+        </div>
+        <div class="stamp stamp--hero">EMPRESA<br>LISTA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUÉ HACEMOS -->
+<section class="section" id="que-hacemos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Qué hacemos</span>
+      <h2>Todo lo que necesitas para partir formal, ordenado y vendiendo</h2>
+      <p>Desde la formalización de tu negocio hasta el acompañamiento mensual, cubrimos cada paso para que tu emprendimiento avance de forma profesional.</p>
+    </div>
+    <div class="grid-3">
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-briefcase"/></svg></div>
+        <h3>Creación legal de empresa</h3>
+        <p>Apoyo para formalizar tu negocio de forma ordenada.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-doc-check"/></svg></div>
+        <h3>Inicio de actividades en SII</h3>
+        <p>Acompañamiento para dejar tu empresa lista para operar tributariamente.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-receipt"/></svg></div>
+        <h3>Configuración para facturar</h3>
+        <p>Orientación para que puedas emitir documentos tributarios según corresponda.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-browser"/></svg></div>
+        <h3>Página web para tu negocio</h3>
+        <p>Desarrollo de presencia digital profesional conectada a tus canales de contacto.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-chart"/></svg></div>
+        <h3>Contabilidad mensual básica</h3>
+        <p>Acompañamiento mensual para mantener tu negocio más ordenado.</p>
+      </div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+        <h3>Soporte técnico web</h3>
+        <p>Revisión, monitoreo y apoyo técnico para tu página.</p>
+      </div>
+    </div>
+    <div class="grid-3" style="margin-top:24px; grid-template-columns:repeat(3,1fr);">
+      <div></div>
+      <div class="card reveal">
+        <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg></div>
+        <h3>Publicidad mensual</h3>
+        <p>Creación de contenido gráfico para redes sociales.</p>
+      </div>
+      <div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STARTER PACK -->
+<section class="section section--navy" id="starter-pack">
+  <div class="blob blob--1" style="opacity:0.18;"></div>
+  <div class="container">
+    <div class="starter-card reveal">
+      <div class="starter-top">
+        <div style="max-width:600px;">
+          <span class="eyebrow eyebrow--light">Plan más elegido</span>
+          <h2 style="font-size:clamp(26px,3vw,36px);">Starter Pack Empresa Lista</h2>
+          <p style="color:#C9D6E8; margin-top:14px; font-size:16.5px;">Ideal para emprendedores que quieren partir formal, vender profesional y tener presencia digital desde el inicio.</p>
+        </div>
+        <div class="stamp stamp--plan">PACK<br>RECOMENDADO</div>
+      </div>
+
+      <div class="starter-price-box">
+        <div class="price-block">
+          <div class="label">Cuota inicial</div>
+          <div class="value">$119.990</div>
+        </div>
+        <div class="price-block">
+          <div class="label">Mensualidad desde</div>
+          <div class="value">$29.990 <span>/ mes</span></div>
+        </div>
+      </div>
+
+      <div class="plan-feature">
+        <div>
+          <h4>Incluye cuota inicial</h4>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación de empresa estándar</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Apoyo en inicio de actividades SII</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Configuración inicial para facturar</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Página web base</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Conexión a WhatsApp, Instagram y formulario de contacto</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Orientación inicial para ordenar tu negocio</li>
+          </ul>
+        </div>
+        <div>
+          <h4>Incluye mensualidad</h4>
+          <ul>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Contabilidad mensual básica</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Soporte técnico de página web</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual web</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Publicidad mensual + 4 imágenes al mes</li>
+            <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Asesoría técnica básica</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="starter-support-text">Nosotros te acompañamos en el proceso para que puedas enfocarte en vender y hacer crecer tu negocio.</p>
+      <div style="margin-top:26px;">
+        <a id="wa-starter" href="#" target="_blank" rel="noopener" class="btn btn--primary">Quiero crear mi empresa <svg class="icon" viewBox="0 0 24 24"><use href="#i-arrow"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLANES WEB -->
+<section class="section section--alt" id="planes-web">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Planes web</span>
+      <h2>¿Solo necesitas página web? También podemos ayudarte</h2>
+      <p>Planes independientes según el objetivo de tu negocio: presencia básica, ventas o una estructura empresarial completa.</p>
+    </div>
+    <div class="grid-3">
+      <div class="plan-card reveal">
+        <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">Mini Página</span>
+        <div class="plan-price">$49.990</div>
+        <p class="desc">Servicio rápido para emprendedores que necesitan presencia online básica.</p>
+        <ul>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Creación rápida de página web HTML</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Dominio en NIC Chile</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Botón de WhatsApp, Instagram y Facebook</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Número de teléfono visible</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Monitoreo mensual y asesoría técnica básica</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>4 imágenes publicitarias al mes</li>
+        </ul>
+        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+      </div>
+
+      <div class="plan-card reveal">
+        <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">One Page Vendedor</span>
+        <div class="plan-price">Cotizar</div>
+        <p class="desc">Página enfocada en ventas para emprendedores o proveedores que quieren mostrar productos o servicios.</p>
+        <ul>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Página web enfocada en venta</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Sección de productos o servicios</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Conexión con WhatsApp e Instagram</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Portal o sección de vendedor</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Gestión básica de productos o pedidos</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Diseño adaptable a celular y computador</li>
+        </ul>
+        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+      </div>
+
+      <div class="plan-card reveal">
+        <span class="eyebrow eyebrow--blue" style="align-self:flex-start;">Multi Página Empresarial</span>
+        <div class="plan-price">Cotizar</div>
+        <p class="desc">Ecosistema web completo para negocios que necesitan una estructura más profesional.</p>
+        <ul>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Inicio, Nosotros, Servicios, Productos y Contacto</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Secciones para organización interna</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Gestión comercial</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Soporte técnico</li>
+          <li><svg class="icon" viewBox="0 0 24 24"><use href="#i-check"/></svg>Preparada para crecer con la empresa</li>
+        </ul>
+        <a href="#contacto" class="btn btn--outline btn--block btn--sm">Quiero este plan</a>
+      </div>
+    </div>
+
+    <div class="email-note reveal">
+      <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-mail"/></svg></div>
+      <div>
+        <h3 style="font-size:17px; margin-bottom:6px;">Correos corporativos disponibles</h3>
+        <p style="color:var(--gray-600); font-size:14.5px;">Podemos generar correos corporativos en cualquier plan por costo adicional de hosting/cPanel.</p>
+        <div class="email-note-values">
+          <div><b>Plan 5GB</b> — 5 cuentas de correo</div>
+          <div><b>Plan 10GB</b> — 10 cuentas de correo</div>
+          <div><b>Plan 20GB</b> — 20 cuentas de correo</div>
+        </div>
+        <p style="color:var(--gray-600); font-size:13px; margin-top:10px;">Servicio de hosting/cPanel disponible desde $29.990 anual según plan contratado.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EJEMPLOS DE PROYECTOS -->
+<section class="section" id="ejemplos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Ejemplos de proyectos que podemos crear</span>
+      <h2>Ideas y prototipos posibles según tu rubro</h2>
+      <p>Estos son ejemplos demostrativos de proyectos que podemos desarrollar para distintos rubros. Cada negocio se adapta según sus necesidades, servicios, productos y objetivos comerciales.</p>
+    </div>
+    <div class="grid-4" id="examplesGrid"></div>
+  </div>
+</section>
+
+<!-- EJEMPLOS VISUALES -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow eyebrow--blue">Ejemplos visuales</span>
+      <h2>Así podría verse tu negocio online</h2>
+      <p>Diseñamos páginas adaptadas al rubro, etapa y objetivo de cada emprendedor.</p>
+    </div>
+    <div class="mockup-grid" id="mockupGrid"></div>
+  </div>
+</section>
+
+<!-- CÓMO FUNCIONA -->
+<section class="section" id="como-funciona">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Cómo funciona</span>
+      <h2>De la idea a tu negocio formal, en 5 pasos</h2>
+    </div>
+    <div class="steps">
+      <div class="step-line"></div>
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <h3>Nos escribes por WhatsApp o Instagram</h3>
+        <p>Conversamos sobre tu idea, rubro y objetivo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <h3>Evaluamos lo que necesitas</h3>
+        <p>Definimos si necesitas crear empresa, página web, contabilidad, publicidad o un pack completo.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <h3>Creamos o configuramos tu empresa</h3>
+        <p>Te acompañamos en el proceso de formalización e inicio de actividades.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">4</div>
+        <h3>Desarrollamos tu presencia digital</h3>
+        <p>Creamos tu página web y conectamos tus canales de contacto.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">5</div>
+        <h3>Te acompañamos mes a mes</h3>
+        <p>Contabilidad básica, soporte técnico y publicidad mensual.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ ELEGIRNOS -->
+<section class="section section--alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Por qué elegirnos</span>
+      <h2>Un solo aliado para formalizar, vender y crecer</h2>
+    </div>
+    <div class="grid-2">
+      <div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-layers"/></svg></div>
+          <div><h4>Solución integral para emprendedores</h4><p>Empresa, web, contabilidad y publicidad en un solo lugar.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-message"/></svg></div>
+          <div><h4>Acompañamiento claro y simple</h4><p>Te guiamos paso a paso, sin tecnicismos innecesarios.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-zap"/></svg></div>
+          <div><h4>Página web moderna y rápida</h4><p>Diseño profesional conectado a tus canales de venta.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg></div>
+          <div><h4>Contacto directo por WhatsApp e Instagram</h4><p>Siempre disponibles para resolver tus dudas.</p></div>
+        </div>
+      </div>
+      <div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-megaphone"/></svg></div>
+          <div><h4>Publicidad mensual incluida en planes</h4><p>Contenido gráfico listo para tus redes sociales.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-wrench"/></svg></div>
+          <div><h4>Soporte técnico web</h4><p>Monitoreo y apoyo continuo para tu página.</p></div>
+        </div>
+        <div class="benefit reveal">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-compass"/></svg></div>
+          <div><h4>Orientación para formalizar tu negocio</h4><p>Acompañamiento en el proceso de formalización.</p></div>
+        </div>
+        <div class="benefit reveal" style="border-bottom:none;">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-rocket"/></svg></div>
+          <div><h4>Ideal para comenzar de forma profesional</h4><p>Todo lo que necesitas para partir con el pie derecho.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow eyebrow--blue">Preguntas frecuentes</span>
+      <h2>Resolvemos tus dudas</h2>
+    </div>
+    <div id="faqList" style="max-width:820px;"></div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section section--navy" id="contacto">
+  <div class="container contact-grid">
+    <div class="contact-info reveal">
+      <span class="eyebrow eyebrow--light">Contacto</span>
+      <h2>Hablemos de tu negocio</h2>
+      <p style="color:#C9D6E8; margin-top:14px; font-size:16.5px;">Cuéntanos tu idea y te ayudamos a transformarla en una empresa formal con presencia digital.</p>
+
+      <div class="contact-methods">
+        <a class="contact-method" id="wa-method" href="#" target="_blank" rel="noopener">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg></div>
+          <div><div class="m-label">WhatsApp</div><div class="m-value">+56 9 9593 2848</div></div>
+        </a>
+        <a class="contact-method" href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-instagram"/></svg></div>
+          <div><div class="m-label">Instagram</div><div class="m-value">@tu_empresa_facil</div></div>
+        </a>
+        <div class="contact-method">
+          <div class="card-icon"><svg class="icon" viewBox="0 0 24 24"><use href="#i-globe"/></svg></div>
+          <div><div class="m-label">Sitio web</div><div class="m-value">www.tuempresafacilhoy.cl</div></div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <a id="wa-cta1" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--sm">Cotizar por WhatsApp</a>
+        <a href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener" class="btn btn--outline-light btn--sm">Ver Instagram</a>
+      </div>
+    </div>
+
+    <form class="form-card reveal" id="contactForm">
+      <div class="form-row">
+        <div class="field">
+          <label for="f-nombre">Nombre</label>
+          <input type="text" id="f-nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="field">
+          <label for="f-telefono">Teléfono</label>
+          <input type="tel" id="f-telefono" placeholder="+56 9 ..." required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="f-correo">Correo</label>
+          <input type="email" id="f-correo" placeholder="tucorreo@ejemplo.cl">
+        </div>
+        <div class="field">
+          <label for="f-rubro">Rubro del negocio</label>
+          <input type="text" id="f-rubro" placeholder="Ej: taller, tienda, servicios...">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="f-empresa">¿Ya tienes empresa creada?</label>
+          <select id="f-empresa">
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+            <option value="No estoy seguro/a">No estoy seguro/a</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="f-web">¿Necesitas página web?</label>
+          <select id="f-web">
+            <option value="Sí">Sí</option>
+            <option value="No">No</option>
+            <option value="Aún no sé">Aún no sé</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-mensaje">Mensaje</label>
+        <textarea id="f-mensaje" placeholder="Cuéntanos brevemente tu idea o consulta..."></textarea>
+      </div>
+      <button type="submit" class="btn btn--primary btn--block">
+        <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Enviar por WhatsApp
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <span class="brand">
+          <span class="brand-mark"><svg viewBox="0 0 24 24" fill="none"><use href="#i-zap"/></svg></span>
+          Tu Empresa Fácil
+        </span>
+        <p>Formalización, página web y acompañamiento mensual para que tu emprendimiento venda de forma profesional.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Navegación</h5>
+          <a href="#que-hacemos">Qué hacemos</a>
+          <a href="#starter-pack">Starter Pack</a>
+          <a href="#planes-web">Planes web</a>
+          <a href="#ejemplos">Ejemplos</a>
+          <a href="#faq">Preguntas</a>
+        </div>
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <a href="#" id="wa-footer" target="_blank" rel="noopener">WhatsApp</a>
+          <a href="https://www.instagram.com/tu_empresa_facil?igsh=Z3llaXBzemNvcGF3&utm_source=qr" target="_blank" rel="noopener">Instagram</a>
+          <a href="#contacto">Formulario de contacto</a>
+        </div>
+      </div>
+    </div>
+    <p class="legal-note">Tu Empresa Fácil ofrece acompañamiento y orientación en procesos de formalización, tributarios y de desarrollo web. No garantizamos resultados tributarios o legales específicos, ya que estos dependen de organismos oficiales y de la situación particular de cada negocio.</p>
+    <div class="footer-bottom">
+      <span>© 2026 Tu Empresa Fácil. Todos los derechos reservados.</span>
+      <span>www.tuempresafacilhoy.cl</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><use href="#i-whatsapp"/></svg>
+</a>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop">
+  <div class="modal">
+    <button class="modal-close" id="modalClose"><svg class="icon" viewBox="0 0 24 24"><use href="#i-x"/></svg></button>
+    <span class="example-tag">Proyecto demostrativo</span>
+    <h3 id="modalTitle" style="font-size:22px; margin:16px 0 12px;"></h3>
+    <p id="modalDesc" style="color:var(--gray-600); font-size:14.5px; margin-bottom:16px;"></p>
+    <ul id="modalList"></ul>
+    <a id="modalWa" href="#" target="_blank" rel="noopener" class="btn btn--primary btn--block" style="margin-top:8px;">Consultar por este tipo de proyecto</a>
+  </div>
+</div>
+
+<script>
+  const WA_PHONE = "56995932848";
+  function waLink(msg){ return "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(msg); }
+
+  document.querySelectorAll("#wa-nav, #wa-mobile, #wa-hero, #wa-method, #wa-cta1, #wa-footer, #wa-float").forEach(el=>{
+    el.href = waLink("Hola, quiero cotizar los servicios de Tu Empresa Fácil.");
+  });
+  document.getElementById("wa-starter").href = waLink("Hola, quiero más información sobre el Starter Pack Empresa Lista.");
+
+  // Mobile nav
+  const navToggle = document.getElementById("navToggle");
+  const navClose = document.getElementById("navClose");
+  const mobilePanel = document.getElementById("mobilePanel");
+  navToggle.addEventListener("click", ()=> mobilePanel.classList.add("open"));
+  navClose.addEventListener("click", ()=> mobilePanel.classList.remove("open"));
+  mobilePanel.querySelectorAll("a").forEach(a=> a.addEventListener("click", ()=> mobilePanel.classList.remove("open")));
+
+  // Examples data
+  const examples = [
+    {icon:"i-wrench", tag:"Taller Automotriz", desc:"Página de servicios pensada para talleres que quieren ordenar sus cotizaciones y promociones.", items:["Página de servicios","Botón de WhatsApp","Galería de trabajos","Formulario de cotización","Publicidad mensual para promociones"]},
+    {icon:"i-briefcase", tag:"Tienda de Repuestos", desc:"Catálogo digital para mostrar productos y marcas disponibles.", items:["Catálogo de productos","Contacto directo por WhatsApp","Sección de marcas","Página de ofertas","Conexión con redes sociales"]},
+    {icon:"i-zap", tag:"Barbería o Peluquería", desc:"Página pensada para mostrar el trabajo y agendar por WhatsApp.", items:["Página de servicios","Agenda por WhatsApp","Galería de cortes","Promociones mensuales","Ubicación y contacto"]},
+    {icon:"i-check", tag:"Servicio de Limpieza", desc:"Página institucional para transmitir confianza y captar clientes.", items:["Página institucional","Planes de servicio","Formulario de cotización","Testimonios demostrativos","Publicidad mensual para captar clientes"]},
+    {icon:"i-megaphone", tag:"Emprendimiento de Comida", desc:"Menú digital conectado a pedidos por WhatsApp.", items:["Menú digital","Pedidos por WhatsApp","Promociones","Galería de productos","Integración con Instagram"]},
+    {icon:"i-doc-check", tag:"Consultora o Servicio Profesional", desc:"Imagen corporativa clara para servicios profesionales.", items:["Página corporativa","Presentación de servicios","Formulario de contacto","Imagen profesional","Publicidad mensual para LinkedIn, Instagram o Facebook"]},
+    {icon:"i-layers", tag:"Tienda de Ropa", desc:"Catálogo visual pensado para destacar productos y campañas.", items:["Catálogo visual","Productos destacados","Contacto por WhatsApp","Redes sociales","Campañas promocionales mensuales"]},
+    {icon:"i-compass", tag:"Empresa de Servicios Técnicos", desc:"Página informativa con solicitud de visita técnica.", items:["Página de servicios","Solicitud de visita técnica","Botón de contacto rápido","Página informativa","Soporte y actualización mensual"]},
+  ];
+  const examplesGrid = document.getElementById("examplesGrid");
+  examples.forEach((ex,i)=>{
+    const card = document.createElement("div");
+    card.className = "example-card reveal";
+    card.innerHTML = `
+      <div class="example-top">
+        <div class="card-icon" style="margin-bottom:0;"><svg class="icon" viewBox="0 0 24 24"><use href="#${ex.icon}"/></svg></div>
+        <span class="example-tag">Proyecto demostrativo</span>
+      </div>
+      <h3>${ex.tag}</h3>
+      <ul>${ex.items.map(it=>`<li>${it}</li>`).join("")}</ul>
+      <button class="btn btn--outline btn--sm btn--block ver-ejemplo" data-i="${i}">Ver ejemplo</button>
+    `;
+    examplesGrid.appendChild(card);
+  });
+
+  // Modal
+  const modalBackdrop = document.getElementById("modalBackdrop");
+  document.getElementById("modalClose").addEventListener("click", ()=> modalBackdrop.classList.remove("open"));
+  modalBackdrop.addEventListener("click", (e)=>{ if(e.target===modalBackdrop) modalBackdrop.classList.remove("open"); });
+  document.addEventListener("keydown", (e)=>{ if(e.key==="Escape") modalBackdrop.classList.remove("open"); });
+
+  examplesGrid.addEventListener("click", (e)=>{
+    const btn = e.target.closest(".ver-ejemplo");
+    if(!btn) return;
+    const ex = examples[btn.dataset.i];
+    document.getElementById("modalTitle").textContent = ex.tag;
+    document.getElementById("modalDesc").textContent = ex.desc;
+    document.getElementById("modalList").innerHTML = ex.items.map(it=>`<li>${it}</li>`).join("");
+    document.getElementById("modalWa").href = waLink("Hola, me interesa un proyecto web para el rubro: " + ex.tag + ".");
+    modalBackdrop.classList.add("open");
+  });
+
+  // Mockups (abstract device previews)
+  const mockups = [
+    {device:"notebook", label:"Landing de servicios", colors:["#1857C9","#4FC3F7","#8B5CF6"]},
+    {device:"phone", label:"Página de ventas", colors:["#8B5CF6","#1857C9","#4FC3F7"]},
+    {device:"notebook", label:"Sitio institucional", colors:["#0A2540","#1857C9","#4FC3F7"]},
+    {device:"phone", label:"Catálogo simple", colors:["#4FC3F7","#8B5CF6","#1857C9"]},
+    {device:"notebook", label:"Contacto directo WhatsApp", colors:["#1857C9","#8B5CF6","#4FC3F7"]},
+    {device:"phone", label:"Emprendedor formalizado", colors:["#8B5CF6","#4FC3F7","#1857C9"]},
+  ];
+  const mockupGrid = document.getElementById("mockupGrid");
+  mockups.forEach(m=>{
+    const wrap = document.createElement("div");
+    wrap.className = "mockup-item reveal";
+    if(m.device==="notebook"){
+      wrap.innerHTML = `
+        <div class="device notebook">
+          <div class="notebook-screen">
+            <div class="notebook-inner">
+              <div class="mini-nav"><span style="width:20%;background:${m.colors[0]}"></span><span style="width:14%;"></span><span style="width:14%;"></span><span style="width:14%;"></span></div>
+              <div class="mini-hero" style="background:linear-gradient(120deg, ${m.colors[0]}, ${m.colors[1]})"></div>
+              <div class="mini-row"><div style="background:${m.colors[1]}22"></div><div style="background:${m.colors[2]}22"></div><div style="background:${m.colors[0]}22"></div></div>
+              <div class="mini-lines"><span></span><span style="width:60%"></span></div>
+              <span class="mini-chip" style="background:${m.colors[2]}22; color:${m.colors[2]}">WhatsApp</span>
+            </div>
+          </div>
+          <div class="notebook-base"></div>
+        </div>`;
+    } else {
+      wrap.innerHTML = `
+        <div class="device phone">
+          <div class="phone-screen">
+            <div class="phone-notch"></div>
+            <div class="phone-inner">
+              <div class="mini-nav"><span style="width:30%;background:${m.colors[0]}"></span></div>
+              <div class="mini-hero" style="background:linear-gradient(120deg, ${m.colors[0]}, ${m.colors[1]}); height:46px;"></div>
+              <div class="mini-grid" style="margin-top:6px;">
+                <div style="background:${m.colors[1]}22"></div><div style="background:${m.colors[2]}22"></div><div style="background:${m.colors[0]}22"></div>
+                <div style="background:${m.colors[2]}22"></div><div style="background:${m.colors[0]}22"></div><div style="background:${m.colors[1]}22"></div>
+              </div>
+              <div class="mini-lines" style="margin-top:6px;"><span></span></div>
+              <span class="mini-chip" style="background:${m.colors[0]}22; color:${m.colors[0]}">Contacto</span>
+            </div>
+          </div>
+        </div>`;
+    }
+    wrap.innerHTML += `<div class="mockup-label"><b>${m.label}</b>Ejemplo demostrativo</div>`;
+    mockupGrid.appendChild(wrap);
+  });
+
+  // FAQ
+  const faqs = [
+    {q:"¿Ustedes crean la empresa completa?", a:"Acompañamos el proceso de creación estándar de empresa y orientación inicial para comenzar formalmente."},
+    {q:"¿Incluye inicio de actividades en SII?", a:"Sí, el Starter Pack considera apoyo en el inicio de actividades y configuración inicial para comenzar a operar."},
+    {q:"¿Puedo contratar solo la página web?", a:"Sí, contamos con planes web independientes para presencia digital, ventas o estructura empresarial."},
+    {q:"¿La mensualidad es obligatoria?", a:"La mensualidad permite mantener contabilidad básica, soporte técnico web, monitoreo y publicidad mensual."},
+    {q:"¿Cuántas imágenes publicitarias incluye el plan mensual?", a:"Incluye 4 imágenes publicitarias al mes."},
+    {q:"¿Puedo tener correos corporativos?", a:"Sí, podemos configurar correos corporativos en cualquier plan por costo adicional de hosting/cPanel."},
+  ];
+  const faqList = document.getElementById("faqList");
+  faqs.forEach((f,i)=>{
+    const item = document.createElement("div");
+    item.className = "faq-item";
+    item.innerHTML = `
+      <button class="faq-q">${f.q} <svg class="icon" viewBox="0 0 24 24"><use href="#i-chevron"/></svg></button>
+      <div class="faq-a"><p>${f.a}</p></div>
+    `;
+    faqList.appendChild(item);
+  });
+  faqList.addEventListener("click", (e)=>{
+    const q = e.target.closest(".faq-q");
+    if(!q) return;
+    const item = q.parentElement;
+    const answer = item.querySelector(".faq-a");
+    const isOpen = item.classList.contains("open");
+    faqList.querySelectorAll(".faq-item").forEach(el=>{ el.classList.remove("open"); el.querySelector(".faq-a").style.maxHeight = null; });
+    if(!isOpen){ item.classList.add("open"); answer.style.maxHeight = answer.scrollHeight + "px"; }
+  });
+
+  // Contact form -> WhatsApp
+  document.getElementById("contactForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    const nombre = document.getElementById("f-nombre").value;
+    const telefono = document.getElementById("f-telefono").value;
+    const correo = document.getElementById("f-correo").value;
+    const rubro = document.getElementById("f-rubro").value;
+    const empresa = document.getElementById("f-empresa").value;
+    const web = document.getElementById("f-web").value;
+    const mensaje = document.getElementById("f-mensaje").value;
+    let msg = `Hola, quiero contactarme con Tu Empresa Fácil.\n`;
+    msg += `Nombre: ${nombre}\nTeléfono: ${telefono}\n`;
+    if(correo) msg += `Correo: ${correo}\n`;
+    if(rubro) msg += `Rubro: ${rubro}\n`;
+    msg += `¿Ya tiene empresa creada?: ${empresa}\n¿Necesita página web?: ${web}\n`;
+    if(mensaje) msg += `Mensaje: ${mensaje}`;
+    window.open(waLink(msg), "_blank");
+  });
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){ entry.target.classList.add("in"); io.unobserve(entry.target); }
+      });
+    }, {threshold:0.12});
+    revealEls.forEach(el=> io.observe(el));
+  } else {
+    revealEls.forEach(el=> el.classList.add("in"));
+  }
+</script>
+</body>
+</html>

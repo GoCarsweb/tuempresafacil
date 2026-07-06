@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agendar Cita | Tu Empresa Fácil</title>
+<meta name="theme-color" content="#0A2540">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A2540;
+    --blue:#1857C9;
+    --celeste:#4FC3F7;
+    --purple:#8B5CF6;
+    --purple-deep:#6D28D9;
+    --white:#FFFFFF;
+    --gray-900:#1E2530;
+    --gray-600:#5B6472;
+    --gray-300:#B9C3D0;
+    --bg-soft:#F4F8FC;
+    --bg-soft-2:#EEF3FA;
+    --green:#10B981;
+    --green-light:#D1FAE5;
+    --red:#EF4444;
+    --red-light:#FEE2E2;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+    --radius:14px;
+    --shadow:0 8px 24px -8px rgba(10,37,64,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-body); background:var(--bg-soft); color:var(--gray-900); -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display); color:var(--navy);}
+  a{color:inherit; text-decoration:none;}
+
+  /* NAV */
+  .nav{background:rgba(10,37,64,0.95); backdrop-filter:blur(10px); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100;}
+  .brand{display:flex; align-items:center; gap:10px; color:white; font-family:var(--font-display); font-weight:700; font-size:17px;}
+  .brand-mark{width:32px; height:32px; border-radius:9px; background:linear-gradient(135deg,var(--celeste),var(--purple)); display:flex; align-items:center; justify-content:center;}
+  .brand-mark svg{width:16px; height:16px; stroke:var(--navy); fill:none; stroke-width:2;}
+  .nav-back{color:#C9D6E8; font-size:14px; display:flex; align-items:center; gap:6px; transition:color .15s;}
+  .nav-back:hover{color:var(--celeste);}
+  .nav-back svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2;}
+
+  /* HERO */
+  .hero{background:linear-gradient(160deg,var(--navy),#123a68 60%,var(--blue)); padding:52px 24px 44px; text-align:center; color:white;}
+  .hero h1{font-size:clamp(24px,3.5vw,38px); margin-bottom:12px;}
+  .hero p{color:#C9D6E8; font-size:16px; max-width:520px; margin:0 auto;}
+  .eyebrow{display:inline-flex; align-items:center; gap:7px; font-family:var(--font-mono); font-size:11px; letter-spacing:0.09em; text-transform:uppercase; color:#D9C6FF; background:rgba(139,92,246,0.22); padding:6px 13px; border-radius:999px; font-weight:600; margin-bottom:16px;}
+
+  /* MAIN */
+  .main{max-width:1100px; margin:0 auto; padding:40px 20px 80px;}
+
+  /* CALENDAR */
+  .calendar-wrap{background:white; border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+  .cal-header{display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--bg-soft-2);}
+  .cal-header h2{font-size:20px;}
+  .cal-nav{display:flex; gap:8px;}
+  .cal-nav button{background:var(--bg-soft); border:none; border-radius:8px; width:36px; height:36px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--navy); transition:background .15s;}
+  .cal-nav button:hover{background:var(--bg-soft-2);}
+  .cal-nav button svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2;}
+
+  .cal-grid{display:grid; grid-template-columns:repeat(7,1fr); border-bottom:1px solid var(--bg-soft-2);}
+  .cal-day-name{text-align:center; padding:12px 4px; font-family:var(--font-mono); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gray-600); font-weight:600; background:var(--bg-soft);}
+  .cal-day-name.weekend{color:var(--purple);}
+
+  .cal-days{display:grid; grid-template-columns:repeat(7,1fr);}
+  .cal-cell{min-height:64px; padding:8px; border:1px solid var(--bg-soft-2); cursor:pointer; transition:background .15s; position:relative;}
+  .cal-cell:hover:not(.disabled):not(.past){background:rgba(24,87,201,0.05);}
+  .cal-cell.selected{background:rgba(24,87,201,0.08); border-color:var(--blue);}
+  .cal-cell.today .day-num{background:var(--blue); color:white; border-radius:50%; width:28px; height:28px; display:flex; align-items:center; justify-content:center;}
+  .cal-cell.past{opacity:0.38; cursor:not-allowed; background:var(--bg-soft);}
+  .cal-cell.disabled{background:var(--bg-soft); cursor:not-allowed; opacity:0.4;}
+  .cal-cell.empty{background:var(--bg-soft); cursor:default;}
+  .day-num{font-weight:600; font-size:14px; color:var(--navy); width:28px; height:28px; display:flex; align-items:center; justify-content:center;}
+  .day-avail{font-family:var(--font-mono); font-size:9.5px; color:var(--green); margin-top:4px; font-weight:600;}
+  .day-avail.none{color:var(--red);}
+  .day-avail.loading{color:var(--gray-300);}
+
+  /* SLOTS */
+  .slots-wrap{background:white; border-radius:var(--radius); box-shadow:var(--shadow); margin-top:20px; overflow:hidden; display:none;}
+  .slots-wrap.show{display:block;}
+  .slots-header{padding:18px 24px; border-bottom:1px solid var(--bg-soft-2); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px;}
+  .slots-header h3{font-size:17px;}
+  .slots-date{font-family:var(--font-mono); font-size:12px; color:var(--purple-deep); background:rgba(139,92,246,0.1); padding:5px 12px; border-radius:999px; font-weight:600;}
+  .slots-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(110px,1fr)); gap:10px; padding:20px 24px;}
+  .slot{border:1.5px solid var(--bg-soft-2); border-radius:10px; padding:12px 8px; text-align:center; cursor:pointer; transition:all .15s; background:white;}
+  .slot:hover:not(.booked):not(.past-slot){border-color:var(--blue); background:rgba(24,87,201,0.05); transform:translateY(-2px);}
+  .slot.selected-slot{border-color:var(--blue); background:rgba(24,87,201,0.1); box-shadow:0 0 0 3px rgba(24,87,201,0.15);}
+  .slot.booked{background:var(--red-light); border-color:var(--red); cursor:not-allowed; opacity:0.7;}
+  .slot.past-slot{background:var(--bg-soft); cursor:not-allowed; opacity:0.5;}
+  .slot-time{font-family:var(--font-mono); font-weight:600; font-size:15px; color:var(--navy);}
+  .slot-end{font-size:11px; color:var(--gray-600); margin-top:2px;}
+  .slot-status{font-family:var(--font-mono); font-size:9.5px; font-weight:700; margin-top:5px; text-transform:uppercase; letter-spacing:0.05em;}
+  .slot.booked .slot-status{color:var(--red);}
+  .slot:not(.booked):not(.past-slot) .slot-status{color:var(--green);}
+  .slot.past-slot .slot-status{color:var(--gray-300);}
+
+  /* FORM */
+  .form-wrap{background:white; border-radius:var(--radius); box-shadow:var(--shadow); margin-top:20px; padding:28px; display:none;}
+  .form-wrap.show{display:block;}
+  .form-title{font-size:17px; margin-bottom:6px;}
+  .form-subtitle{font-size:14px; color:var(--gray-600); margin-bottom:22px;}
+  .form-selected{display:inline-flex; align-items:center; gap:8px; background:rgba(24,87,201,0.08); border:1px solid rgba(24,87,201,0.2); border-radius:8px; padding:8px 14px; font-family:var(--font-mono); font-size:12px; color:var(--blue); font-weight:600; margin-bottom:20px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:13px; font-weight:600; color:var(--navy); margin-bottom:7px;}
+  .field input, .field select, .field textarea{width:100%; border:1.5px solid #DCE4EF; border-radius:10px; padding:12px 14px; font-family:inherit; font-size:14.5px; color:var(--gray-900); background:var(--bg-soft); transition:border-color .15s;}
+  .field input:focus, .field select:focus{outline:none; border-color:var(--blue); background:white;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:13px 26px; border-radius:10px; font-weight:600; font-size:15px; border:none; cursor:pointer; transition:all .18s; font-family:inherit;}
+  .btn--primary{background:linear-gradient(120deg,var(--blue),var(--celeste)); color:white; box-shadow:0 10px 24px -10px rgba(24,87,201,0.5);}
+  .btn--primary:hover{transform:translateY(-2px); box-shadow:0 14px 30px -10px rgba(24,87,201,0.6);}
+  .btn--primary:disabled{opacity:0.6; cursor:not-allowed; transform:none;}
+  .btn--outline{background:transparent; color:var(--navy); border:1.5px solid var(--gray-300);}
+  .btn--outline:hover{border-color:var(--navy); background:var(--bg-soft);}
+  .btn svg{width:17px; height:17px; stroke:currentColor; fill:none; stroke-width:2;}
+  .btn-row{display:flex; gap:12px; flex-wrap:wrap; margin-top:6px;}
+
+  /* SUCCESS */
+  .success-wrap{display:none; background:white; border-radius:var(--radius); box-shadow:var(--shadow); margin-top:20px; padding:40px; text-align:center;}
+  .success-wrap.show{display:block;}
+  .success-icon{width:64px; height:64px; background:var(--green-light); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;}
+  .success-icon svg{width:32px; height:32px; stroke:var(--green); fill:none; stroke-width:2.5;}
+  .success-wrap h2{font-size:22px; margin-bottom:10px;}
+  .success-wrap p{color:var(--gray-600); font-size:15px; max-width:400px; margin:0 auto 24px;}
+  .success-detail{background:var(--bg-soft); border-radius:10px; padding:16px 20px; margin:0 auto 24px; max-width:360px; text-align:left;}
+  .success-detail div{display:flex; justify-content:space-between; padding:6px 0; font-size:14px; border-bottom:1px solid var(--bg-soft-2);}
+  .success-detail div:last-child{border-bottom:none;}
+  .success-detail span:first-child{color:var(--gray-600);}
+  .success-detail span:last-child{font-weight:600; color:var(--navy);}
+
+  /* LOADING */
+  .loader{display:inline-block; width:18px; height:18px; border:2px solid rgba(255,255,255,0.4); border-top-color:white; border-radius:50%; animation:spin .7s linear infinite;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  /* TOAST */
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:12px 22px; border-radius:10px; font-size:14px; font-weight:500; z-index:999; transition:transform .3s ease; white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .toast.error{background:var(--red);}
+
+  /* LEGEND */
+  .legend{display:flex; gap:18px; flex-wrap:wrap; padding:14px 24px; background:var(--bg-soft); border-top:1px solid var(--bg-soft-2); font-size:12.5px; color:var(--gray-600);}
+  .legend-item{display:flex; align-items:center; gap:6px;}
+  .legend-dot{width:12px; height:12px; border-radius:3px;}
+
+  /* INFO BOX */
+  .info-box{background:rgba(24,87,201,0.06); border:1px solid rgba(24,87,201,0.15); border-radius:10px; padding:14px 18px; display:flex; gap:12px; align-items:flex-start; margin-bottom:20px;}
+  .info-box svg{width:18px; height:18px; stroke:var(--blue); fill:none; stroke-width:1.8; flex-shrink:0; margin-top:2px;}
+  .info-box p{font-size:13.5px; color:var(--gray-600); line-height:1.5;}
+  .info-box b{color:var(--navy);}
+
+  @media(max-width:640px){
+    .form-row{grid-template-columns:1fr;}
+    .slots-grid{grid-template-columns:repeat(3,1fr);}
+    .cal-cell{min-height:50px; padding:5px;}
+    .day-avail{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="brand">
+    <span class="brand-mark"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg></span>
+    Tu Empresa Fácil
+  </a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Volver al inicio
+  </a>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">
+    <svg style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    Agenda tu cita
+  </span>
+  <h1>Reserva tu hora con nosotros</h1>
+  <p>Selecciona el día y la hora que más te acomode. Las citas son de 1 hora.</p>
+</div>
+
+<div class="main">
+
+  <div class="info-box">
+    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+    <p><b>Horario de atención:</b> Lunes a viernes de 09:00 a 18:00 hrs · Sábado de 09:00 a 14:00 hrs · Domingo cerrado.</p>
+  </div>
+
+  <!-- CALENDARIO -->
+  <div class="calendar-wrap">
+    <div class="cal-header">
+      <h2 id="calTitle">Cargando...</h2>
+      <div class="cal-nav">
+        <button id="prevMonth" aria-label="Mes anterior"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button id="nextMonth" aria-label="Mes siguiente"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calDayNames"></div>
+    <div class="cal-days" id="calDays"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:rgba(24,87,201,0.15); border:1.5px solid var(--blue);"></div> Día seleccionado</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green-light); border:1.5px solid var(--green);"></div> Con disponibilidad</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--red-light); border:1.5px solid var(--red);"></div> Sin disponibilidad</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--bg-soft); border:1.5px solid var(--gray-300);"></div> No disponible</div>
+    </div>
+  </div>
+
+  <!-- SLOTS DE HORAS -->
+  <div class="slots-wrap" id="slotsWrap">
+    <div class="slots-header">
+      <h3>Horarios disponibles</h3>
+      <span class="slots-date" id="slotsDate"></span>
+    </div>
+    <div class="slots-grid" id="slotsGrid"></div>
+  </div>
+
+  <!-- FORMULARIO -->
+  <div class="form-wrap" id="formWrap">
+    <h3 class="form-title">Confirma tu reserva</h3>
+    <p class="form-subtitle">Completa tus datos para reservar la hora seleccionada.</p>
+    <div class="form-selected" id="formSelected"></div>
+    <form id="bookingForm">
+      <div class="form-row">
+        <div class="field">
+          <label for="f-nombre">Nombre completo *</label>
+          <input type="text" id="f-nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="field">
+          <label for="f-telefono">Teléfono / WhatsApp *</label>
+          <input type="tel" id="f-telefono" placeholder="+56 9 ..." required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="field">
+          <label for="f-correo">Correo electrónico</label>
+          <input type="email" id="f-correo" placeholder="tucorreo@ejemplo.cl">
+        </div>
+        <div class="field">
+          <label for="f-servicio">¿Qué necesitas?</label>
+          <select id="f-servicio">
+            <option value="Consulta general">Consulta general</option>
+            <option value="Creación de empresa">Creación de empresa</option>
+            <option value="Página web">Página web</option>
+            <option value="Contabilidad">Contabilidad</option>
+            <option value="Publicidad">Publicidad</option>
+            <option value="Starter Pack">Starter Pack completo</option>
+          </select>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f-mensaje">Comentario adicional (opcional)</label>
+        <input type="text" id="f-mensaje" placeholder="Ej: primera consulta, tengo dudas sobre...">
+      </div>
+      <div class="btn-row">
+        <button type="submit" class="btn btn--primary" id="submitBtn">
+          <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          Confirmar reserva
+        </button>
+        <button type="button" class="btn btn--outline" id="cancelBtn">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- ÉXITO -->
+  <div class="success-wrap" id="successWrap">
+    <div class="success-icon">
+      <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h2>¡Reserva confirmada!</h2>
+    <p>Te esperamos en el horario agendado. Si necesitas cambiar tu hora escríbenos por WhatsApp.</p>
+    <div class="success-detail" id="successDetail"></div>
+    <div class="btn-row" style="justify-content:center;">
+      <a id="successWa" href="#" target="_blank" class="btn btn--primary">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+        Confirmar por WhatsApp
+      </a>
+      <button class="btn btn--outline" id="newBookingBtn">Agendar otra hora</button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  // ══════════════════════════════════════════════
+  // CONFIGURACIÓN FIREBASE — reemplaza con tus datos
+  // ══════════════════════════════════════════════
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7g58lq3sC2_hir8biFz-XbnYauUbotQ8",
+    authDomain: "tuempresafacil.firebaseapp.com",
+    databaseURL: "https://tuempresafacil-default-rtdb.firebaseio.com",
+    projectId: "tuempresafacil",
+    storageBucket: "tuempresafacil.firebasestorage.app",
+    messagingSenderId: "593477480462",
+    appId: "1:593477480462:web:01e7b9eb4c20ce22e80c5f",
+    measurementId: "G-J4FJ9Q6SR6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // ══════════════════════════════════════════════
+  // CONFIGURACIÓN DE HORARIOS
+  // ══════════════════════════════════════════════
+  const SLOTS_WEEKDAY = ["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];
+  const SLOTS_SATURDAY = ["09:00","10:00","11:00","12:00","13:00"];
+  const SLOT_END = {"09:00":"10:00","10:00":"11:00","11:00":"12:00","12:00":"13:00","13:00":"14:00","14:00":"15:00","15:00":"16:00","16:00":"17:00","17:00":"18:00"};
+  const WA_PHONE = "56995932848";
+
+  // ══════════════════════════════════════════════
+  // ESTADO
+  // ══════════════════════════════════════════════
+  let currentYear, currentMonth, selectedDate = null, selectedSlot = null;
+  let bookingsCache = {};
+
+  const today = new Date();
+  today.setHours(0,0,0,0);
+  currentYear = today.getFullYear();
+  currentMonth = today.getMonth();
+
+  // ══════════════════════════════════════════════
+  // UTILIDADES
+  // ══════════════════════════════════════════════
+  const pad = n => String(n).padStart(2,"0");
+  const dateKey = (y,m,d) => `${y}-${pad(m+1)}-${pad(d)}`;
+  const DAYS_ES = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+  const MONTHS_ES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+  function showToast(msg, error=false){
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.className = "toast show" + (error?" error":"");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(()=> t.classList.remove("show"), 3500);
+  }
+
+  // ══════════════════════════════════════════════
+  // OBTENER RESERVAS DEL MES DESDE FIREBASE
+  // ══════════════════════════════════════════════
+  async function fetchMonthBookings(year, month){
+    const monthStr = `${year}-${pad(month+1)}`;
+    try {
+      const snap = await get(ref(db, "bookings"));
+      if(snap.exists()){
+        const all = snap.val();
+        Object.keys(all).forEach(dateK => {
+          if(dateK.startsWith(monthStr)) bookingsCache[dateK] = all[dateK];
+        });
+      }
+    } catch(e){ console.warn("Firebase error:", e); }
+  }
+
+  function getSlotsForDate(dateStr){
+    const d = new Date(dateStr + "T12:00:00");
+    const dow = d.getDay(); // 0=Dom
+    if(dow === 0) return [];
+    return dow === 6 ? SLOTS_SATURDAY : SLOTS_WEEKDAY;
+  }
+
+  function getAvailableCount(dateStr){
+    const slots = getSlotsForDate(dateStr);
+    if(!slots.length) return -1;
+    const booked = bookingsCache[dateStr] ? Object.keys(bookingsCache[dateStr]) : [];
+    return slots.length - booked.length;
+  }
+
+  // ══════════════════════════════════════════════
+  // RENDERIZAR CALENDARIO
+  // ══════════════════════════════════════════════
+  function renderCalendar(){
+    document.getElementById("calTitle").textContent = `${MONTHS_ES[currentMonth]} ${currentYear}`;
+
+    // Nombres de días
+    const namesEl = document.getElementById("calDayNames");
+    namesEl.innerHTML = "";
+    ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"].forEach((d,i)=>{
+      const el = document.createElement("div");
+      el.className = "cal-day-name" + (i>=5?" weekend":"");
+      el.textContent = d;
+      namesEl.appendChild(el);
+    });
+
+    const daysEl = document.getElementById("calDays");
+    daysEl.innerHTML = "";
+
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const offset = firstDay === 0 ? 6 : firstDay - 1;
+    const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+
+    // Celdas vacías inicio
+    for(let i=0;i<offset;i++){
+      const el = document.createElement("div");
+      el.className = "cal-cell empty";
+      daysEl.appendChild(el);
+    }
+
+    for(let d=1;d<=daysInMonth;d++){
+      const cell = document.createElement("div");
+      const key = dateKey(currentYear, currentMonth, d);
+      const cellDate = new Date(currentYear, currentMonth, d);
+      cellDate.setHours(0,0,0,0);
+      const dow = cellDate.getDay();
+      const isPast = cellDate < today;
+      const isSunday = dow === 0;
+      const isToday = cellDate.getTime() === today.getTime();
+      const isSelected = key === selectedDate;
+
+      cell.className = "cal-cell" + (isPast||isSunday?" disabled past":"") + (isToday?" today":"") + (isSelected?" selected":"");
+
+      const numEl = document.createElement("div");
+      numEl.className = "day-num";
+      numEl.textContent = d;
+      cell.appendChild(numEl);
+
+      if(!isPast && !isSunday){
+        const avail = getAvailableCount(key);
+        const availEl = document.createElement("div");
+        availEl.className = "day-avail" + (avail===0?" none":"");
+        availEl.textContent = avail === 0 ? "Sin horas" : `${avail} hora${avail!==1?"s":""}`;
+        cell.appendChild(availEl);
+
+        cell.addEventListener("click", ()=> selectDate(key));
+      }
+
+      daysEl.appendChild(cell);
+    }
+  }
+
+  // ══════════════════════════════════════════════
+  // SELECCIONAR DÍA
+  // ══════════════════════════════════════════════
+  function selectDate(key){
+    selectedDate = key;
+    selectedSlot = null;
+    document.getElementById("formWrap").classList.remove("show");
+    document.getElementById("successWrap").classList.remove("show");
+    renderCalendar();
+    renderSlots(key);
+  }
+
+  // ══════════════════════════════════════════════
+  // RENDERIZAR SLOTS
+  // ══════════════════════════════════════════════
+  function renderSlots(dateStr){
+    const wrap = document.getElementById("slotsWrap");
+    const grid = document.getElementById("slotsGrid");
+    const dateLabel = document.getElementById("slotsDate");
+
+    const d = new Date(dateStr + "T12:00:00");
+    const dayName = DAYS_ES[d.getDay()];
+    const day = d.getDate();
+    const month = MONTHS_ES[d.getMonth()];
+    dateLabel.textContent = `${dayName} ${day} de ${month}`;
+
+    const slots = getSlotsForDate(dateStr);
+    const booked = bookingsCache[dateStr] ? Object.keys(bookingsCache[dateStr]) : [];
+
+    const now = new Date();
+    grid.innerHTML = "";
+
+    slots.forEach(slot => {
+      const el = document.createElement("div");
+      const isBooked = booked.includes(slot);
+
+      // Verificar si ya pasó la hora hoy
+      const slotDate = new Date(dateStr + "T" + slot + ":00");
+      const isPastSlot = slotDate <= now;
+
+      el.className = "slot" + (isBooked?" booked":"") + (isPastSlot&&!isBooked?" past-slot":"");
+
+      el.innerHTML = `
+        <div class="slot-time">${slot}</div>
+        <div class="slot-end">hasta ${SLOT_END[slot]}</div>
+        <div class="slot-status">${isBooked?"Reservado":isPastSlot?"Pasado":"Disponible"}</div>
+      `;
+
+      if(!isBooked && !isPastSlot){
+        el.addEventListener("click", ()=> selectSlot(slot, el));
+      }
+
+      grid.appendChild(el);
+    });
+
+    wrap.classList.add("show");
+    wrap.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  // ══════════════════════════════════════════════
+  // SELECCIONAR SLOT
+  // ══════════════════════════════════════════════
+  function selectSlot(slot, el){
+    selectedSlot = slot;
+    document.querySelectorAll(".slot").forEach(s=> s.classList.remove("selected-slot"));
+    el.classList.add("selected-slot");
+
+    const d = new Date(selectedDate + "T12:00:00");
+    const dayName = DAYS_ES[d.getDay()];
+    const day = d.getDate();
+    const month = MONTHS_ES[d.getMonth()];
+
+    const formWrap = document.getElementById("formWrap");
+    document.getElementById("formSelected").textContent = `📅 ${dayName} ${day} de ${month} · ${slot} – ${SLOT_END[slot]} hrs`;
+    formWrap.classList.add("show");
+    formWrap.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  // ══════════════════════════════════════════════
+  // ENVIAR RESERVA
+  // ══════════════════════════════════════════════
+  document.getElementById("bookingForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+    if(!selectedDate || !selectedSlot){ showToast("Selecciona una fecha y hora primero", true); return; }
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.innerHTML = `<span class="loader"></span> Reservando...`;
+
+    const nombre = document.getElementById("f-nombre").value.trim();
+    const telefono = document.getElementById("f-telefono").value.trim();
+    const correo = document.getElementById("f-correo").value.trim();
+    const servicio = document.getElementById("f-servicio").value;
+    const mensaje = document.getElementById("f-mensaje").value.trim();
+
+    try {
+      // Verificar que no fue tomado mientras completaba el form
+      const snap = await get(ref(db, `bookings/${selectedDate}/${selectedSlot}`));
+      if(snap.exists()){
+        showToast("Esa hora acaba de ser reservada. Elige otra.", true);
+        btn.disabled = false;
+        btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 6L9 17l-5-5"/></svg> Confirmar reserva`;
+        // Refrescar slots
+        if(!bookingsCache[selectedDate]) bookingsCache[selectedDate] = {};
+        bookingsCache[selectedDate][selectedSlot] = true;
+        renderSlots(selectedDate);
+        return;
+      }
+
+      await set(ref(db, `bookings/${selectedDate}/${selectedSlot}`), {
+        nombre, telefono, correo, servicio, mensaje,
+        timestamp: Date.now()
+      });
+
+      // Actualizar caché local
+      if(!bookingsCache[selectedDate]) bookingsCache[selectedDate] = {};
+      bookingsCache[selectedDate][selectedSlot] = { nombre, telefono };
+
+      // Mostrar éxito
+      const d = new Date(selectedDate + "T12:00:00");
+      const dayName = DAYS_ES[d.getDay()];
+      const day = d.getDate();
+      const month = MONTHS_ES[d.getMonth()];
+      const year = d.getFullYear();
+
+      document.getElementById("successDetail").innerHTML = `
+        <div><span>Cliente</span><span>${nombre}</span></div>
+        <div><span>Teléfono</span><span>${telefono}</span></div>
+        <div><span>Fecha</span><span>${dayName} ${day} de ${month} ${year}</span></div>
+        <div><span>Hora</span><span>${selectedSlot} – ${SLOT_END[selectedSlot]} hrs</span></div>
+        <div><span>Servicio</span><span>${servicio}</span></div>
+      `;
+
+      const waMsg = `Hola Tu Empresa Fácil, quiero confirmar mi cita:\n📅 ${dayName} ${day} de ${month} ${year}\n🕐 ${selectedSlot} – ${SLOT_END[selectedSlot]} hrs\n👤 ${nombre}\n📞 ${telefono}\n📋 ${servicio}`;
+      document.getElementById("successWa").href = `https://wa.me/${WA_PHONE}?text=${encodeURIComponent(waMsg)}`;
+
+      document.getElementById("formWrap").classList.remove("show");
+      document.getElementById("slotsWrap").classList.remove("show");
+      document.getElementById("successWrap").classList.add("show");
+      document.getElementById("successWrap").scrollIntoView({behavior:"smooth"});
+
+      renderCalendar();
+
+    } catch(err){
+      console.error(err);
+      showToast("Error al guardar. Intenta de nuevo.", true);
+      btn.disabled = false;
+      btn.innerHTML = `<svg viewBox="0 0 24 24" style="width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M20 6L9 17l-5-5"/></svg> Confirmar reserva`;
+    }
+  });
+
+  // Nueva reserva
+  document.getElementById("newBookingBtn").addEventListener("click", ()=>{
+    selectedDate = null;
+    selectedSlot = null;
+    document.getElementById("successWrap").classList.remove("show");
+    document.getElementById("formWrap").classList.remove("show");
+    document.getElementById("bookingForm").reset();
+    renderCalendar();
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+
+  // Cancelar
+  document.getElementById("cancelBtn").addEventListener("click", ()=>{
+    document.getElementById("formWrap").classList.remove("show");
+    selectedSlot = null;
+    document.querySelectorAll(".slot").forEach(s=> s.classList.remove("selected-slot"));
+  });
+
+  // Navegación de meses
+  document.getElementById("prevMonth").addEventListener("click", async ()=>{
+    const prev = new Date(currentYear, currentMonth-1, 1);
+    if(prev < new Date(today.getFullYear(), today.getMonth(), 1)) return;
+    currentMonth = prev.getMonth();
+    currentYear = prev.getFullYear();
+    selectedDate = null;
+    selectedSlot = null;
+    document.getElementById("slotsWrap").classList.remove("show");
+    document.getElementById("formWrap").classList.remove("show");
+    await fetchMonthBookings(currentYear, currentMonth);
+    renderCalendar();
+  });
+
+  document.getElementById("nextMonth").addEventListener("click", async ()=>{
+    const next = new Date(currentYear, currentMonth+1, 1);
+    currentMonth = next.getMonth();
+    currentYear = next.getFullYear();
+    selectedDate = null;
+    selectedSlot = null;
+    document.getElementById("slotsWrap").classList.remove("show");
+    document.getElementById("formWrap").classList.remove("show");
+    await fetchMonthBookings(currentYear, currentMonth);
+    renderCalendar();
+  });
+
+  // ══════════════════════════════════════════════
+  // INICIAR
+  // ══════════════════════════════════════════════
+  async function init(){
+    await fetchMonthBookings(currentYear, currentMonth);
+    renderCalendar();
+  }
+
+  init();
+</script>
+</body>
+</html>

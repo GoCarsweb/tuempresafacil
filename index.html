@@ -106,14 +106,15 @@
     background:rgba(10,37,64,0.92); backdrop-filter:blur(10px);
     border-bottom:1px solid rgba(255,255,255,0.08);
   }
-  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:0 24px; max-width:1180px; margin:0 auto;}
-  .brand{display:flex; align-items:center; gap:10px; color:var(--white); font-family:var(--font-display); font-weight:700; font-size:18.5px;}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:0 20px; max-width:1280px; margin:0 auto; gap:12px; flex-wrap:nowrap;}
+  .brand{display:flex; align-items:center; flex-shrink:0;}
   .brand-mark{width:34px; height:34px; border-radius:10px; background:linear-gradient(135deg, var(--celeste), var(--purple)); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .brand-mark svg{width:18px; height:18px; stroke:var(--navy); stroke-width:2;}
-  .nav-links{display:flex; align-items:center; gap:30px;}
-  .nav-links a{color:#D7E1EF; font-size:14.5px; font-weight:500; transition:color .15s ease;}
+  .nav-links{display:flex; align-items:center; gap:20px; flex-shrink:1;}
+  .nav-links a{color:#D7E1EF; font-size:13px; font-weight:500; transition:color .15s ease; white-space:nowrap;}
   .nav-links a:hover{color:var(--celeste);}
-  .nav-cta{display:flex; align-items:center; gap:14px;}
+  .nav-cta{display:flex; align-items:center; gap:8px; flex-shrink:0;}
+  .nav-cta .btn--sm{font-size:13px; padding:8px 14px; white-space:nowrap;}
   .nav-toggle{display:none; background:none; border:none; color:var(--white); padding:6px;}
   .nav-toggle svg{width:26px; height:26px;}
 

@@ -851,6 +851,51 @@
   </div>
 </section>
 
+<!-- TARJETA NFC -->
+<section class="section section--navy" id="tarjeta-nfc">
+  <div class="blob blob--1" style="opacity:0.12;"></div>
+  <div class="container">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;" class="nfc-grid reveal">
+      <div>
+        <span class="eyebrow eyebrow--light">Novedad</span>
+        <h2 style="font-size:clamp(26px,3vw,38px); color:white; margin-bottom:16px;">Tarjeta NFC profesional<br>para tu negocio</h2>
+        <p style="color:#C9D6E8; font-size:16px; margin-bottom:24px;">Comparte tu información de contacto, sitio web y redes sociales con solo acercar tu celular. Sin apps, sin papel, sin límites.</p>
+        <ul style="list-style:none; padding:0; margin-bottom:32px; display:flex; flex-direction:column; gap:12px;">
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#DCE6F2; font-size:15px;">
+            <svg style="width:18px;height:18px;stroke:#4FC3F7;fill:none;stroke-width:2;flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Tecnología NFC + código QR en el reverso
+          </li>
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#DCE6F2; font-size:15px;">
+            <svg style="width:18px;height:18px;stroke:#4FC3F7;fill:none;stroke-width:2;flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Diseño personalizado con tu logo y datos
+          </li>
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#DCE6F2; font-size:15px;">
+            <svg style="width:18px;height:18px;stroke:#4FC3F7;fill:none;stroke-width:2;flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            Incluida <strong style="color:white;">gratis</strong> al contratar el Starter Pack
+          </li>
+          <li style="display:flex; gap:12px; align-items:flex-start; color:#DCE6F2; font-size:15px;">
+            <svg style="width:18px;height:18px;stroke:#4FC3F7;fill:none;stroke-width:2;flex-shrink:0;margin-top:2px;" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            También disponible por separado para cualquier negocio
+          </li>
+        </ul>
+        <a id="wa-nfc" href="#" target="_blank" rel="noopener" class="btn btn--primary">
+          <svg class="icon" viewBox="0 0 24 24"><use href="#i-whatsapp"/></svg> Quiero mi tarjeta NFC
+        </a>
+      </div>
+      <div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+        <img src="tarjeta-nfc.png" alt="Tarjeta NFC Tu Empresa Fácil" style="width:100%; max-width:480px; border-radius:18px; box-shadow:0 30px 60px -20px rgba(0,0,0,0.5);">
+        <span style="font-family:var(--font-mono); font-size:12px; color:#7C90AC; text-align:center;">Frente y reverso — diseño personalizado</span>
+      </div>
+    </div>
+  </div>
+</section>
+<style>
+@media(max-width:768px){
+  .nfc-grid{grid-template-columns:1fr !important; gap:32px !important;}
+  .nfc-grid > div:last-child{order:-1;}
+}
+</style>
+
 <!-- POR QUÉ ELEGIRNOS -->
 <section class="section section--alt">
   <div class="container">
@@ -1048,6 +1093,7 @@
   function waLink(msg){ return "https://wa.me/" + WA_PHONE + "?text=" + encodeURIComponent(msg); }
 
   // Set all WhatsApp links
+  document.getElementById("wa-nfc").href = waLink("Hola, me interesa la tarjeta NFC de Tu Empresa Fácil. ¿Pueden darme más información?");
   document.querySelectorAll("#wa-nav, #wa-mobile, #wa-hero, #wa-method, #wa-cta1, #wa-footer, #wa-float").forEach(el=>{
     el.href = waLink("Hola, quiero cotizar los servicios de Tu Empresa Fácil.");
   });

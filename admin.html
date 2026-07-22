@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de Gestión | Tu Empresa Fácil</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0A2540">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0A2540;
+    --blue:#1857C9;
+    --celeste:#4FC3F7;
+    --purple:#8B5CF6;
+    --purple-deep:#6D28D9;
+    --white:#FFFFFF;
+    --gray-900:#1E2530;
+    --gray-600:#5B6472;
+    --gray-300:#B9C3D0;
+    --bg-soft:#F4F8FC;
+    --bg-soft-2:#EEF3FA;
+    --green:#10B981;
+    --green-light:#D1FAE5;
+    --amber:#F59E0B;
+    --amber-light:#FEF3C7;
+    --red:#EF4444;
+    --red-light:#FEE2E2;
+    --font-display:'Space Grotesk',sans-serif;
+    --font-body:'Inter',sans-serif;
+    --font-mono:'IBM Plex Mono',monospace;
+    --radius:14px;
+    --shadow:0 8px 24px -8px rgba(10,37,64,0.18);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:var(--font-body); background:var(--bg-soft); color:var(--gray-900); -webkit-font-smoothing:antialiased;}
+  h1,h2,h3{font-family:var(--font-display); color:var(--navy);}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit; cursor:pointer;}
+
+  /* GATE */
+  .gate{position:fixed; inset:0; background:linear-gradient(160deg,var(--navy),#123a68 60%,var(--blue)); display:flex; align-items:center; justify-content:center; z-index:1000; padding:20px;}
+  .gate-box{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:36px 32px; max-width:340px; width:100%; text-align:center;}
+  .gate-box h2{font-size:19px; margin-bottom:6px;}
+  .gate-box p{color:var(--gray-600); font-size:13.5px; margin-bottom:20px;}
+  .gate-box input{width:100%; border:1.5px solid #DCE4EF; border-radius:10px; padding:12px 14px; font-size:15px; margin-bottom:14px; background:var(--bg-soft);}
+  .gate-box input:focus{outline:none; border-color:var(--blue);}
+  .gate-box .err{color:var(--red); font-size:12.5px; min-height:16px; margin-bottom:8px;}
+
+  /* SHELL */
+  .app{display:none;}
+  .app.show{display:block;}
+  .topbar{background:rgba(10,37,64,0.97); backdrop-filter:blur(10px); padding:14px 24px; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:100; flex-wrap:wrap; gap:10px;}
+  .brand{display:flex; align-items:center; gap:10px; color:white; font-family:var(--font-display); font-weight:700; font-size:16px;}
+  .brand img{height:34px;}
+  .topnav{display:flex; gap:6px;}
+  .topnav button{background:transparent; border:none; color:#C9D6E8; font-size:13.5px; font-weight:600; padding:9px 16px; border-radius:8px; transition:all .15s;}
+  .topnav button.active{background:rgba(255,255,255,0.12); color:white;}
+  .topnav button:hover{color:white;}
+  .back-home{color:#9FB0C7; font-size:12.5px; display:flex; align-items:center; gap:5px;}
+  .back-home:hover{color:var(--celeste);}
+
+  .main{max-width:1180px; margin:0 auto; padding:28px 20px 70px;}
+
+  /* KPIS */
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:26px;}
+  .kpi{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px;}
+  .kpi-label{font-family:var(--font-mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.06em; color:var(--gray-600); font-weight:600;}
+  .kpi-value{font-family:var(--font-display); font-size:28px; color:var(--navy); font-weight:700; margin-top:6px;}
+
+  /* PANELS */
+  .panel{display:none;}
+  .panel.show{display:block;}
+
+  .toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:16px;}
+  .toolbar input, .toolbar select{border:1.5px solid #DCE4EF; border-radius:10px; padding:10px 14px; font-size:14px; background:white; font-family:inherit;}
+  .toolbar input{flex:1; min-width:180px;}
+  .refresh-btn{background:var(--bg-soft-2); border:1.5px solid var(--gray-300); border-radius:10px; padding:10px 14px; font-size:13px; font-weight:600; color:var(--navy); display:flex; align-items:center; gap:6px;}
+  .refresh-btn svg{width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2;}
+
+  /* CITAS LIST */
+  .card-list{display:flex; flex-direction:column; gap:10px;}
+  .cita-card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:16px 20px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; border-left:4px solid var(--gray-300);}
+  .cita-card.pendiente{border-left-color:var(--amber);}
+  .cita-card.confirmada{border-left-color:var(--blue);}
+  .cita-card.completada{border-left-color:var(--green);}
+  .cita-card.cancelada, .cita-card.no-asistio{border-left-color:var(--red); opacity:0.75;}
+  .cita-date{font-family:var(--font-mono); text-align:center; min-width:64px;}
+  .cita-date .d{font-size:20px; font-weight:700; color:var(--navy); line-height:1;}
+  .cita-date .m{font-size:10.5px; text-transform:uppercase; color:var(--gray-600);}
+  .cita-time{font-family:var(--font-mono); font-weight:600; font-size:14px; color:var(--purple-deep); background:rgba(139,92,246,0.1); padding:5px 10px; border-radius:8px; min-width:56px; text-align:center;}
+  .cita-info{flex:1; min-width:180px;}
+  .cita-info .nombre{font-weight:600; font-size:15px; color:var(--navy);}
+  .cita-info .meta{font-size:12.5px; color:var(--gray-600); margin-top:2px;}
+  .cita-actions{display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  .cita-actions select{border:1.5px solid #DCE4EF; border-radius:8px; padding:7px 10px; font-size:12.5px; font-weight:600; background:var(--bg-soft);}
+  .wa-link{background:var(--green); color:white; border-radius:8px; padding:8px 10px; display:flex; align-items:center; justify-content:center;}
+  .wa-link svg{width:16px; height:16px; stroke:white; fill:none; stroke-width:2;}
+  .note-toggle{background:var(--bg-soft-2); border:none; border-radius:8px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--navy);}
+  .note-toggle svg{width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2;}
+  .cita-note{flex-basis:100%; display:none;}
+  .cita-note.show{display:block;}
+  .cita-note textarea{width:100%; border:1.5px solid #DCE4EF; border-radius:10px; padding:10px 12px; font-family:inherit; font-size:13.5px; background:var(--bg-soft); resize:vertical; min-height:52px;}
+
+  /* CLIENTES */
+  .client-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:14px;}
+  .client-card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; display:flex; flex-direction:column; gap:10px;}
+  .client-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .client-name{font-size:16.5px; font-weight:700; color:var(--navy);}
+  .client-phone{font-family:var(--font-mono); font-size:12.5px; color:var(--gray-600);}
+  .status-badge{font-family:var(--font-mono); font-size:10px; font-weight:700; text-transform:uppercase; padding:4px 10px; border-radius:999px; letter-spacing:0.04em;}
+  .status-badge.nuevo{background:var(--amber-light); color:#92650A;}
+  .status-badge.contactado{background:rgba(24,87,201,0.12); color:var(--blue);}
+  .status-badge.cliente{background:var(--green-light); color:#067A55;}
+  .status-badge.inactivo{background:var(--bg-soft-2); color:var(--gray-600);}
+  .client-meta{font-size:12.5px; color:var(--gray-600); display:flex; flex-direction:column; gap:3px;}
+  .client-meta b{color:var(--navy);}
+  .client-history{font-size:12px; color:var(--gray-600); background:var(--bg-soft); border-radius:8px; padding:8px 10px; max-height:90px; overflow-y:auto;}
+  .client-history div{padding:2px 0;}
+  .client-row{display:flex; gap:8px; align-items:center;}
+  .client-row select{flex:1; border:1.5px solid #DCE4EF; border-radius:8px; padding:8px 10px; font-size:12.5px; font-weight:600; background:var(--bg-soft);}
+  .client-notes textarea{width:100%; border:1.5px solid #DCE4EF; border-radius:8px; padding:8px 10px; font-family:inherit; font-size:12.5px; background:var(--bg-soft); resize:vertical; min-height:44px;}
+  .save-hint{font-family:var(--font-mono); font-size:10px; color:var(--green); opacity:0; transition:opacity .3s;}
+  .save-hint.show{opacity:1;}
+
+  .empty-state{text-align:center; padding:60px 20px; color:var(--gray-600);}
+  .empty-state svg{width:40px; height:40px; stroke:var(--gray-300); fill:none; stroke-width:1.5; margin:0 auto 14px;}
+
+  @media(max-width:640px){
+    .cita-card{padding:14px;}
+    .cita-info{min-width:120px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <h2>Panel privado</h2>
+    <p>Ingresa la clave de acceso para ver tus citas y clientes.</p>
+    <div class="err" id="gateErr"></div>
+    <input type="password" id="gatePass" placeholder="Clave de acceso" autofocus>
+    <button class="wa-link" style="width:100%; padding:12px; background:var(--blue); font-weight:600; font-size:14.5px;" id="gateBtn">Entrar</button>
+  </div>
+</div>
+
+<div class="app" id="app">
+  <div class="topbar">
+    <a href="index.html" class="brand">
+      <img src="logo.png" alt="Tu Empresa Fácil">
+    </a>
+    <div class="topnav">
+      <button class="active" data-panel="citas">Citas</button>
+      <button data-panel="clientes">Clientes</button>
+    </div>
+    <a href="index.html" class="back-home">← Volver al sitio</a>
+  </div>
+
+  <div class="main">
+    <div class="kpis">
+      <div class="kpi"><div class="kpi-label">Citas hoy</div><div class="kpi-value" id="kpiHoy">-</div></div>
+      <div class="kpi"><div class="kpi-label">Próximas 7 días</div><div class="kpi-value" id="kpiSemana">-</div></div>
+      <div class="kpi"><div class="kpi-label">Clientes totales</div><div class="kpi-value" id="kpiClientes">-</div></div>
+      <div class="kpi"><div class="kpi-label">Pendientes por confirmar</div><div class="kpi-value" id="kpiPendientes">-</div></div>
+    </div>
+
+    <!-- PANEL CITAS -->
+    <div class="panel show" id="panel-citas">
+      <div class="toolbar">
+        <input type="text" id="citaSearch" placeholder="Buscar por nombre o teléfono...">
+        <select id="citaFilter">
+          <option value="proximas">Próximas</option>
+          <option value="todas">Todas</option>
+          <option value="pasadas">Pasadas</option>
+        </select>
+        <button class="refresh-btn" id="refreshCitas">
+          <svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+          Actualizar
+        </button>
+      </div>
+      <div class="card-list" id="citasList"></div>
+    </div>
+
+    <!-- PANEL CLIENTES -->
+    <div class="panel" id="panel-clientes">
+      <div class="toolbar">
+        <input type="text" id="clientSearch" placeholder="Buscar cliente por nombre o teléfono...">
+        <select id="clientFilter">
+          <option value="todos">Todos los estados</option>
+          <option value="nuevo">Nuevo</option>
+          <option value="contactado">Contactado</option>
+          <option value="cliente">Cliente</option>
+          <option value="inactivo">Inactivo</option>
+        </select>
+      </div>
+      <div class="client-grid" id="clientGrid"></div>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyC7g58lq3sC2_hir8biFz-XbnYauUbotQ8",
+    authDomain: "tuempresafacil.firebaseapp.com",
+    databaseURL: "https://tuempresafacil-default-rtdb.firebaseio.com",
+    projectId: "tuempresafacil",
+    storageBucket: "tuempresafacil.firebasestorage.app",
+    messagingSenderId: "593477480462",
+    appId: "1:593477480462:web:01e7b9eb4c20ce22e80c5f",
+    measurementId: "G-J4FJ9Q6SR6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+  const WA_PHONE_PREFIX = "56"; // default country code fallback
+
+  // ══════════════════════════════════════════════
+  // ACCESO
+  // ══════════════════════════════════════════════
+  const ACCESS_KEY = "empresafacil2026"; // cambia esta clave cuando quieras
+  const gate = document.getElementById("gate");
+  const appEl = document.getElementById("app");
+
+  function tryEnter(){
+    const val = document.getElementById("gatePass").value;
+    if(val === ACCESS_KEY){
+      sessionStorage.setItem("tef_admin_ok", "1");
+      gate.style.display = "none";
+      appEl.classList.add("show");
+      loadData();
+    } else {
+      document.getElementById("gateErr").textContent = "Clave incorrecta.";
+    }
+  }
+  document.getElementById("gateBtn").addEventListener("click", tryEnter);
+  document.getElementById("gatePass").addEventListener("keydown", e => { if(e.key === "Enter") tryEnter(); });
+
+  if(sessionStorage.getItem("tef_admin_ok") === "1"){
+    gate.style.display = "none";
+    appEl.classList.add("show");
+    loadData();
+  }
+
+  // ══════════════════════════════════════════════
+  // NAVEGACIÓN
+  // ══════════════════════════════════════════════
+  document.querySelectorAll(".topnav button").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".topnav button").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      document.querySelectorAll(".panel").forEach(p => p.classList.remove("show"));
+      document.getElementById("panel-" + btn.dataset.panel).classList.add("show");
+    });
+  });
+
+  // ══════════════════════════════════════════════
+  // UTILIDADES
+  // ══════════════════════════════════════════════
+  const DAYS_ES = ["Dom","Lun","Mar","Mié","Jue","Vie","Sáb"];
+  const MONTHS_ES = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
+  const normPhone = p => (p || "").replace(/[^\d]/g, "");
+  const waHref = (phone, msg) => `https://wa.me/${normPhone(phone)}?text=${encodeURIComponent(msg || "")}`;
+
+  let allBookings = []; // flattened list
+  let clients = {}; // by normPhone
+
+  // ══════════════════════════════════════════════
+  // CARGAR DATOS
+  // ══════════════════════════════════════════════
+  async function loadData(){
+    const [bookingsSnap, clientsSnap] = await Promise.all([
+      get(ref(db, "bookings")),
+      get(ref(db, "clients"))
+    ]);
+
+    allBookings = [];
+    if(bookingsSnap.exists()){
+      const data = bookingsSnap.val();
+      Object.keys(data).forEach(dateKey => {
+        Object.keys(data[dateKey]).forEach(slot => {
+          const b = data[dateKey][slot];
+          allBookings.push({ date: dateKey, slot, ...b, estado: b.estado || "pendiente", notas: b.notas || "" });
+        });
+      });
+    }
+    allBookings.sort((a,b) => (a.date + a.slot).localeCompare(b.date + b.slot));
+
+    const clientOverrides = clientsSnap.exists() ? clientsSnap.val() : {};
+
+    // Agrupar clientes por teléfono normalizado
+    clients = {};
+    allBookings.forEach(b => {
+      const key = normPhone(b.telefono) || b.nombre;
+      if(!clients[key]){
+        clients[key] = {
+          nombre: b.nombre, telefono: b.telefono, correo: b.correo,
+          citas: [], estado: (clientOverrides[key] && clientOverrides[key].estado) || "nuevo",
+          notas: (clientOverrides[key] && clientOverrides[key].notas) || ""
+        };
+      }
+      clients[key].citas.push(b);
+      // usar el nombre/correo más reciente
+      clients[key].nombre = b.nombre || clients[key].nombre;
+      if(b.correo) clients[key].correo = b.correo;
+    });
+
+    renderKPIs();
+    renderCitas();
+    renderClientes();
+  }
+
+  function todayStr(){
+    const d = new Date(); d.setHours(0,0,0,0);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  }
+
+  function renderKPIs(){
+    const today = todayStr();
+    const in7 = new Date(); in7.setDate(in7.getDate()+7);
+    const in7Str = `${in7.getFullYear()}-${String(in7.getMonth()+1).padStart(2,"0")}-${String(in7.getDate()).padStart(2,"0")}`;
+
+    document.getElementById("kpiHoy").textContent = allBookings.filter(b => b.date === today).length;
+    document.getElementById("kpiSemana").textContent = allBookings.filter(b => b.date >= today && b.date <= in7Str).length;
+    document.getElementById("kpiClientes").textContent = Object.keys(clients).length;
+    document.getElementById("kpiPendientes").textContent = allBookings.filter(b => b.estado === "pendiente" && b.date >= today).length;
+  }
+
+  // ══════════════════════════════════════════════
+  // RENDER CITAS
+  // ══════════════════════════════════════════════
+  function renderCitas(){
+    const search = document.getElementById("citaSearch").value.trim().toLowerCase();
+    const filter = document.getElementById("citaFilter").value;
+    const today = todayStr();
+
+    let list = allBookings.filter(b => {
+      if(filter === "proximas" && b.date < today) return false;
+      if(filter === "pasadas" && b.date >= today) return false;
+      if(search && !(`${b.nombre} ${b.telefono}`.toLowerCase().includes(search))) return false;
+      return true;
+    });
+
+    if(filter === "pasadas") list = list.slice().reverse();
+
+    const container = document.getElementById("citasList");
+    container.innerHTML = "";
+
+    if(!list.length){
+      container.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><p>No hay citas para mostrar.</p></div>`;
+      return;
+    }
+
+    list.forEach(b => {
+      const d = new Date(b.date + "T12:00:00");
+      const card = document.createElement("div");
+      card.className = "cita-card " + b.estado.replace(" ","-");
+
+      card.innerHTML = `
+        <div class="cita-date"><div class="d">${d.getDate()}</div><div class="m">${MONTHS_ES[d.getMonth()]}</div></div>
+        <div class="cita-time">${b.slot}</div>
+        <div class="cita-info">
+          <div class="nombre">${b.nombre || "Sin nombre"}</div>
+          <div class="meta">${b.telefono || ""} · ${b.servicio || "Consulta general"}</div>
+        </div>
+        <div class="cita-actions">
+          <select class="estado-select">
+            <option value="pendiente"${b.estado==="pendiente"?" selected":""}>Pendiente</option>
+            <option value="confirmada"${b.estado==="confirmada"?" selected":""}>Confirmada</option>
+            <option value="completada"${b.estado==="completada"?" selected":""}>Completada</option>
+            <option value="cancelada"${b.estado==="cancelada"?" selected":""}>Cancelada</option>
+            <option value="no-asistio"${b.estado==="no-asistio"?" selected":""}>No asistió</option>
+          </select>
+          <a class="wa-link" target="_blank" href="${waHref(b.telefono, `Hola ${b.nombre}, te escribimos de Tu Empresa Fácil respecto a tu cita del ${DAYS_ES[d.getDay()]} ${d.getDate()} de ${MONTHS_ES[d.getMonth()]} a las ${b.slot} hrs.`)}">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          </a>
+          <button class="note-toggle" title="Notas"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></button>
+        </div>
+        <div class="cita-note">
+          <textarea placeholder="Notas de esta cita...">${b.notas}</textarea>
+        </div>
+      `;
+
+      card.querySelector(".estado-select").addEventListener("change", async e => {
+        await update(ref(db, `bookings/${b.date}/${b.slot}`), { estado: e.target.value });
+        b.estado = e.target.value;
+        card.className = "cita-card " + b.estado.replace(" ","-");
+        renderKPIs();
+      });
+
+      card.querySelector(".note-toggle").addEventListener("click", () => {
+        card.querySelector(".cita-note").classList.toggle("show");
+      });
+
+      let noteTimer;
+      card.querySelector("textarea").addEventListener("input", e => {
+        clearTimeout(noteTimer);
+        noteTimer = setTimeout(() => {
+          update(ref(db, `bookings/${b.date}/${b.slot}`), { notas: e.target.value });
+        }, 600);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  document.getElementById("citaSearch").addEventListener("input", renderCitas);
+  document.getElementById("citaFilter").addEventListener("change", renderCitas);
+  document.getElementById("refreshCitas").addEventListener("click", loadData);
+
+  // ══════════════════════════════════════════════
+  // RENDER CLIENTES
+  // ══════════════════════════════════════════════
+  function renderClientes(){
+    const search = document.getElementById("clientSearch").value.trim().toLowerCase();
+    const filter = document.getElementById("clientFilter").value;
+    const today = todayStr();
+
+    const grid = document.getElementById("clientGrid");
+    grid.innerHTML = "";
+
+    let entries = Object.entries(clients).sort((a,b) => {
+      const lastA = a[1].citas[a[1].citas.length-1].date;
+      const lastB = b[1].citas[b[1].citas.length-1].date;
+      return lastB.localeCompare(lastA);
+    });
+
+    entries = entries.filter(([key, c]) => {
+      if(filter !== "todos" && c.estado !== filter) return false;
+      if(search && !(`${c.nombre} ${c.telefono}`.toLowerCase().includes(search))) return false;
+      return true;
+    });
+
+    if(!entries.length){
+      grid.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><p>No hay clientes para mostrar.</p></div>`;
+      return;
+    }
+
+    entries.forEach(([key, c]) => {
+      const citasOrdenadas = c.citas.slice().sort((a,b) => (b.date+b.slot).localeCompare(a.date+a.slot));
+      const proxima = c.citas.filter(x => x.date >= today).sort((a,b)=>(a.date+a.slot).localeCompare(b.date+b.slot))[0];
+      const ultima = citasOrdenadas[0];
+
+      const card = document.createElement("div");
+      card.className = "client-card";
+      card.innerHTML = `
+        <div class="client-head">
+          <div>
+            <div class="client-name">${c.nombre || "Sin nombre"}</div>
+            <div class="client-phone">${c.telefono || "-"}${c.correo ? " · " + c.correo : ""}</div>
+          </div>
+          <span class="status-badge ${c.estado}">${c.estado}</span>
+        </div>
+        <div class="client-meta">
+          <div><b>${c.citas.length}</b> cita${c.citas.length!==1?"s":""} en total</div>
+          <div>Última interacción: <b>${ultima ? ultima.date : "-"}</b></div>
+          <div>Próxima cita: <b>${proxima ? proxima.date + " " + proxima.slot : "Sin próxima cita"}</b></div>
+        </div>
+        <div class="client-history">
+          ${citasOrdenadas.slice(0,5).map(x => `<div>${x.date} · ${x.slot} — ${x.servicio || "Consulta"} <span style="opacity:.6">(${x.estado})</span></div>`).join("")}
+        </div>
+        <div class="client-row">
+          <select class="estado-cliente">
+            <option value="nuevo"${c.estado==="nuevo"?" selected":""}>Nuevo</option>
+            <option value="contactado"${c.estado==="contactado"?" selected":""}>Contactado</option>
+            <option value="cliente"${c.estado==="cliente"?" selected":""}>Cliente</option>
+            <option value="inactivo"${c.estado==="inactivo"?" selected":""}>Inactivo</option>
+          </select>
+          <a class="wa-link" target="_blank" href="${waHref(c.telefono, `Hola ${c.nombre}, te saluda Tu Empresa Fácil.`)}">
+            <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          </a>
+        </div>
+        <div class="client-notes">
+          <textarea placeholder="Notas de seguimiento (ej: interesado en starter pack, esperando pago...)">${c.notas}</textarea>
+          <div class="save-hint">Guardado ✓</div>
+        </div>
+      `;
+
+      card.querySelector(".estado-cliente").addEventListener("change", async e => {
+        c.estado = e.target.value;
+        await update(ref(db, `clients/${key}`), { estado: c.estado, nombre: c.nombre, telefono: c.telefono, notas: c.notas });
+        card.querySelector(".status-badge").className = "status-badge " + c.estado;
+        card.querySelector(".status-badge").textContent = c.estado;
+        renderClientesIfFiltered();
+      });
+
+      let noteTimer;
+      const hint = card.querySelector(".save-hint");
+      card.querySelector(".client-notes textarea").addEventListener("input", e => {
+        c.notas = e.target.value;
+        clearTimeout(noteTimer);
+        noteTimer = setTimeout(async () => {
+          await update(ref(db, `clients/${key}`), { estado: c.estado, nombre: c.nombre, telefono: c.telefono, notas: c.notas });
+          hint.classList.add("show");
+          setTimeout(()=> hint.classList.remove("show"), 1500);
+        }, 600);
+      });
+
+      grid.appendChild(card);
+    });
+  }
+
+  function renderClientesIfFiltered(){
+    if(document.getElementById("clientFilter").value !== "todos") renderClientes();
+  }
+
+  document.getElementById("clientSearch").addEventListener("input", renderClientes);
+  document.getElementById("clientFilter").addEventListener("change", renderClientes);
+
+</script>
+</body>
+</html>

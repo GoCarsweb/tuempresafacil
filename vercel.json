@@ -1,6 +1,10 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/:slug", "destination": "/tarjeta.html" }
+  "routes": [
+    { "src": "^/$", "dest": "/index.html" },
+    { "src": "^/admin/?$", "dest": "/admin.html" },
+    { "src": "^/calendario/?$", "dest": "/calendario.html" },
+    { "src": "^/tarjeta/?$", "dest": "/tarjeta.html" },
+    { "handle": "filesystem" },
+    { "src": "^/([a-zA-Z0-9-]+)/?$", "dest": "/tarjeta.html" }
   ]
 }

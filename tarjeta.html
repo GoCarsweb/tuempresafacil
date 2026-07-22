@@ -71,6 +71,8 @@
   .action.mail .icon-circle{background:var(--blue);}
   .action.map .icon-circle{background:var(--red);}
   .action.web .icon-circle{background:var(--purple);}
+  .action.ig .icon-circle{background:radial-gradient(circle at 30% 110%, #FFDD55 0%, #FF543E 45%, #C837AB 75%, #6B3AA0 100%);}
+  .action.li .icon-circle{background:#0A66C2;}
 
   /* SERVICIOS */
   .tc-services{padding:6px 26px 24px;}
@@ -87,12 +89,6 @@
 
   .divider-soft{height:1px; background:var(--bg-soft-2); margin:0 26px;}
 
-  .socials{display:flex; gap:9px; justify-content:center; padding:20px 26px 4px;}
-  .social-btn{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; transition:transform .15s, filter .15s;}
-  .social-btn:hover{transform:translateY(-2px); filter:brightness(1.08);}
-  .social-btn svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:1.8;}
-  .social-btn.ig{background:radial-gradient(circle at 30% 110%, #FFDD55 0%, #FF543E 45%, #C837AB 75%, #6B3AA0 100%);}
-  .social-btn.li{background:#0A66C2;}
 
   /* CTA FINAL */
   .tc-cta{background:var(--navy); display:flex; flex-wrap:wrap;}
@@ -219,10 +215,16 @@
         <span class="icon-circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></span>
         Sitio web
       </a>`);
-
-    const socials = [];
-    if(d.instagram) socials.push(`<a class="social-btn ig" target="_blank" href="${d.instagram.startsWith("http") ? d.instagram : "https://instagram.com/" + d.instagram.replace("@","")}"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></a>`);
-    if(d.linkedin) socials.push(`<a class="social-btn li" target="_blank" href="${d.linkedin.startsWith("http") ? d.linkedin : "https://linkedin.com/in/" + d.linkedin}"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>`);
+    if(d.instagram) actions.push(`
+      <a class="action ig" target="_blank" href="${d.instagram.startsWith("http") ? d.instagram : "https://instagram.com/" + d.instagram.replace("@","")}">
+        <span class="icon-circle"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></span>
+        Instagram
+      </a>`);
+    if(d.linkedin) actions.push(`
+      <a class="action li" target="_blank" href="${d.linkedin.startsWith("http") ? d.linkedin : "https://linkedin.com/in/" + d.linkedin}">
+        <span class="icon-circle"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></span>
+        LinkedIn
+      </a>`);
 
     const servicios = (d.servicios || []).filter(s => s && s.titulo);
     const svcColors = ["c1","c2","c3"];
@@ -291,8 +293,6 @@
         </div>
 
         ${servicesHtml}
-
-        ${socials.length ? `<div class="socials">${socials.join("")}</div>` : ""}
 
         ${ctaItems.length ? `<div class="tc-cta">${ctaItems.join("")}</div>` : ""}
 

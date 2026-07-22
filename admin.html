@@ -98,6 +98,8 @@
   .cita-actions select{border:1.5px solid #DCE4EF; border-radius:8px; padding:7px 10px; font-size:12.5px; font-weight:600; background:var(--bg-soft);}
   .wa-link{background:var(--green); color:white; border-radius:8px; padding:8px 10px; display:flex; align-items:center; justify-content:center;}
   .wa-link svg{width:16px; height:16px; stroke:white; fill:none; stroke-width:2;}
+  .wa-link.mail-link{background:var(--blue);}
+  .wa-link.disabled-link{background:var(--gray-300); pointer-events:none; opacity:0.6;}
   .note-toggle{background:var(--bg-soft-2); border:none; border-radius:8px; width:32px; height:32px; display:flex; align-items:center; justify-content:center; color:var(--navy);}
   .note-toggle svg{width:15px; height:15px; stroke:currentColor; fill:none; stroke-width:2;}
   .cita-note{flex-basis:100%; display:none;}
@@ -141,7 +143,12 @@
     <h2>Panel privado</h2>
     <p>Ingresa la clave de acceso para ver tus citas y clientes.</p>
     <div class="err" id="gateErr"></div>
-    <input type="password" id="gatePass" placeholder="Clave de acceso" autofocus>
+    <div style="position:relative; margin-bottom:14px;">
+      <input type="password" id="gatePass" placeholder="Clave de acceso" autofocus style="padding-right:44px; margin-bottom:0;">
+      <button type="button" id="gateToggle" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; padding:6px; color:var(--gray-600);">
+        <svg id="gateEyeIcon" viewBox="0 0 24 24" style="width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+      </button>
+    </div>
     <button class="wa-link" style="width:100%; padding:12px; background:var(--blue); font-weight:600; font-size:14.5px;" id="gateBtn">Entrar</button>
   </div>
 </div>
@@ -222,9 +229,14 @@
   // ══════════════════════════════════════════════
   // ACCESO
   // ══════════════════════════════════════════════
-  const ACCESS_KEY = "empresafacil2026"; // cambia esta clave cuando quieras
+  const ACCESS_KEY = "AmorCyD2026"; // cambia esta clave cuando quieras
   const gate = document.getElementById("gate");
   const appEl = document.getElementById("app");
+
+  document.getElementById("gateToggle").addEventListener("click", () => {
+    const input = document.getElementById("gatePass");
+    input.type = input.type === "password" ? "text" : "password";
+  });
 
   function tryEnter(){
     const val = document.getElementById("gatePass").value;
@@ -265,6 +277,7 @@
   const MONTHS_ES = ["Ene","Feb","Mar","Abr","May","Jun","Jul","Ago","Sep","Oct","Nov","Dic"];
   const normPhone = p => (p || "").replace(/[^\d]/g, "");
   const waHref = (phone, msg) => `https://wa.me/${normPhone(phone)}?text=${encodeURIComponent(msg || "")}`;
+  const mailHref = (email, subject, body) => `mailto:${email || ""}?subject=${encodeURIComponent(subject || "")}&body=${encodeURIComponent(body || "")}`;
 
   let allBookings = []; // flattened list
   let clients = {}; // by normPhone
@@ -375,8 +388,11 @@
             <option value="cancelada"${b.estado==="cancelada"?" selected":""}>Cancelada</option>
             <option value="no-asistio"${b.estado==="no-asistio"?" selected":""}>No asistió</option>
           </select>
-          <a class="wa-link" target="_blank" href="${waHref(b.telefono, `Hola ${b.nombre}, te escribimos de Tu Empresa Fácil respecto a tu cita del ${DAYS_ES[d.getDay()]} ${d.getDate()} de ${MONTHS_ES[d.getMonth()]} a las ${b.slot} hrs.`)}">
+          <a class="wa-link" target="_blank" title="WhatsApp" href="${waHref(b.telefono, `Hola ${b.nombre}, te escribimos de Tu Empresa Fácil respecto a tu cita del ${DAYS_ES[d.getDay()]} ${d.getDate()} de ${MONTHS_ES[d.getMonth()]} a las ${b.slot} hrs.`)}">
             <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          </a>
+          <a class="wa-link mail-link${b.correo ? "" : " disabled-link"}" title="${b.correo ? "Enviar correo" : "Sin correo registrado"}" ${b.correo ? `href="${mailHref(b.correo, `Tu cita en Tu Empresa Fácil`, `Hola ${b.nombre}, te escribimos respecto a tu cita del ${DAYS_ES[d.getDay()]} ${d.getDate()} de ${MONTHS_ES[d.getMonth()]} a las ${b.slot} hrs.`)}"` : ""}>
+            <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z" style="display:none"/><path d="M3 6l9 7 9-7M3 6h18v12H3z"/></svg>
           </a>
           <button class="note-toggle" title="Notas"><svg viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></button>
         </div>
@@ -470,8 +486,11 @@
             <option value="cliente"${c.estado==="cliente"?" selected":""}>Cliente</option>
             <option value="inactivo"${c.estado==="inactivo"?" selected":""}>Inactivo</option>
           </select>
-          <a class="wa-link" target="_blank" href="${waHref(c.telefono, `Hola ${c.nombre}, te saluda Tu Empresa Fácil.`)}">
+          <a class="wa-link" target="_blank" title="WhatsApp" href="${waHref(c.telefono, `Hola ${c.nombre}, te saluda Tu Empresa Fácil.`)}">
             <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+          </a>
+          <a class="wa-link mail-link${c.correo ? "" : " disabled-link"}" title="${c.correo ? "Enviar correo" : "Sin correo registrado"}" ${c.correo ? `href="${mailHref(c.correo, `Tu Empresa Fácil`, `Hola ${c.nombre}, te saluda Tu Empresa Fácil.`)}"` : ""}>
+            <svg viewBox="0 0 24 24"><path d="M3 6l9 7 9-7M3 6h18v12H3z"/></svg>
           </a>
         </div>
         <div class="client-notes">

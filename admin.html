@@ -127,8 +127,34 @@
   .save-hint{font-family:var(--font-mono); font-size:10px; color:var(--green); opacity:0; transition:opacity .3s;}
   .save-hint.show{opacity:1;}
 
+  /* TARJETAS */
+  .tarjeta-form-wrap{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 24px;}
+  .tarjeta-form-grid{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  .field.full{grid-column:1 / -1;}
+  .field label{display:block; font-size:12.5px; font-weight:600; color:var(--navy); margin-bottom:6px;}
+  .field input{width:100%; border:1.5px solid #DCE4EF; border-radius:10px; padding:10px 13px; font-family:inherit; font-size:13.5px; color:var(--gray-900); background:var(--bg-soft);}
+  .field input:focus{outline:none; border-color:var(--blue); background:white;}
+  .btn-row{display:flex; gap:10px; margin-top:16px; flex-wrap:wrap;}
+  .tarjeta-card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); padding:18px 20px; display:flex; flex-direction:column; gap:8px;}
+  .tarjeta-card .th{display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .tarjeta-card .url{font-family:var(--font-mono); font-size:12px; color:var(--blue); background:rgba(24,87,201,0.08); padding:4px 9px; border-radius:6px; word-break:break-all;}
+  .tarjeta-card .row{display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;}
+  .tarjeta-card .row button, .tarjeta-card .row a{font-size:12px; font-weight:600; padding:7px 12px; border-radius:8px; border:none;}
+  .tarjeta-card .btn-ver{background:var(--bg-soft-2); color:var(--navy);}
+  .tarjeta-card .btn-copiar{background:var(--bg-soft-2); color:var(--navy);}
+  .tarjeta-card .btn-editar{background:rgba(24,87,201,0.1); color:var(--blue);}
+  .tarjeta-card .btn-eliminar{background:var(--red-light); color:var(--red);}
+  .tarjeta-card.inactiva{opacity:0.55;}
+
+  @media(max-width:640px){
+    .tarjeta-form-grid{grid-template-columns:1fr;}
+  }
+
   .empty-state{text-align:center; padding:60px 20px; color:var(--gray-600);}
   .empty-state svg{width:40px; height:40px; stroke:var(--gray-300); fill:none; stroke-width:1.5; margin:0 auto 14px;}
+
+  .toast{position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); background:var(--navy); color:white; padding:12px 22px; border-radius:10px; font-size:14px; font-weight:500; z-index:999; transition:transform .3s ease; white-space:nowrap;}
+  .toast.show{transform:translateX(-50%) translateY(0);}
 
   @media(max-width:640px){
     .cita-card{padding:14px;}
@@ -161,6 +187,7 @@
     <div class="topnav">
       <button class="active" data-panel="citas">Citas</button>
       <button data-panel="clientes">Clientes</button>
+      <button data-panel="tarjetas">Tarjetas</button>
     </div>
     <a href="index.html" class="back-home">← Volver al sitio</a>
   </div>
@@ -204,12 +231,46 @@
       </div>
       <div class="client-grid" id="clientGrid"></div>
     </div>
+
+    <!-- PANEL TARJETAS -->
+    <div class="panel" id="panel-tarjetas">
+      <div class="tarjeta-form-wrap">
+        <h3 id="tarjetaFormTitle" style="font-size:16px; margin-bottom:14px;">Nueva tarjeta digital</h3>
+        <div class="tarjeta-form-grid">
+          <div class="field"><label>Nombre completo *</label><input type="text" id="tf-nombre" placeholder="Ej: Juan Pérez"></div>
+          <div class="field"><label>URL (slug) *</label><input type="text" id="tf-slug" placeholder="ej-juan-perez"></div>
+          <div class="field"><label>Cargo / rubro</label><input type="text" id="tf-cargo" placeholder="Ej: Contador Auditor"></div>
+          <div class="field"><label>Empresa</label><input type="text" id="tf-empresa" placeholder="Ej: Ferretería El Tornillo"></div>
+          <div class="field full"><label>Bio corta</label><input type="text" id="tf-bio" placeholder="Una frase que te describa"></div>
+          <div class="field"><label>Teléfono / WhatsApp</label><input type="tel" id="tf-telefono" placeholder="+56 9 ..."></div>
+          <div class="field"><label>Correo electrónico</label><input type="email" id="tf-correo" placeholder="correo@ejemplo.cl"></div>
+          <div class="field"><label>Instagram</label><input type="text" id="tf-instagram" placeholder="@usuario o URL"></div>
+          <div class="field"><label>LinkedIn</label><input type="text" id="tf-linkedin" placeholder="usuario o URL"></div>
+          <div class="field"><label>Sitio web</label><input type="text" id="tf-web" placeholder="https://..."></div>
+          <div class="field"><label>Foto o logo (URL)</label><input type="text" id="tf-foto" placeholder="https://..."></div>
+          <div class="field full"><label>Dirección / ubicación</label><input type="text" id="tf-direccion" placeholder="Calle, comuna, ciudad"></div>
+          <div class="field full"><label>Link de Google Maps (opcional)</label><input type="text" id="tf-maps" placeholder="https://maps.google.com/..."></div>
+        </div>
+        <div class="btn-row">
+          <button class="wa-link" style="background:var(--blue); padding:11px 20px; font-weight:600; font-size:14px;" id="tarjetaSaveBtn">Guardar tarjeta</button>
+          <button class="refresh-btn" id="tarjetaCancelBtn" style="display:none;">Cancelar edición</button>
+        </div>
+        <div class="err" id="tarjetaFormErr" style="color:var(--red); font-size:12.5px; margin-top:8px;"></div>
+      </div>
+
+      <div class="toolbar" style="margin-top:24px;">
+        <input type="text" id="tarjetaSearch" placeholder="Buscar tarjeta por nombre...">
+      </div>
+      <div class="client-grid" id="tarjetasGrid"></div>
+    </div>
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-  import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  import { getDatabase, ref, get, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC7g58lq3sC2_hir8biFz-XbnYauUbotQ8",
@@ -279,6 +340,14 @@
   const waHref = (phone, msg) => `https://wa.me/${normPhone(phone)}?text=${encodeURIComponent(msg || "")}`;
   const mailHref = (email, subject, body) => `mailto:${email || ""}?subject=${encodeURIComponent(subject || "")}&body=${encodeURIComponent(body || "")}`;
 
+  function showToast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(()=> t.classList.remove("show"), 3000);
+  }
+
   let allBookings = []; // flattened list
   let clients = {}; // by normPhone
 
@@ -325,6 +394,7 @@
     renderKPIs();
     renderCitas();
     renderClientes();
+    loadTarjetas();
   }
 
   function todayStr(){
@@ -529,6 +599,166 @@
 
   document.getElementById("clientSearch").addEventListener("input", renderClientes);
   document.getElementById("clientFilter").addEventListener("change", renderClientes);
+
+  // ══════════════════════════════════════════════
+  // TARJETAS DIGITALES
+  // ══════════════════════════════════════════════
+  let tarjetas = {}; // por slug
+  let editingSlug = null; // slug original si se está editando
+  let slugTouched = false;
+
+  const slugify = str => (str || "")
+    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+
+  document.getElementById("tf-nombre").addEventListener("input", e => {
+    if(!slugTouched) document.getElementById("tf-slug").value = slugify(e.target.value);
+  });
+  document.getElementById("tf-slug").addEventListener("input", () => { slugTouched = true; });
+
+  async function loadTarjetas(){
+    const snap = await get(ref(db, "tarjetas"));
+    tarjetas = snap.exists() ? snap.val() : {};
+    renderTarjetas();
+  }
+
+  function clearTarjetaForm(){
+    ["nombre","slug","cargo","empresa","bio","telefono","correo","instagram","linkedin","web","foto","direccion","maps"].forEach(id => {
+      document.getElementById(`tf-${id}`).value = "";
+    });
+    editingSlug = null;
+    slugTouched = false;
+    document.getElementById("tarjetaFormTitle").textContent = "Nueva tarjeta digital";
+    document.getElementById("tarjetaCancelBtn").style.display = "none";
+    document.getElementById("tarjetaFormErr").textContent = "";
+  }
+
+  document.getElementById("tarjetaCancelBtn").addEventListener("click", clearTarjetaForm);
+
+  document.getElementById("tarjetaSaveBtn").addEventListener("click", async () => {
+    const nombre = document.getElementById("tf-nombre").value.trim();
+    const slug = slugify(document.getElementById("tf-slug").value);
+    const errEl = document.getElementById("tarjetaFormErr");
+    errEl.textContent = "";
+
+    if(!nombre || !slug){ errEl.textContent = "Nombre y URL son obligatorios."; return; }
+    if(slug !== editingSlug && tarjetas[slug]){ errEl.textContent = "Ya existe una tarjeta con esa URL. Elige otra."; return; }
+
+    const data = {
+      nombre,
+      cargo: document.getElementById("tf-cargo").value.trim(),
+      empresa: document.getElementById("tf-empresa").value.trim(),
+      bio: document.getElementById("tf-bio").value.trim(),
+      telefono: document.getElementById("tf-telefono").value.trim(),
+      correo: document.getElementById("tf-correo").value.trim(),
+      instagram: document.getElementById("tf-instagram").value.trim(),
+      linkedin: document.getElementById("tf-linkedin").value.trim(),
+      web: document.getElementById("tf-web").value.trim(),
+      foto: document.getElementById("tf-foto").value.trim(),
+      direccion: document.getElementById("tf-direccion").value.trim(),
+      mapsLink: document.getElementById("tf-maps").value.trim(),
+      activo: true
+    };
+
+    if(editingSlug && editingSlug !== slug){
+      await remove(ref(db, `tarjetas/${editingSlug}`));
+      delete tarjetas[editingSlug];
+    }
+
+    await set(ref(db, `tarjetas/${slug}`), data);
+    tarjetas[slug] = data;
+
+    clearTarjetaForm();
+    renderTarjetas();
+    showToast(`Tarjeta guardada: /${slug}`);
+  });
+
+  function editTarjeta(slug){
+    const d = tarjetas[slug];
+    document.getElementById("tf-nombre").value = d.nombre || "";
+    document.getElementById("tf-slug").value = slug;
+    document.getElementById("tf-cargo").value = d.cargo || "";
+    document.getElementById("tf-empresa").value = d.empresa || "";
+    document.getElementById("tf-bio").value = d.bio || "";
+    document.getElementById("tf-telefono").value = d.telefono || "";
+    document.getElementById("tf-correo").value = d.correo || "";
+    document.getElementById("tf-instagram").value = d.instagram || "";
+    document.getElementById("tf-linkedin").value = d.linkedin || "";
+    document.getElementById("tf-web").value = d.web || "";
+    document.getElementById("tf-foto").value = d.foto || "";
+    document.getElementById("tf-direccion").value = d.direccion || "";
+    document.getElementById("tf-maps").value = d.mapsLink || "";
+    editingSlug = slug;
+    slugTouched = true;
+    document.getElementById("tarjetaFormTitle").textContent = `Editando: ${d.nombre}`;
+    document.getElementById("tarjetaCancelBtn").style.display = "inline-flex";
+    document.getElementById("panel-tarjetas").scrollIntoView({behavior:"smooth"});
+  }
+
+  async function toggleActivo(slug){
+    tarjetas[slug].activo = !tarjetas[slug].activo;
+    await update(ref(db, `tarjetas/${slug}`), { activo: tarjetas[slug].activo });
+    renderTarjetas();
+  }
+
+  async function deleteTarjeta(slug){
+    if(!confirm(`¿Eliminar la tarjeta de "${tarjetas[slug].nombre}"? Esta acción no se puede deshacer.`)) return;
+    await remove(ref(db, `tarjetas/${slug}`));
+    delete tarjetas[slug];
+    renderTarjetas();
+  }
+
+  function renderTarjetas(){
+    const search = document.getElementById("tarjetaSearch").value.trim().toLowerCase();
+    const grid = document.getElementById("tarjetasGrid");
+    grid.innerHTML = "";
+
+    const entries = Object.entries(tarjetas).filter(([slug, d]) =>
+      !search || `${d.nombre} ${slug}`.toLowerCase().includes(search)
+    );
+
+    if(!entries.length){
+      grid.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18"/></svg><p>Aún no has creado ninguna tarjeta digital.</p></div>`;
+      return;
+    }
+
+    entries.forEach(([slug, d]) => {
+      const url = `${window.location.origin}/${slug}`;
+      const card = document.createElement("div");
+      card.className = "tarjeta-card" + (d.activo === false ? " inactiva" : "");
+      card.innerHTML = `
+        <div class="th">
+          <div>
+            <div class="client-name">${d.nombre}</div>
+            <div class="client-phone">${d.cargo || ""}${d.empresa ? " · " + d.empresa : ""}</div>
+          </div>
+          <span class="status-badge ${d.activo === false ? "inactivo" : "cliente"}">${d.activo === false ? "Inactiva" : "Activa"}</span>
+        </div>
+        <div class="url">${url}</div>
+        <div class="row">
+          <a class="btn-ver" target="_blank" href="/${slug}">Ver tarjeta</a>
+          <button class="btn-copiar">Copiar URL</button>
+          <button class="btn-editar">Editar</button>
+          <button class="btn-eliminar">Eliminar</button>
+        </div>
+      `;
+
+      card.querySelector(".btn-copiar").addEventListener("click", () => {
+        navigator.clipboard.writeText(url).then(() => showToast("URL copiada al portapapeles"));
+      });
+      card.querySelector(".btn-editar").addEventListener("click", () => editTarjeta(slug));
+      card.querySelector(".btn-eliminar").addEventListener("click", () => deleteTarjeta(slug));
+      card.querySelector(".status-badge").addEventListener("click", () => toggleActivo(slug));
+
+      grid.appendChild(card);
+    });
+  }
+
+  document.getElementById("tarjetaSearch").addEventListener("input", renderTarjetas);
 
 </script>
 </body>

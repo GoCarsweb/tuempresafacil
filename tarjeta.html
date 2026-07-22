@@ -22,92 +22,106 @@
     --bg-soft:#F4F8FC;
     --bg-soft-2:#EEF3FA;
     --green:#10B981;
+    --red:#EF4444;
     --font-display:'Space Grotesk',sans-serif;
     --font-body:'Inter',sans-serif;
     --font-mono:'IBM Plex Mono',monospace;
-    --radius:18px;
-    --shadow:0 20px 45px -20px rgba(10,37,64,0.25);
+    --radius:20px;
+    --shadow:0 24px 55px -22px rgba(10,37,64,0.35);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:var(--font-body); background:linear-gradient(160deg,var(--navy),#123a68 55%,var(--blue)); min-height:100vh; color:var(--gray-900); -webkit-font-smoothing:antialiased; display:flex; align-items:center; justify-content:center; padding:20px 16px;}
+  body{font-family:var(--font-body); background:linear-gradient(160deg,var(--navy),#123a68 55%,var(--blue)); min-height:100vh; color:var(--gray-900); -webkit-font-smoothing:antialiased; display:flex; align-items:center; justify-content:center; padding:24px 16px;}
   h1,h2,h3{font-family:var(--font-display); color:var(--navy);}
   a{color:inherit; text-decoration:none;}
   button{font-family:inherit; cursor:pointer;}
 
-  .card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:400px; width:100%; overflow:hidden;}
-  .card-top{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:30px 28px 52px; text-align:center; position:relative;}
-  .avatar{width:92px; height:92px; border-radius:50%; object-fit:cover; border:4px solid white; margin:0 auto; box-shadow:0 8px 20px -6px rgba(0,0,0,0.35); background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:30px; font-weight:700; color:var(--navy);}
-  .card-body{padding:48px 26px 24px; margin-top:-40px; text-align:center;}
-  .nombre{font-size:22px; margin-bottom:3px;}
-  .cargo{color:var(--purple-deep); font-weight:600; font-size:14px; margin-bottom:2px;}
-  .empresa{color:var(--gray-600); font-size:13.5px; margin-bottom:12px;}
-  .bio{color:var(--gray-600); font-size:13px; line-height:1.5; max-width:300px; margin:0 auto 18px;}
+  .tcard{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:460px; width:100%; overflow:hidden;}
 
+  /* NAV */
+  .tc-nav{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:16px 22px; background:rgba(255,255,255,0.06); border-bottom:1px solid rgba(255,255,255,0.1);}
+  .tc-brand{display:flex; align-items:center; gap:9px;}
+  .tc-brand svg{width:26px; height:26px; flex-shrink:0;}
+  .tc-brand .tc-brand-txt{font-family:var(--font-display); font-weight:700; font-size:11.5px; line-height:1.25; color:white; letter-spacing:0.01em; text-transform:uppercase;}
+  .tc-nav-links{display:flex; align-items:center; gap:6px;}
+  .tc-nav-links a{width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; transition:background .15s;}
+  .tc-nav-links a:hover{background:rgba(255,255,255,0.22);}
+  .tc-nav-links a svg{width:14.5px; height:14.5px; stroke:white; fill:none; stroke-width:2;}
+
+  /* HERO */
+  .tc-hero{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:30px 26px 34px; display:flex; align-items:center; gap:18px; text-align:left;}
+  .avatar{width:78px; height:78px; border-radius:50%; object-fit:cover; border:3px solid rgba(255,255,255,0.5); flex-shrink:0; background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--navy);}
+  .tc-hero-info .nombre{font-size:20px; color:white; margin-bottom:2px; text-wrap:balance;}
+  .tc-hero-info .cargo{color:#C4B5FD; font-weight:600; font-size:13.5px; margin-bottom:1px;}
+  .tc-hero-info .empresa{color:#C9D6E8; font-size:12.5px;}
+  .bio{color:#C9D6E8; font-size:12.5px; line-height:1.55; padding:0 26px; background:var(--blue); padding-bottom:18px; margin-top:-1px;}
+  .bio:empty{display:none;}
+
+  /* BODY */
+  .tc-body{padding:26px;}
   .save-btn{display:flex; align-items:center; justify-content:center; gap:8px; width:100%; background:linear-gradient(120deg,var(--blue),var(--celeste)); color:white; border:none; border-radius:12px; padding:13px; font-weight:700; font-size:14.5px; box-shadow:0 12px 26px -10px rgba(24,87,201,0.55); margin-bottom:16px;}
   .save-btn svg{width:18px; height:18px; stroke:white; fill:none; stroke-width:2;}
 
-  .actions{display:grid; grid-template-columns:repeat(auto-fit,minmax(80px,1fr)); gap:9px; margin-bottom:18px;}
+  .actions{display:grid; grid-template-columns:repeat(auto-fit,minmax(90px,1fr)); gap:9px;}
   .action{display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 6px; background:var(--bg-soft); border-radius:12px; font-size:11px; font-weight:600; color:var(--navy); transition:transform .15s, background .15s;}
   .action:hover{background:var(--bg-soft-2); transform:translateY(-2px);}
   .action .icon-circle{width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
   .action .icon-circle svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
   .action.wa .icon-circle{background:#25D366;}
   .action.mail .icon-circle{background:var(--blue);}
-  .action.map .icon-circle{background:var(--red,#EF4444);}
+  .action.map .icon-circle{background:var(--red);}
   .action.web .icon-circle{background:var(--purple);}
 
-  .divider{height:1px; background:var(--bg-soft-2); margin:2px 0 16px;}
+  /* SERVICIOS */
+  .tc-services{padding:6px 26px 24px;}
+  .tc-services h4{text-align:center; font-family:var(--font-mono); font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray-600); font-weight:700; margin-bottom:16px;}
+  .svc-list{display:flex; flex-direction:column; gap:14px;}
+  .svc-item{display:flex; gap:13px; align-items:flex-start;}
+  .svc-icon{width:38px; height:38px; border-radius:11px; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .svc-icon svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
+  .svc-icon.c1{background:var(--blue);}
+  .svc-icon.c2{background:var(--purple);}
+  .svc-icon.c3{background:var(--navy);}
+  .svc-text .svc-title{font-size:13.5px; font-weight:700; color:var(--navy); margin-bottom:2px;}
+  .svc-text .svc-desc{font-size:12.5px; color:var(--gray-600); line-height:1.5;}
 
-  .info-line{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--gray-900); padding:7px 0; text-align:left;}
-  .info-line svg{width:15px; height:15px; stroke:var(--gray-600); fill:none; stroke-width:2; flex-shrink:0;}
+  .divider-soft{height:1px; background:var(--bg-soft-2); margin:0 26px;}
 
-  .socials{display:flex; gap:9px; justify-content:center; margin-top:14px;}
+  .socials{display:flex; gap:9px; justify-content:center; padding:20px 26px 4px;}
   .social-btn{width:38px; height:38px; border-radius:50%; background:var(--bg-soft); display:flex; align-items:center; justify-content:center; transition:background .15s, transform .15s;}
   .social-btn:hover{transform:translateY(-2px);}
   .social-btn svg{width:17px; height:17px; stroke:var(--navy); fill:none; stroke-width:1.8;}
-  .social-btn.ig:hover{background:#F9CE9022;}
-  .social-btn.li:hover{background:#0A66C222;}
 
-  .footer-brand{text-align:center; padding:13px; font-size:10.5px; color:var(--gray-300); background:var(--bg-soft);}
-  .footer-brand a{color:var(--blue); font-weight:600;}
+  /* CTA FINAL */
+  .tc-cta{background:var(--navy); display:flex; flex-wrap:wrap;}
+  .tc-cta a{flex:1; min-width:180px; display:flex; align-items:center; gap:12px; padding:16px 22px;}
+  .tc-cta a + a{border-left:1px solid rgba(255,255,255,0.1);}
+  .tc-cta .cta-icon{width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .tc-cta .cta-icon svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
+  .tc-cta .cta-wa .cta-icon{background:#25D366;}
+  .tc-cta .cta-web .cta-icon{background:var(--celeste);}
+  .tc-cta .cta-label{font-size:10.5px; color:#9FB0C7; text-transform:uppercase; letter-spacing:0.05em; font-weight:600;}
+  .tc-cta .cta-value{font-size:13.5px; color:white; font-weight:700;}
+
+  .tc-footer{text-align:center; padding:14px; font-size:10.5px; color:var(--gray-300); background:var(--bg-soft);}
+  .tc-footer a{color:var(--blue); font-weight:600;}
 
   .state{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:380px; width:100%; padding:50px 30px; text-align:center;}
   .state svg{width:44px; height:44px; stroke:var(--gray-300); fill:none; stroke-width:1.5; margin:0 auto 18px;}
   .state h2{font-size:18px; margin-bottom:8px;}
   .state p{color:var(--gray-600); font-size:14px;}
 
-  /* BARRA SUPERIOR TU EMPRESA FÁCIL */
-  .page{display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; max-width:400px;}
-  .brand-bar{display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:12px; padding:9px 9px 9px 15px;}
-  .brand-bar .bb-name{font-family:var(--font-display); font-weight:700; font-size:13.5px; color:white; letter-spacing:-0.01em; white-space:nowrap;}
-  .brand-bar .bb-links{display:flex; align-items:center; gap:5px; flex-shrink:0;}
-  .brand-bar .bb-links a{width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; transition:background .15s;}
-  .brand-bar .bb-links a:hover{background:rgba(255,255,255,0.24);}
-  .brand-bar .bb-links a svg{width:15px; height:15px; stroke:white; fill:none; stroke-width:2;}
+  @media(max-width:420px){
+    .tc-hero{flex-direction:column; text-align:center; align-items:center;}
+    .tc-hero-info{text-align:center;}
+    .bio{text-align:center;}
+  }
 </style>
 </head>
 <body>
 
-<div class="page">
-  <div class="brand-bar">
-    <a href="/" class="bb-name" title="Tu Empresa Fácil">Tu Empresa Fácil</a>
-    <div class="bb-links">
-      <a href="https://wa.me/56995932848" target="_blank" title="WhatsApp Tu Empresa Fácil">
-        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/tu_empresa_facil" target="_blank" title="Instagram Tu Empresa Fácil">
-        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg>
-      </a>
-      <a href="/" title="Sitio web Tu Empresa Fácil">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg>
-      </a>
-    </div>
-  </div>
-
-  <div id="root">
-    <div class="state">
-      <div class="loader" style="width:32px;height:32px;border:3px solid var(--bg-soft-2);border-top-color:var(--blue);border-radius:50%;margin:0 auto;animation:spin .7s linear infinite;"></div>
-    </div>
+<div id="root">
+  <div class="state">
+    <div class="loader" style="width:32px;height:32px;border:3px solid var(--bg-soft-2);border-top-color:var(--blue);border-radius:50%;margin:0 auto;animation:spin .7s linear infinite;"></div>
   </div>
 </div>
 <style>@keyframes spin{to{transform:rotate(360deg);}}</style>
@@ -130,6 +144,10 @@
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
   const root = document.getElementById("root");
+
+  const TEF_WA = "56995932848";
+  const TEF_IG = "https://www.instagram.com/tu_empresa_facil";
+  const TEF_WEB = "/";
 
   const slug = decodeURIComponent(window.location.pathname.replace(/^\/+|\/+$/g, "")).toLowerCase();
 
@@ -199,37 +217,81 @@
         Sitio web
       </a>`);
 
-    const infoLines = [];
-    if(d.telefono) infoLines.push(`<div class="info-line"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.12.9.34 1.79.65 2.65a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.43-1.42a2 2 0 012.11-.45c.86.31 1.75.53 2.65.65A2 2 0 0122 16.92z"/></svg> ${escapeHtml(d.telefono)}</div>`);
-    if(d.correo) infoLines.push(`<div class="info-line"><svg viewBox="0 0 24 24"><path d="M3 6l9 7 9-7M3 6h18v12H3z"/></svg> ${escapeHtml(d.correo)}</div>`);
-    if(d.direccion) infoLines.push(`<div class="info-line"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg> ${escapeHtml(d.direccion)}</div>`);
-
     const socials = [];
-    if(d.instagram) socials.push(`<a class="social-btn ig" target="_blank" href="${d.instagram.startsWith("http") ? d.instagram : "https://instagram.com/" + d.instagram.replace("@","")}"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>`);
-    if(d.linkedin) socials.push(`<a class="social-btn li" target="_blank" href="${d.linkedin.startsWith("http") ? d.linkedin : "https://linkedin.com/in/" + d.linkedin}"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>`);
+    if(d.instagram) socials.push(`<a class="social-btn" target="_blank" href="${d.instagram.startsWith("http") ? d.instagram : "https://instagram.com/" + d.instagram.replace("@","")}"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>`);
+    if(d.linkedin) socials.push(`<a class="social-btn" target="_blank" href="${d.linkedin.startsWith("http") ? d.linkedin : "https://linkedin.com/in/" + d.linkedin}"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>`);
+
+    const servicios = (d.servicios || []).filter(s => s && s.titulo);
+    const svcColors = ["c1","c2","c3"];
+    const servicesHtml = servicios.length ? `
+      <div class="divider-soft"></div>
+      <div class="tc-services">
+        <h4>${d.serviciosTitulo ? escapeHtml(d.serviciosTitulo) : "Lo que ofrezco"}</h4>
+        <div class="svc-list">
+          ${servicios.slice(0,3).map((s,i) => `
+            <div class="svc-item">
+              <span class="svc-icon ${svcColors[i]}"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span>
+              <div class="svc-text">
+                <div class="svc-title">${escapeHtml(s.titulo)}</div>
+                ${s.descripcion ? `<div class="svc-desc">${escapeHtml(s.descripcion)}</div>` : ""}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    ` : "";
+
+    const ctaItems = [];
+    if(d.telefono) ctaItems.push(`
+      <a class="cta-wa" target="_blank" href="https://wa.me/${normPhone(d.telefono)}">
+        <span class="cta-icon"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></span>
+        <div><div class="cta-label">Cotiza por WhatsApp</div><div class="cta-value">${escapeHtml(d.telefono)}</div></div>
+      </a>`);
+    if(d.web) ctaItems.push(`
+      <a class="cta-web" target="_blank" href="${d.web}">
+        <span class="cta-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></span>
+        <div><div class="cta-label">Visítanos en</div><div class="cta-value">${escapeHtml(d.web.replace(/^https?:\/\//,""))}</div></div>
+      </a>`);
 
     root.innerHTML = `
-      <div class="card">
-        <div class="card-top">${avatar}</div>
-        <div class="card-body">
-          <div class="nombre">${escapeHtml(d.nombre) || "Sin nombre"}</div>
-          ${d.cargo ? `<div class="cargo">${escapeHtml(d.cargo)}</div>` : ""}
-          ${d.empresa ? `<div class="empresa">${escapeHtml(d.empresa)}</div>` : ""}
-          ${d.bio ? `<div class="bio">${escapeHtml(d.bio)}</div>` : ""}
+      <div class="tcard">
+        <div class="tc-nav">
+          <div class="tc-brand">
+            <svg viewBox="0 0 40 40"><defs><linearGradient id="tefg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4FC3F7"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient></defs><circle cx="20" cy="20" r="18" fill="none" stroke="url(#tefg)" stroke-width="3"/><path d="M12 20l5.5 5.5L29 14" fill="none" stroke="url(#tefg)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="tc-brand-txt">Tu Empresa<br>Fácil</span>
+          </div>
+          <div class="tc-nav-links">
+            <a target="_blank" title="WhatsApp Tu Empresa Fácil" href="https://wa.me/${TEF_WA}"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg></a>
+            <a target="_blank" title="Instagram Tu Empresa Fácil" href="${TEF_IG}"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none"/></svg></a>
+            <a title="Sitio web Tu Empresa Fácil" href="${TEF_WEB}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></a>
+          </div>
+        </div>
 
+        <div class="tc-hero">
+          ${avatar}
+          <div class="tc-hero-info">
+            <div class="nombre">${escapeHtml(d.nombre) || "Sin nombre"}</div>
+            ${d.cargo ? `<div class="cargo">${escapeHtml(d.cargo)}</div>` : ""}
+            ${d.empresa ? `<div class="empresa">${escapeHtml(d.empresa)}</div>` : ""}
+          </div>
+        </div>
+        ${d.bio ? `<div class="bio">${escapeHtml(d.bio)}</div>` : ""}
+
+        <div class="tc-body">
           <button class="save-btn" id="saveContactBtn">
             <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg>
             Guardar contacto
           </button>
-
           ${actions.length ? `<div class="actions">${actions.join("")}</div>` : ""}
-
-          <div class="divider"></div>
-          ${infoLines.join("")}
-
-          ${socials.length ? `<div class="socials">${socials.join("")}</div>` : ""}
         </div>
-        <div class="footer-brand">Tarjeta digital creada con <a href="/">Tu Empresa Fácil</a></div>
+
+        ${servicesHtml}
+
+        ${socials.length ? `<div class="socials">${socials.join("")}</div>` : ""}
+
+        ${ctaItems.length ? `<div class="tc-cta">${ctaItems.join("")}</div>` : ""}
+
+        <div class="tc-footer">© ${new Date().getFullYear()} ${escapeHtml(d.empresa || d.nombre || "")} · Tarjeta creada con <a href="/">Tu Empresa Fácil</a></div>
       </div>
     `;
 

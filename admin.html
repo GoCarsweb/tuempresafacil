@@ -251,6 +251,17 @@
           <div class="field full"><label>Dirección / ubicación</label><input type="text" id="tf-direccion" placeholder="Calle, comuna, ciudad"></div>
           <div class="field full"><label>Link de Google Maps (opcional)</label><input type="text" id="tf-maps" placeholder="https://maps.google.com/..."></div>
         </div>
+
+        <h3 style="font-size:14px; margin:22px 0 4px; color:var(--gray-600);">Servicios (opcional, hasta 3)</h3>
+        <div class="tarjeta-form-grid">
+          <div class="field full"><label>Título de la sección</label><input type="text" id="tf-svc-titulo" placeholder="Ej: Lo que ofrezco (por defecto)"></div>
+          <div class="field"><label>Servicio 1 · título</label><input type="text" id="tf-svc1-t" placeholder="Ej: Página web"></div>
+          <div class="field"><label>Servicio 1 · descripción</label><input type="text" id="tf-svc1-d" placeholder="Ej: Diseño y mantención"></div>
+          <div class="field"><label>Servicio 2 · título</label><input type="text" id="tf-svc2-t" placeholder=""></div>
+          <div class="field"><label>Servicio 2 · descripción</label><input type="text" id="tf-svc2-d" placeholder=""></div>
+          <div class="field"><label>Servicio 3 · título</label><input type="text" id="tf-svc3-t" placeholder=""></div>
+          <div class="field"><label>Servicio 3 · descripción</label><input type="text" id="tf-svc3-d" placeholder=""></div>
+        </div>
         <div class="btn-row">
           <button class="wa-link" style="background:var(--blue); padding:11px 20px; font-weight:600; font-size:14px;" id="tarjetaSaveBtn">Guardar tarjeta</button>
           <button class="refresh-btn" id="tarjetaCancelBtn" style="display:none;">Cancelar edición</button>
@@ -627,7 +638,7 @@
   }
 
   function clearTarjetaForm(){
-    ["nombre","slug","cargo","empresa","bio","telefono","correo","instagram","linkedin","web","foto","direccion","maps"].forEach(id => {
+    ["nombre","slug","cargo","empresa","bio","telefono","correo","instagram","linkedin","web","foto","direccion","maps","svc-titulo","svc1-t","svc1-d","svc2-t","svc2-d","svc3-t","svc3-d"].forEach(id => {
       document.getElementById(`tf-${id}`).value = "";
     });
     editingSlug = null;
@@ -661,6 +672,11 @@
       foto: document.getElementById("tf-foto").value.trim(),
       direccion: document.getElementById("tf-direccion").value.trim(),
       mapsLink: document.getElementById("tf-maps").value.trim(),
+      serviciosTitulo: document.getElementById("tf-svc-titulo").value.trim(),
+      servicios: [1,2,3].map(n => ({
+        titulo: document.getElementById(`tf-svc${n}-t`).value.trim(),
+        descripcion: document.getElementById(`tf-svc${n}-d`).value.trim()
+      })).filter(s => s.titulo),
       activo: true
     };
 
@@ -692,6 +708,12 @@
     document.getElementById("tf-foto").value = d.foto || "";
     document.getElementById("tf-direccion").value = d.direccion || "";
     document.getElementById("tf-maps").value = d.mapsLink || "";
+    document.getElementById("tf-svc-titulo").value = d.serviciosTitulo || "";
+    const svcs = d.servicios || [];
+    [1,2,3].forEach(n => {
+      document.getElementById(`tf-svc${n}-t`).value = (svcs[n-1] && svcs[n-1].titulo) || "";
+      document.getElementById(`tf-svc${n}-d`).value = (svcs[n-1] && svcs[n-1].descripcion) || "";
+    });
     editingSlug = slug;
     slugTouched = true;
     document.getElementById("tarjetaFormTitle").textContent = `Editando: ${d.nombre}`;

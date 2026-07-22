@@ -29,46 +29,46 @@
     --shadow:0 20px 45px -20px rgba(10,37,64,0.25);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  body{font-family:var(--font-body); background:linear-gradient(160deg,var(--navy),#123a68 55%,var(--blue)); min-height:100vh; color:var(--gray-900); -webkit-font-smoothing:antialiased; display:flex; align-items:flex-start; justify-content:center; padding:24px 16px 40px;}
+  body{font-family:var(--font-body); background:linear-gradient(160deg,var(--navy),#123a68 55%,var(--blue)); min-height:100vh; color:var(--gray-900); -webkit-font-smoothing:antialiased; display:flex; align-items:center; justify-content:center; padding:20px 16px;}
   h1,h2,h3{font-family:var(--font-display); color:var(--navy);}
   a{color:inherit; text-decoration:none;}
   button{font-family:inherit; cursor:pointer;}
 
-  .card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:420px; width:100%; overflow:hidden;}
-  .card-top{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:36px 28px 60px; text-align:center; position:relative;}
-  .avatar{width:104px; height:104px; border-radius:50%; object-fit:cover; border:4px solid white; margin:0 auto; box-shadow:0 8px 20px -6px rgba(0,0,0,0.35); background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:34px; font-weight:700; color:var(--navy);}
-  .card-body{padding:56px 28px 30px; margin-top:-46px; text-align:center;}
-  .nombre{font-size:24px; margin-bottom:4px;}
-  .cargo{color:var(--purple-deep); font-weight:600; font-size:14.5px; margin-bottom:2px;}
-  .empresa{color:var(--gray-600); font-size:14px; margin-bottom:14px;}
-  .bio{color:var(--gray-600); font-size:13.5px; line-height:1.5; max-width:320px; margin:0 auto 22px;}
+  .card{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:400px; width:100%; overflow:hidden;}
+  .card-top{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:30px 28px 52px; text-align:center; position:relative;}
+  .avatar{width:92px; height:92px; border-radius:50%; object-fit:cover; border:4px solid white; margin:0 auto; box-shadow:0 8px 20px -6px rgba(0,0,0,0.35); background:var(--bg-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:30px; font-weight:700; color:var(--navy);}
+  .card-body{padding:48px 26px 24px; margin-top:-40px; text-align:center;}
+  .nombre{font-size:22px; margin-bottom:3px;}
+  .cargo{color:var(--purple-deep); font-weight:600; font-size:14px; margin-bottom:2px;}
+  .empresa{color:var(--gray-600); font-size:13.5px; margin-bottom:12px;}
+  .bio{color:var(--gray-600); font-size:13px; line-height:1.5; max-width:300px; margin:0 auto 18px;}
 
-  .save-btn{display:flex; align-items:center; justify-content:center; gap:9px; width:100%; background:linear-gradient(120deg,var(--blue),var(--celeste)); color:white; border:none; border-radius:12px; padding:14px; font-weight:700; font-size:15px; box-shadow:0 12px 26px -10px rgba(24,87,201,0.55); margin-bottom:20px;}
-  .save-btn svg{width:19px; height:19px; stroke:white; fill:none; stroke-width:2;}
+  .save-btn{display:flex; align-items:center; justify-content:center; gap:8px; width:100%; background:linear-gradient(120deg,var(--blue),var(--celeste)); color:white; border:none; border-radius:12px; padding:13px; font-weight:700; font-size:14.5px; box-shadow:0 12px 26px -10px rgba(24,87,201,0.55); margin-bottom:16px;}
+  .save-btn svg{width:18px; height:18px; stroke:white; fill:none; stroke-width:2;}
 
-  .actions{display:grid; grid-template-columns:repeat(auto-fit,minmax(84px,1fr)); gap:10px; margin-bottom:22px;}
-  .action{display:flex; flex-direction:column; align-items:center; gap:7px; padding:14px 8px; background:var(--bg-soft); border-radius:12px; font-size:11.5px; font-weight:600; color:var(--navy); transition:transform .15s, background .15s;}
+  .actions{display:grid; grid-template-columns:repeat(auto-fit,minmax(80px,1fr)); gap:9px; margin-bottom:18px;}
+  .action{display:flex; flex-direction:column; align-items:center; gap:6px; padding:12px 6px; background:var(--bg-soft); border-radius:12px; font-size:11px; font-weight:600; color:var(--navy); transition:transform .15s, background .15s;}
   .action:hover{background:var(--bg-soft-2); transform:translateY(-2px);}
-  .action .icon-circle{width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
-  .action .icon-circle svg{width:19px; height:19px; stroke:white; fill:none; stroke-width:2;}
+  .action .icon-circle{width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
+  .action .icon-circle svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
   .action.wa .icon-circle{background:#25D366;}
   .action.mail .icon-circle{background:var(--blue);}
   .action.map .icon-circle{background:var(--red,#EF4444);}
   .action.web .icon-circle{background:var(--purple);}
 
-  .divider{height:1px; background:var(--bg-soft-2); margin:4px 0 20px;}
+  .divider{height:1px; background:var(--bg-soft-2); margin:2px 0 16px;}
 
-  .info-line{display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--gray-900); padding:9px 0; text-align:left;}
-  .info-line svg{width:16px; height:16px; stroke:var(--gray-600); fill:none; stroke-width:2; flex-shrink:0;}
+  .info-line{display:flex; align-items:center; gap:10px; font-size:13px; color:var(--gray-900); padding:7px 0; text-align:left;}
+  .info-line svg{width:15px; height:15px; stroke:var(--gray-600); fill:none; stroke-width:2; flex-shrink:0;}
 
-  .socials{display:flex; gap:10px; justify-content:center; margin-top:18px;}
-  .social-btn{width:42px; height:42px; border-radius:50%; background:var(--bg-soft); display:flex; align-items:center; justify-content:center; transition:background .15s, transform .15s;}
+  .socials{display:flex; gap:9px; justify-content:center; margin-top:14px;}
+  .social-btn{width:38px; height:38px; border-radius:50%; background:var(--bg-soft); display:flex; align-items:center; justify-content:center; transition:background .15s, transform .15s;}
   .social-btn:hover{transform:translateY(-2px);}
-  .social-btn svg{width:19px; height:19px; stroke:var(--navy); fill:none; stroke-width:1.8;}
+  .social-btn svg{width:17px; height:17px; stroke:var(--navy); fill:none; stroke-width:1.8;}
   .social-btn.ig:hover{background:#F9CE9022;}
   .social-btn.li:hover{background:#0A66C222;}
 
-  .footer-brand{text-align:center; padding:16px; font-size:11px; color:var(--gray-300); background:var(--bg-soft);}
+  .footer-brand{text-align:center; padding:13px; font-size:10.5px; color:var(--gray-300); background:var(--bg-soft);}
   .footer-brand a{color:var(--blue); font-weight:600;}
 
   .state{background:white; border-radius:var(--radius); box-shadow:var(--shadow); max-width:380px; width:100%; padding:50px 30px; text-align:center;}
@@ -77,20 +77,20 @@
   .state p{color:var(--gray-600); font-size:14px;}
 
   /* BARRA SUPERIOR TU EMPRESA FÁCIL */
-  .page{display:flex; flex-direction:column; align-items:center; gap:18px; width:100%; max-width:420px;}
-  .brand-bar{display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.18); backdrop-filter:blur(6px); border-radius:12px; padding:8px 10px 8px 14px;}
-  .brand-bar img{height:22px; width:auto; display:block; filter:brightness(0) invert(1);}
-  .brand-bar .bb-links{display:flex; align-items:center; gap:6px;}
-  .brand-bar .bb-links a{width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; transition:background .15s;}
-  .brand-bar .bb-links a:hover{background:rgba(255,255,255,0.22);}
-  .brand-bar .bb-links a svg{width:16px; height:16px; stroke:white; fill:none; stroke-width:2;}
+  .page{display:flex; flex-direction:column; align-items:center; gap:14px; width:100%; max-width:400px;}
+  .brand-bar{display:flex; align-items:center; justify-content:space-between; gap:10px; width:100%; background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.16); backdrop-filter:blur(6px); border-radius:12px; padding:9px 9px 9px 15px;}
+  .brand-bar .bb-name{font-family:var(--font-display); font-weight:700; font-size:13.5px; color:white; letter-spacing:-0.01em; white-space:nowrap;}
+  .brand-bar .bb-links{display:flex; align-items:center; gap:5px; flex-shrink:0;}
+  .brand-bar .bb-links a{width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.12); display:flex; align-items:center; justify-content:center; transition:background .15s;}
+  .brand-bar .bb-links a:hover{background:rgba(255,255,255,0.24);}
+  .brand-bar .bb-links a svg{width:15px; height:15px; stroke:white; fill:none; stroke-width:2;}
 </style>
 </head>
 <body>
 
 <div class="page">
   <div class="brand-bar">
-    <a href="/" title="Tu Empresa Fácil"><img src="logo.png" alt="Tu Empresa Fácil"></a>
+    <a href="/" class="bb-name" title="Tu Empresa Fácil">Tu Empresa Fácil</a>
     <div class="bb-links">
       <a href="https://wa.me/56995932848" target="_blank" title="WhatsApp Tu Empresa Fácil">
         <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>

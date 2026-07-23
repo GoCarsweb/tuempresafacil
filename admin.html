@@ -290,6 +290,18 @@
 
 <div class="toast" id="toast"></div>
 
+<div id="qrModal" style="display:none; position:fixed; inset:0; background:rgba(10,37,64,0.6); z-index:2000; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:white; border-radius:16px; padding:28px; max-width:360px; width:100%; text-align:center; box-shadow:0 24px 55px -22px rgba(10,37,64,0.5);">
+    <h3 id="qrModalTitle" style="font-size:16px; margin-bottom:4px; color:var(--navy);"></h3>
+    <p id="qrModalUrl" style="font-size:12px; color:var(--gray-600); margin-bottom:16px; word-break:break-all;"></p>
+    <img id="qrModalImg" src="" alt="Código QR" style="width:100%; max-width:280px; border-radius:8px; border:1px solid var(--bg-soft-2); margin-bottom:18px;">
+    <div style="display:flex; gap:10px; justify-content:center;">
+      <button id="qrModalDownload" class="wa-link" style="background:var(--blue); padding:11px 18px; font-weight:600; font-size:13.5px;">Descargar QR</button>
+      <button id="qrModalClose" class="refresh-btn" style="padding:11px 18px;">Cerrar</button>
+    </div>
+  </div>
+</div>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, get, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -798,6 +810,7 @@
         <div class="row">
           <a class="btn-ver" target="_blank" href="/${slug}">Ver tarjeta</a>
           <button class="btn-copiar">Copiar URL</button>
+          <button class="btn-qr">QR</button>
           <button class="btn-editar">Editar</button>
           <button class="btn-eliminar">Eliminar</button>
         </div>
@@ -809,12 +822,47 @@
       card.querySelector(".btn-editar").addEventListener("click", () => editTarjeta(slug));
       card.querySelector(".btn-eliminar").addEventListener("click", () => deleteTarjeta(slug));
       card.querySelector(".status-badge").addEventListener("click", () => toggleActivo(slug));
+      card.querySelector(".btn-qr").addEventListener("click", () => showQrModal(url, d.nombre || slug));
 
       grid.appendChild(card);
     });
   }
 
   document.getElementById("tarjetaSearch").addEventListener("input", renderTarjetas);
+
+  function showQrModal(url, nombre){
+    const qrImgUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=10&data=${encodeURIComponent(url)}`;
+    const filename = `qr-${nombre.replace(/\s+/g,"_").toLowerCase()}.png`;
+    const overlay = document.getElementById("qrModal");
+    document.getElementById("qrModalTitle").textContent = nombre;
+    document.getElementById("qrModalUrl").textContent = url;
+    document.getElementById("qrModalImg").src = qrImgUrl;
+    overlay.style.display = "flex";
+
+    const downloadBtn = document.getElementById("qrModalDownload");
+    downloadBtn.onclick = async () => {
+      try {
+        const resp = await fetch(qrImgUrl);
+        const blob = await resp.blob();
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 2000);
+      } catch(e){
+        window.open(qrImgUrl, "_blank");
+      }
+    };
+  }
+  document.getElementById("qrModalClose").addEventListener("click", () => {
+    document.getElementById("qrModal").style.display = "none";
+  });
+  document.getElementById("qrModal").addEventListener("click", e => {
+    if(e.target.id === "qrModal") document.getElementById("qrModal").style.display = "none";
+  });
 
 </script>
 </body>

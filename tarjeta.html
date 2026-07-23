@@ -178,7 +178,7 @@
       d.cargo ? `TITLE:${d.cargo}` : "",
       d.telefono ? `TEL;TYPE=CELL:${d.telefono}` : "",
       d.correo ? `EMAIL:${d.correo}` : "",
-      d.web ? `URL:${d.web}` : "",
+      d.web ? `URL:${normUrl(d.web)}` : "",
       d.direccion ? `ADR;TYPE=WORK:;;${d.direccion};;;;` : "",
       "END:VCARD"
     ].filter(Boolean);
@@ -186,6 +186,11 @@
   }
 
   function normPhone(p){ return (p || "").replace(/[^\d]/g, ""); }
+
+  function normUrl(u){
+    if(!u) return "";
+    return /^https?:\/\//i.test(u) ? u : `https://${u}`;
+  }
 
   function renderCard(d){
     document.title = `${d.nombre || "Contacto"} · Tarjeta digital`;
@@ -211,7 +216,7 @@
         Ubicación
       </a>`);
     if(d.web) actions.push(`
-      <a class="action web" target="_blank" href="${d.web}">
+      <a class="action web" target="_blank" href="${normUrl(d.web)}">
         <span class="icon-circle"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></span>
         Sitio web
       </a>`);
@@ -253,7 +258,7 @@
         <div><div class="cta-label">Cotiza por WhatsApp</div><div class="cta-value">${escapeHtml(d.telefono)}</div></div>
       </a>`);
     if(d.web) ctaItems.push(`
-      <a class="cta-web" target="_blank" href="${d.web}">
+      <a class="cta-web" target="_blank" href="${normUrl(d.web)}">
         <span class="cta-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z"/></svg></span>
         <div><div class="cta-label">Visítanos en</div><div class="cta-value">${escapeHtml(d.web.replace(/^https?:\/\//,""))}</div></div>
       </a>`);

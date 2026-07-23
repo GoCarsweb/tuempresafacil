@@ -167,10 +167,11 @@
 <div class="gate" id="gate">
   <div class="gate-box">
     <h2>Panel privado</h2>
-    <p>Ingresa la clave de acceso para ver tus citas y clientes.</p>
+    <p>Ingresa con tu cuenta para ver tus citas y clientes.</p>
     <div class="err" id="gateErr"></div>
+    <input type="email" id="gateEmail" placeholder="Correo" autofocus style="margin-bottom:14px;">
     <div style="position:relative; margin-bottom:14px;">
-      <input type="password" id="gatePass" placeholder="Clave de acceso" autofocus style="padding-right:44px; margin-bottom:0;">
+      <input type="password" id="gatePass" placeholder="Contraseña" style="padding-right:44px; margin-bottom:0;">
       <button type="button" id="gateToggle" style="position:absolute; right:6px; top:50%; transform:translateY(-50%); background:none; border:none; padding:6px; color:var(--gray-600);">
         <svg id="gateEyeIcon" viewBox="0 0 24 24" style="width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
@@ -190,6 +191,7 @@
       <button data-panel="tarjetas">Tarjetas</button>
     </div>
     <a href="index.html" class="back-home">← Volver al sitio</a>
+    <button id="logoutBtn" class="back-home" style="background:none; border:none;">Cerrar sesión</button>
   </div>
 
   <div class="main">
@@ -282,6 +284,7 @@
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getDatabase, ref, get, update, set, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyC7g58lq3sC2_hir8biFz-XbnYauUbotQ8",
@@ -296,12 +299,12 @@
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
+  const auth = getAuth(app);
   const WA_PHONE_PREFIX = "56"; // default country code fallback
 
   // ══════════════════════════════════════════════
   // ACCESO
   // ══════════════════════════════════════════════
-  const ACCESS_KEY = "AmorCyD2026"; // cambia esta clave cuando quieras
   const gate = document.getElementById("gate");
   const appEl = document.getElementById("app");
 
@@ -310,25 +313,31 @@
     input.type = input.type === "password" ? "text" : "password";
   });
 
-  function tryEnter(){
-    const val = document.getElementById("gatePass").value;
-    if(val === ACCESS_KEY){
-      sessionStorage.setItem("tef_admin_ok", "1");
-      gate.style.display = "none";
-      appEl.classList.add("show");
-      loadData();
-    } else {
-      document.getElementById("gateErr").textContent = "Clave incorrecta.";
+  async function tryEnter(){
+    const email = document.getElementById("gateEmail").value.trim();
+    const pass = document.getElementById("gatePass").value;
+    const errEl = document.getElementById("gateErr");
+    errEl.textContent = "";
+    try {
+      await signInWithEmailAndPassword(auth, email, pass);
+    } catch(e){
+      errEl.textContent = "Correo o contraseña incorrectos.";
     }
   }
   document.getElementById("gateBtn").addEventListener("click", tryEnter);
   document.getElementById("gatePass").addEventListener("keydown", e => { if(e.key === "Enter") tryEnter(); });
+  document.getElementById("logoutBtn").addEventListener("click", () => signOut(auth));
 
-  if(sessionStorage.getItem("tef_admin_ok") === "1"){
-    gate.style.display = "none";
-    appEl.classList.add("show");
-    loadData();
-  }
+  onAuthStateChanged(auth, user => {
+    if(user){
+      gate.style.display = "none";
+      appEl.classList.add("show");
+      loadData();
+    } else {
+      gate.style.display = "flex";
+      appEl.classList.remove("show");
+    }
+  });
 
   // ══════════════════════════════════════════════
   // NAVEGACIÓN

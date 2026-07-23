@@ -1,0 +1,17 @@
+{
+  "rules": {
+    "tarjetas": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "bookings": {
+      ".read": true,
+      "$date": {
+        "$slot": {
+          ".write": "auth != null || !data.exists()",
+          ".validate": "newData.hasChildren(['nombre','telefono'])"
+        }
+      }
+    }
+  }
+}

@@ -236,6 +236,12 @@
 
     <!-- PANEL TARJETAS -->
     <div class="panel" id="panel-tarjetas">
+      <div class="tarjeta-subnav" style="display:flex; gap:6px; margin-bottom:20px; border-bottom:1px solid var(--bg-soft-2); padding-bottom:2px;">
+        <button type="button" class="subtab-btn active" data-subpanel="listado" style="background:none; border:none; padding:10px 16px; font-weight:600; font-size:13.5px; color:var(--navy); border-bottom:2px solid var(--blue); cursor:pointer;">Tarjetas creadas</button>
+        <button type="button" class="subtab-btn" data-subpanel="crear" style="background:none; border:none; padding:10px 16px; font-weight:600; font-size:13.5px; color:var(--gray-600); border-bottom:2px solid transparent; cursor:pointer;">Crear nueva</button>
+      </div>
+
+      <div class="tarjeta-subpanel" id="subpanel-crear" style="display:none;">
       <div class="tarjeta-form-wrap">
         <h3 id="tarjetaFormTitle" style="font-size:16px; margin-bottom:14px;">Nueva tarjeta digital</h3>
         <div class="tarjeta-form-grid">
@@ -270,11 +276,14 @@
         </div>
         <div class="err" id="tarjetaFormErr" style="color:var(--red); font-size:12.5px; margin-top:8px;"></div>
       </div>
-
-      <div class="toolbar" style="margin-top:24px;">
-        <input type="text" id="tarjetaSearch" placeholder="Buscar tarjeta por nombre...">
       </div>
-      <div class="client-grid" id="tarjetasGrid"></div>
+
+      <div class="tarjeta-subpanel" id="subpanel-listado">
+        <div class="toolbar">
+          <input type="text" id="tarjetaSearch" placeholder="Buscar tarjeta por nombre...">
+        </div>
+        <div class="client-grid" id="tarjetasGrid"></div>
+      </div>
     </div>
   </div>
 </div>
@@ -349,6 +358,20 @@
       document.querySelectorAll(".panel").forEach(p => p.classList.remove("show"));
       document.getElementById("panel-" + btn.dataset.panel).classList.add("show");
     });
+  });
+
+  function showTarjetaSubpanel(name){
+    document.querySelectorAll(".subtab-btn").forEach(b => {
+      const active = b.dataset.subpanel === name;
+      b.classList.toggle("active", active);
+      b.style.color = active ? "var(--navy)" : "var(--gray-600)";
+      b.style.borderBottomColor = active ? "var(--blue)" : "transparent";
+    });
+    document.getElementById("subpanel-crear").style.display = name === "crear" ? "" : "none";
+    document.getElementById("subpanel-listado").style.display = name === "listado" ? "" : "none";
+  }
+  document.querySelectorAll(".subtab-btn").forEach(btn => {
+    btn.addEventListener("click", () => showTarjetaSubpanel(btn.dataset.subpanel));
   });
 
   // ══════════════════════════════════════════════
@@ -700,6 +723,7 @@
     clearTarjetaForm();
     renderTarjetas();
     showToast(`Tarjeta guardada: /${slug}`);
+    showTarjetaSubpanel("listado");
   });
 
   function editTarjeta(slug){
@@ -727,6 +751,7 @@
     slugTouched = true;
     document.getElementById("tarjetaFormTitle").textContent = `Editando: ${d.nombre}`;
     document.getElementById("tarjetaCancelBtn").style.display = "inline-flex";
+    showTarjetaSubpanel("crear");
     document.getElementById("panel-tarjetas").scrollIntoView({behavior:"smooth"});
   }
 

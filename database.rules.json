@@ -4,6 +4,10 @@
       ".read": true,
       ".write": "auth != null"
     },
+    "clients": {
+      ".read": "auth != null",
+      ".write": "auth != null"
+    },
     "bookings": {
       ".read": true,
       "$date": {

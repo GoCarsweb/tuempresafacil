@@ -29,17 +29,21 @@ REGLAS DE CONVERSACIÓN:
 
 const TOOLS = [
   {
-    name: "guardar_lead",
-    description: "Registra los datos de contacto de una persona interesada en algún plan o servicio, para que el equipo la contacte.",
-    input_schema: {
-      type: "object",
-      properties: {
-        nombre: { type: "string", description: "Nombre de la persona" },
-        telefono: { type: "string", description: "Teléfono de contacto" },
-        interes: { type: "string", description: "Qué plan o servicio le interesa (ej: Starter Pack, Mini Página, contador auditor, tarjeta NFC, publicidad)" }
-      },
-      required: ["nombre", "telefono"]
-    }
+    functionDeclarations: [
+      {
+        name: "guardar_lead",
+        description: "Registra los datos de contacto de una persona interesada en algún plan o servicio, para que el equipo la contacte.",
+        parameters: {
+          type: "OBJECT",
+          properties: {
+            nombre: { type: "STRING", description: "Nombre de la persona" },
+            telefono: { type: "STRING", description: "Teléfono de contacto" },
+            interes: { type: "STRING", description: "Qué plan o servicio le interesa (ej: Starter Pack, Mini Página, contador auditor, tarjeta NFC, publicidad)" }
+          },
+          required: ["nombre", "telefono"]
+        }
+      }
+    ]
   }
 ];
 
@@ -92,6 +96,13 @@ async function guardarLead(input) {
   return { ok: true };
 }
 
+function toGeminiContents(messages) {
+  return messages.map(m => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }]
+  }));
+}
+
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
@@ -100,8 +111,8 @@ export default async function handler(req, res) {
   if (req.method === "OPTIONS") return res.status(200).end();
   if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: "Falta configurar ANTHROPIC_API_KEY en el servidor." });
+  if (!process.env.GEMINI_API_KEY) {
+    return res.status(500).json({ error: "Falta configurar GEMINI_API_KEY en el servidor." });
   }
 
   const { messages } = req.body;
@@ -109,56 +120,60 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Falta el historial de mensajes." });
   }
 
+  const MODEL = "gemini-2.0-flash";
+  const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${process.env.GEMINI_API_KEY}`;
+
   try {
-    let conversation = messages.slice(-20); // limita historial enviado
+    let contents = toGeminiContents(messages.slice(-20));
     let finalText = "";
 
     for (let round = 0; round < 3; round++) {
-      const anthRes = await fetch("https://api.anthropic.com/v1/messages", {
+      const geminiRes = await fetch(API_URL, {
         method: "POST",
-        headers: {
-          "x-api-key": process.env.ANTHROPIC_API_KEY,
-          "anthropic-version": "2023-06-01",
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          model: "claude-sonnet-4-5",
-          max_tokens: 500,
-          system: SYSTEM_PROMPT,
+          contents,
           tools: TOOLS,
-          messages: conversation
+          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+          generationConfig: { maxOutputTokens: 400 }
         })
       });
 
-      if (!anthRes.ok) {
-        const err = await anthRes.text();
-        return res.status(502).json({ error: `Error de Anthropic: ${err}` });
+      if (!geminiRes.ok) {
+        const err = await geminiRes.text();
+        return res.status(502).json({ error: `Error de Gemini: ${err}` });
       }
 
-      const data = await anthRes.json();
-      const toolUses = (data.content || []).filter(b => b.type === "tool_use");
-      const textBlocks = (data.content || []).filter(b => b.type === "text");
-      finalText = textBlocks.map(b => b.text).join("\n").trim();
+      const data = await geminiRes.json();
+      const parts = data.candidates?.[0]?.content?.parts || [];
+      const functionCalls = parts.filter(p => p.functionCall);
+      const textParts = parts.filter(p => p.text);
+      finalText = textParts.map(p => p.text).join("\n").trim();
 
-      if (data.stop_reason !== "tool_use" || !toolUses.length) {
-        break;
-      }
+      if (!functionCalls.length) break;
 
-      const toolResults = [];
-      for (const tu of toolUses) {
-        if (tu.name === "guardar_lead") {
-          await guardarLead(tu.input || {});
-          toolResults.push({ type: "tool_result", tool_use_id: tu.id, content: "Lead guardado correctamente." });
+      contents.push({ role: "model", parts });
+
+      const responseParts = [];
+      for (const fc of functionCalls) {
+        if (fc.functionCall.name === "guardar_lead") {
+          await guardarLead(fc.functionCall.args || {});
+          responseParts.push({
+            functionResponse: {
+              name: "guardar_lead",
+              response: { ok: true }
+            }
+          });
         } else {
-          toolResults.push({ type: "tool_result", tool_use_id: tu.id, content: "Herramienta no reconocida." });
+          responseParts.push({
+            functionResponse: {
+              name: fc.functionCall.name,
+              response: { error: "Herramienta no reconocida." }
+            }
+          });
         }
       }
-
-      conversation = [
-        ...conversation,
-        { role: "assistant", content: data.content },
-        { role: "user", content: toolResults }
-      ];
+      contents.push({ role: "user", parts: responseParts });
     }
 
     return res.status(200).json({ reply: finalText || "Perdona, ¿puedes repetir eso?" });

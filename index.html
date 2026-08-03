@@ -1270,5 +1270,133 @@
     revealEls.forEach(el=> el.classList.add("in"));
   }
 </script>
+
+<!-- CHATBOT -->
+<style>
+  #tef-chat-bubble{position:fixed; bottom:22px; right:22px; width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple)); box-shadow:0 14px 30px -10px rgba(24,87,201,0.6); border:none; cursor:pointer; z-index:2000; display:flex; align-items:center; justify-content:center; transition:transform .15s;}
+  #tef-chat-bubble:hover{transform:scale(1.06);}
+  #tef-chat-bubble svg{width:26px; height:26px; stroke:white; fill:none; stroke-width:2;}
+  #tef-chat-bubble .dot{position:absolute; top:6px; right:6px; width:11px; height:11px; border-radius:50%; background:#10B981; border:2px solid white;}
+
+  #tef-chat-win{position:fixed; bottom:96px; right:22px; width:min(360px,calc(100vw - 32px)); height:min(520px,calc(100vh - 140px)); background:white; border-radius:18px; box-shadow:0 30px 60px -20px rgba(10,37,64,0.4); z-index:2000; display:none; flex-direction:column; overflow:hidden; font-family:var(--font-body,sans-serif);}
+  #tef-chat-win.open{display:flex;}
+  .tef-chat-head{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;}
+  .tef-chat-head h4{color:white; font-size:14.5px; margin:0;}
+  .tef-chat-head p{color:#C9D6E8; font-size:11.5px; margin:2px 0 0;}
+  .tef-chat-close{background:none; border:none; color:white; font-size:20px; cursor:pointer; line-height:1; padding:4px;}
+  .tef-chat-body{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:#F4F8FC;}
+  .tef-msg{max-width:82%; padding:10px 13px; border-radius:14px; font-size:13.5px; line-height:1.45; white-space:pre-wrap;}
+  .tef-msg.bot{background:white; color:#1E2530; align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 8px -4px rgba(10,37,64,0.15);}
+  .tef-msg.user{background:var(--blue); color:white; align-self:flex-end; border-bottom-right-radius:4px;}
+  .tef-msg.typing{display:flex; gap:4px; align-items:center; padding:12px 14px;}
+  .tef-msg.typing span{width:6px; height:6px; border-radius:50%; background:#B9C3D0; animation:tefBlink 1.2s infinite ease-in-out;}
+  .tef-msg.typing span:nth-child(2){animation-delay:.2s;}
+  .tef-msg.typing span:nth-child(3){animation-delay:.4s;}
+  @keyframes tefBlink{0%,80%,100%{opacity:.3;} 40%{opacity:1;}}
+  .tef-chat-input{display:flex; gap:8px; padding:12px; border-top:1px solid #EEF3FA; flex-shrink:0; background:white;}
+  .tef-chat-input input{flex:1; border:1.5px solid #DCE4EF; border-radius:10px; padding:10px 12px; font-size:13.5px; font-family:inherit;}
+  .tef-chat-input input:focus{outline:none; border-color:var(--blue);}
+  .tef-chat-input button{background:var(--blue); color:white; border:none; border-radius:10px; width:40px; flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center;}
+  .tef-chat-input button svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
+  @media(max-width:480px){ #tef-chat-win{right:16px; bottom:88px;} #tef-chat-bubble{right:16px; bottom:16px;} }
+</style>
+
+<button id="tef-chat-bubble" aria-label="Abrir chat">
+  <span class="dot"></span>
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L3 20l1.1-5.4A8.5 8.5 0 1 1 21 11.5z"/></svg>
+</button>
+
+<div id="tef-chat-win">
+  <div class="tef-chat-head">
+    <div>
+      <h4>Tu Empresa Fácil</h4>
+      <p>Te ayudamos a elegir el plan ideal</p>
+    </div>
+    <button class="tef-chat-close" id="tef-chat-close" aria-label="Cerrar chat">×</button>
+  </div>
+  <div class="tef-chat-body" id="tef-chat-body"></div>
+  <div class="tef-chat-input">
+    <input type="text" id="tef-chat-input" placeholder="Escribe tu mensaje...">
+    <button id="tef-chat-send" aria-label="Enviar">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const bubble = document.getElementById("tef-chat-bubble");
+  const win = document.getElementById("tef-chat-win");
+  const closeBtn = document.getElementById("tef-chat-close");
+  const body = document.getElementById("tef-chat-body");
+  const input = document.getElementById("tef-chat-input");
+  const sendBtn = document.getElementById("tef-chat-send");
+
+  const GREETING = "¡Hola! 👋 Soy el asistente de Tu Empresa Fácil. Puedo ayudarte a elegir el plan ideal para crear tu empresa, tu página web, o contarte sobre nuestra publicidad mensual, tarjetas NFC y contabilidad. ¿En qué te puedo ayudar?";
+  let history = [];
+  let opened = false;
+
+  function addMsg(role, text){
+    const el = document.createElement("div");
+    el.className = `tef-msg ${role === "user" ? "user" : "bot"}`;
+    el.textContent = text;
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  function showTyping(){
+    const el = document.createElement("div");
+    el.className = "tef-msg bot typing";
+    el.innerHTML = "<span></span><span></span><span></span>";
+    body.appendChild(el);
+    body.scrollTop = body.scrollHeight;
+    return el;
+  }
+
+  async function sendMessage(){
+    const text = input.value.trim();
+    if(!text) return;
+    input.value = "";
+    addMsg("user", text);
+    history.push({ role: "user", content: text });
+
+    const typingEl = showTyping();
+    sendBtn.disabled = true;
+
+    try {
+      const resp = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history })
+      });
+      const data = await resp.json();
+      typingEl.remove();
+      if(!resp.ok || data.error){
+        addMsg("bot", "Uy, tuve un problema para responder. Puedes escribirnos directo por WhatsApp al +56 9 9593 2848.");
+      } else {
+        addMsg("bot", data.reply);
+        history.push({ role: "assistant", content: data.reply });
+      }
+    } catch(e){
+      typingEl.remove();
+      addMsg("bot", "No pude conectarme. Intenta de nuevo o escríbenos por WhatsApp al +56 9 9593 2848.");
+    }
+    sendBtn.disabled = false;
+  }
+
+  bubble.addEventListener("click", () => {
+    win.classList.add("open");
+    if(!opened){
+      opened = true;
+      addMsg("bot", GREETING);
+    }
+    input.focus();
+  });
+  closeBtn.addEventListener("click", () => win.classList.remove("open"));
+  sendBtn.addEventListener("click", sendMessage);
+  input.addEventListener("keydown", e => { if(e.key === "Enter") sendMessage(); });
+})();
+</script>
 </body>
 </html>

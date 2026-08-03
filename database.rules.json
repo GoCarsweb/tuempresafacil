@@ -8,6 +8,13 @@
       ".read": "auth != null",
       ".write": "auth != null"
     },
+    "leads": {
+      ".read": "auth != null",
+      "$leadId": {
+        ".write": "!data.exists()",
+        ".validate": "newData.hasChildren(['nombre','telefono'])"
+      }
+    },
     "bookings": {
       ".read": true,
       "$date": {

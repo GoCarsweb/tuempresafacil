@@ -1271,33 +1271,31 @@
   }
 </script>
 
-<!-- CHATBOT -->
+<!-- CHATBOT (botones guiados, sin IA externa, $0 de costo) -->
 <style>
   #tef-chat-bubble{position:fixed; bottom:22px; right:22px; width:60px; height:60px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple)); box-shadow:0 14px 30px -10px rgba(24,87,201,0.6); border:none; cursor:pointer; z-index:2000; display:flex; align-items:center; justify-content:center; transition:transform .15s;}
   #tef-chat-bubble:hover{transform:scale(1.06);}
   #tef-chat-bubble svg{width:26px; height:26px; stroke:white; fill:none; stroke-width:2;}
   #tef-chat-bubble .dot{position:absolute; top:6px; right:6px; width:11px; height:11px; border-radius:50%; background:#10B981; border:2px solid white;}
 
-  #tef-chat-win{position:fixed; bottom:96px; right:22px; width:min(360px,calc(100vw - 32px)); height:min(520px,calc(100vh - 140px)); background:white; border-radius:18px; box-shadow:0 30px 60px -20px rgba(10,37,64,0.4); z-index:2000; display:none; flex-direction:column; overflow:hidden; font-family:var(--font-body,sans-serif);}
+  #tef-chat-win{position:fixed; bottom:96px; right:22px; width:min(360px,calc(100vw - 32px)); height:min(540px,calc(100vh - 140px)); background:white; border-radius:18px; box-shadow:0 30px 60px -20px rgba(10,37,64,0.4); z-index:2000; display:none; flex-direction:column; overflow:hidden; font-family:var(--font-body,sans-serif);}
   #tef-chat-win.open{display:flex;}
   .tef-chat-head{background:linear-gradient(135deg,var(--navy),var(--blue)); padding:16px 18px; display:flex; align-items:center; justify-content:space-between; flex-shrink:0;}
   .tef-chat-head h4{color:white; font-size:14.5px; margin:0;}
   .tef-chat-head p{color:#C9D6E8; font-size:11.5px; margin:2px 0 0;}
   .tef-chat-close{background:none; border:none; color:white; font-size:20px; cursor:pointer; line-height:1; padding:4px;}
   .tef-chat-body{flex:1; overflow-y:auto; padding:16px; display:flex; flex-direction:column; gap:10px; background:#F4F8FC;}
-  .tef-msg{max-width:82%; padding:10px 13px; border-radius:14px; font-size:13.5px; line-height:1.45; white-space:pre-wrap;}
+  .tef-msg{max-width:88%; padding:10px 13px; border-radius:14px; font-size:13.5px; line-height:1.5; white-space:pre-wrap;}
   .tef-msg.bot{background:white; color:#1E2530; align-self:flex-start; border-bottom-left-radius:4px; box-shadow:0 2px 8px -4px rgba(10,37,64,0.15);}
   .tef-msg.user{background:var(--blue); color:white; align-self:flex-end; border-bottom-right-radius:4px;}
-  .tef-msg.typing{display:flex; gap:4px; align-items:center; padding:12px 14px;}
-  .tef-msg.typing span{width:6px; height:6px; border-radius:50%; background:#B9C3D0; animation:tefBlink 1.2s infinite ease-in-out;}
-  .tef-msg.typing span:nth-child(2){animation-delay:.2s;}
-  .tef-msg.typing span:nth-child(3){animation-delay:.4s;}
-  @keyframes tefBlink{0%,80%,100%{opacity:.3;} 40%{opacity:1;}}
-  .tef-chat-input{display:flex; gap:8px; padding:12px; border-top:1px solid #EEF3FA; flex-shrink:0; background:white;}
-  .tef-chat-input input{flex:1; border:1.5px solid #DCE4EF; border-radius:10px; padding:10px 12px; font-size:13.5px; font-family:inherit;}
-  .tef-chat-input input:focus{outline:none; border-color:var(--blue);}
-  .tef-chat-input button{background:var(--blue); color:white; border:none; border-radius:10px; width:40px; flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center;}
-  .tef-chat-input button svg{width:17px; height:17px; stroke:white; fill:none; stroke-width:2;}
+  .tef-opts{display:flex; flex-direction:column; gap:7px; align-self:stretch; margin-top:2px;}
+  .tef-opt-btn{background:white; border:1.5px solid #DCE4EF; color:var(--navy); border-radius:10px; padding:9px 12px; font-size:13px; font-weight:600; text-align:left; cursor:pointer; transition:background .15s, border-color .15s;}
+  .tef-opt-btn:hover{background:var(--bg-soft,#F4F8FC); border-color:var(--blue);}
+  .tef-lead-form{display:flex; flex-direction:column; gap:8px; align-self:stretch; background:white; border:1.5px solid #DCE4EF; border-radius:12px; padding:12px; margin-top:2px;}
+  .tef-lead-form input{border:1.5px solid #DCE4EF; border-radius:9px; padding:9px 11px; font-size:13px; font-family:inherit;}
+  .tef-lead-form input:focus{outline:none; border-color:var(--blue);}
+  .tef-lead-form button{background:var(--blue); color:white; border:none; border-radius:9px; padding:9px; font-size:13px; font-weight:700; cursor:pointer;}
+  .tef-lead-err{color:var(--red,#EF4444); font-size:11.5px;}
   @media(max-width:480px){ #tef-chat-win{right:16px; bottom:88px;} #tef-chat-bubble{right:16px; bottom:16px;} }
 </style>
 
@@ -1315,12 +1313,6 @@
     <button class="tef-chat-close" id="tef-chat-close" aria-label="Cerrar chat">×</button>
   </div>
   <div class="tef-chat-body" id="tef-chat-body"></div>
-  <div class="tef-chat-input">
-    <input type="text" id="tef-chat-input" placeholder="Escribe tu mensaje...">
-    <button id="tef-chat-send" aria-label="Enviar">
-      <svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-  </div>
 </div>
 
 <script>
@@ -1329,73 +1321,208 @@
   const win = document.getElementById("tef-chat-win");
   const closeBtn = document.getElementById("tef-chat-close");
   const body = document.getElementById("tef-chat-body");
-  const input = document.getElementById("tef-chat-input");
-  const sendBtn = document.getElementById("tef-chat-send");
-
-  const GREETING = "¡Hola! 👋 Soy el asistente de Tu Empresa Fácil. Puedo ayudarte a elegir el plan ideal para crear tu empresa, tu página web, o contarte sobre nuestra publicidad mensual, tarjetas NFC y contabilidad. ¿En qué te puedo ayudar?";
-  let history = [];
+  const WA = "56995932848";
+  const waLink = msg => `https://wa.me/${WA}?text=${encodeURIComponent(msg)}`;
   let opened = false;
 
-  function addMsg(role, text){
+  const NODES = {
+    menu: {
+      text: "¡Hola! 👋 Soy el asistente de Tu Empresa Fácil. ¿En qué te puedo ayudar?",
+      options: [
+        { label: "🚀 Quiero crear mi empresa", next: "starter" },
+        { label: "💻 Solo necesito página web", next: "web" },
+        { label: "📊 Contabilidad / auditoría mensual", next: "contador" },
+        { label: "📣 Publicidad mensual", next: "publicidad" },
+        { label: "🪪 Tarjeta de presentación NFC", next: "nfc" },
+        { label: "💬 Hablar con una persona", next: "wa-general" }
+      ]
+    },
+    starter: {
+      text: "El Starter Pack — Empresa Lista es nuestro plan más elegido 🙌\n\nCuota inicial: $119.990 (creación legal de empresa, inicio de actividades en SII, configuración para facturar, página web base, WhatsApp/Instagram conectados y tarjeta NFC incluida).\n\nMensualidad: $29.990/mes (contabilidad básica, soporte técnico, 4 imágenes publicitarias al mes y asesoría continua).",
+      options: [
+        { label: "✅ Dejar mis datos para cotizar", next: "lead", interes: "Starter Pack - Empresa Lista" },
+        { label: "⬅️ Ver otras opciones", next: "menu" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, quiero más información sobre el Starter Pack Empresa Lista ($119.990 + $29.990/mes)." }
+      ]
+    },
+    web: {
+      text: "Si ya tienes tu empresa y solo necesitas página web, tenemos 3 planes:",
+      options: [
+        { label: "Mini Página — $49.990", next: "web-mini" },
+        { label: "One Page Vendedor — $129.990", next: "web-onepage" },
+        { label: "Multi Página Empresarial — $249.990", next: "web-multi" },
+        { label: "⬅️ Volver al menú", next: "menu" }
+      ]
+    },
+    "web-mini": {
+      text: "Mini Página — $49.990 (pago único)\n\nCreación rápida de tu página web + dominio en NIC Chile. Ideal si necesitas presencia online cuanto antes. Incluye tarjeta NFC personalizada.",
+      options: [
+        { label: "✅ Dejar mis datos para cotizar", next: "lead", interes: "Mini Página ($49.990)" },
+        { label: "⬅️ Ver otros planes web", next: "web" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, me interesa el plan Mini Página ($49.990). ¿Pueden darme más información?" }
+      ]
+    },
+    "web-onepage": {
+      text: "One Page Vendedor — $129.990 (pago único)\n\nPágina enfocada en vender y captar clientes, más completa que la Mini Página. Incluye tarjeta NFC personalizada.",
+      options: [
+        { label: "✅ Dejar mis datos para cotizar", next: "lead", interes: "One Page Vendedor ($129.990)" },
+        { label: "⬅️ Ver otros planes web", next: "web" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, me interesa el plan One Page Vendedor ($129.990). ¿Pueden darme más información?" }
+      ]
+    },
+    "web-multi": {
+      text: "Multi Página Empresarial — $249.990 (pago único)\n\nEstructura de sitio completa para empresas con más necesidades. Incluye tarjeta NFC personalizada.",
+      options: [
+        { label: "✅ Dejar mis datos para cotizar", next: "lead", interes: "Multi Página Empresarial ($249.990)" },
+        { label: "⬅️ Ver otros planes web", next: "web" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, me interesa el plan Multi Página Empresarial ($249.990). ¿Pueden darme más información?" }
+      ]
+    },
+    contador: {
+      text: "Nuestro contador auditor lleva la contabilidad y auditoría mensual de tu empresa — también para empresas ya constituidas, no solo las que recién parten. Como el costo depende del tamaño y movimiento de cada empresa, dejamos tus datos y el contador te cotiza a la medida.",
+      options: [
+        { label: "✅ Dejar mis datos", next: "lead", interes: "Contador auditor / contabilidad mensual" },
+        { label: "⬅️ Volver al menú", next: "menu" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, quiero cotizar el servicio de contabilidad/auditoría mensual para mi empresa." }
+      ]
+    },
+    publicidad: {
+      text: "Publicidad mensual: 4 imágenes publicitarias listas para publicar en tus redes sociales cada mes. Está incluida en la mensualidad del Starter Pack ($29.990/mes).",
+      options: [
+        { label: "✅ Dejar mis datos", next: "lead", interes: "Publicidad mensual" },
+        { label: "⬅️ Volver al menú", next: "menu" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, me interesa la publicidad mensual de Tu Empresa Fácil." }
+      ]
+    },
+    nfc: {
+      text: "Tarjeta de presentación digital NFC + código QR: acercas la tarjeta al celular de alguien y se abre tu tarjeta de contacto digital al instante (foto, datos, WhatsApp, redes, servicios). Incluida gratis en el Starter Pack y en todos los planes web; también se puede pedir por separado, cotizando por WhatsApp.",
+      options: [
+        { label: "✅ Dejar mis datos", next: "lead", interes: "Tarjeta NFC" },
+        { label: "⬅️ Volver al menú", next: "menu" },
+        { label: "💬 Hablar por WhatsApp", next: "wa", waText: "Hola, me interesa la tarjeta NFC de Tu Empresa Fácil. ¿Pueden darme más información?" }
+      ]
+    }
+  };
+
+  function addBotText(text){
     const el = document.createElement("div");
-    el.className = `tef-msg ${role === "user" ? "user" : "bot"}`;
+    el.className = "tef-msg bot";
     el.textContent = text;
     body.appendChild(el);
     body.scrollTop = body.scrollHeight;
-    return el;
   }
 
-  function showTyping(){
+  function addUserText(text){
     const el = document.createElement("div");
-    el.className = "tef-msg bot typing";
-    el.innerHTML = "<span></span><span></span><span></span>";
+    el.className = "tef-msg user";
+    el.textContent = text;
     body.appendChild(el);
     body.scrollTop = body.scrollHeight;
-    return el;
   }
 
-  async function sendMessage(){
-    const text = input.value.trim();
-    if(!text) return;
-    input.value = "";
-    addMsg("user", text);
-    history.push({ role: "user", content: text });
+  function clearOptions(){
+    document.querySelectorAll(".tef-opts, .tef-lead-form").forEach(el => el.remove());
+  }
 
-    const typingEl = showTyping();
-    sendBtn.disabled = true;
+  function renderNode(id){
+    clearOptions();
+    const node = NODES[id];
+    if(!node) return;
+    addBotText(node.text);
 
-    try {
-      const resp = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history })
+    const wrap = document.createElement("div");
+    wrap.className = "tef-opts";
+    node.options.forEach(opt => {
+      const btn = document.createElement("button");
+      btn.className = "tef-opt-btn";
+      btn.textContent = opt.label;
+      btn.addEventListener("click", () => {
+        addUserText(opt.label);
+        clearOptions();
+        if(opt.next === "wa"){
+          window.open(waLink(opt.waText), "_blank");
+          addBotText("Te dejé abierto WhatsApp para que sigamos por ahí 👍");
+          renderMenuButton();
+        } else if(opt.next === "wa-general"){
+          window.open(waLink("Hola, quiero hablar con alguien del equipo de Tu Empresa Fácil."), "_blank");
+          addBotText("Te dejé abierto WhatsApp para que hables directo con nosotros 👍");
+          renderMenuButton();
+        } else if(opt.next === "lead"){
+          renderLeadForm(opt.interes);
+        } else {
+          renderNode(opt.next);
+        }
       });
-      const data = await resp.json();
-      typingEl.remove();
-      if(!resp.ok || data.error){
-        addMsg("bot", "Uy, tuve un problema para responder. Puedes escribirnos directo por WhatsApp al +56 9 9593 2848.");
-      } else {
-        addMsg("bot", data.reply);
-        history.push({ role: "assistant", content: data.reply });
+      wrap.appendChild(btn);
+    });
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function renderMenuButton(){
+    const wrap = document.createElement("div");
+    wrap.className = "tef-opts";
+    const btn = document.createElement("button");
+    btn.className = "tef-opt-btn";
+    btn.textContent = "⬅️ Volver al menú";
+    btn.addEventListener("click", () => { clearOptions(); renderNode("menu"); });
+    wrap.appendChild(btn);
+    body.appendChild(wrap);
+    body.scrollTop = body.scrollHeight;
+  }
+
+  function renderLeadForm(interes){
+    addBotText("Perfecto, déjame tu nombre y teléfono y el equipo te contacta a la brevedad 🙌");
+    const form = document.createElement("div");
+    form.className = "tef-lead-form";
+    form.innerHTML = `
+      <input type="text" id="tef-lead-nombre" placeholder="Tu nombre">
+      <input type="tel" id="tef-lead-telefono" placeholder="Tu teléfono / WhatsApp">
+      <div class="tef-lead-err" id="tef-lead-err"></div>
+      <button id="tef-lead-submit">Enviar mis datos</button>
+    `;
+    body.appendChild(form);
+    body.scrollTop = body.scrollHeight;
+
+    document.getElementById("tef-lead-submit").addEventListener("click", async () => {
+      const nombre = document.getElementById("tef-lead-nombre").value.trim();
+      const telefono = document.getElementById("tef-lead-telefono").value.trim();
+      const errEl = document.getElementById("tef-lead-err");
+      if(!nombre || !telefono){
+        errEl.textContent = "Completa tu nombre y teléfono.";
+        return;
       }
-    } catch(e){
-      typingEl.remove();
-      addMsg("bot", "No pude conectarme. Intenta de nuevo o escríbenos por WhatsApp al +56 9 9593 2848.");
-    }
-    sendBtn.disabled = false;
+      errEl.textContent = "";
+      const submitBtn = document.getElementById("tef-lead-submit");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando...";
+      try {
+        const resp = await fetch("/api/lead", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nombre, telefono, interes })
+        });
+        if(!resp.ok) throw new Error();
+        form.remove();
+        addUserText(`${nombre} · ${telefono}`);
+        addBotText(`¡Gracias, ${nombre}! Ya quedaron registrados tus datos, el equipo te va a contactar pronto. Si quieres avanzar altiro, también puedes escribirnos por WhatsApp.`);
+        renderMenuButton();
+      } catch(e){
+        errEl.textContent = "No se pudo enviar. Intenta de nuevo o escríbenos por WhatsApp.";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Enviar mis datos";
+      }
+    });
   }
 
   bubble.addEventListener("click", () => {
     win.classList.add("open");
     if(!opened){
       opened = true;
-      addMsg("bot", GREETING);
+      renderNode("menu");
     }
-    input.focus();
   });
   closeBtn.addEventListener("click", () => win.classList.remove("open"));
-  sendBtn.addEventListener("click", sendMessage);
-  input.addEventListener("keydown", e => { if(e.key === "Enter") sendMessage(); });
 })();
 </script>
 </body>

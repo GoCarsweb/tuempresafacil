@@ -466,7 +466,7 @@
 <nav class="nav">
   <div class="nav-inner">
     <a href="#inicio" class="brand" style="perspective:700px; position:relative;">
-      <div id="nav-logo-edge" style="position:absolute; inset:6px; margin:auto; width:70px; height:70px; border-radius:50%; background:radial-gradient(circle, rgba(79,195,247,0.9), rgba(139,92,246,0.7) 55%, transparent 75%); filter:blur(6px); opacity:0; pointer-events:none; z-index:0;"></div>
+      <div id="nav-logo-edge" style="position:absolute; inset:-16px; margin:auto; width:120px; height:120px; border-radius:50%; background:radial-gradient(circle, rgba(79,195,247,0.55), rgba(139,92,246,0.4) 55%, transparent 75%); filter:blur(10px); opacity:0.45; pointer-events:none; z-index:0; transition:opacity .2s;"></div>
       <div id="nav-logo-3d" style="position:relative; display:inline-block; height:120px; transform-style:preserve-3d; will-change:transform;">
         <div id="nav-logo-thickness"></div>
         <img id="nav-logo-spin" src="logo.png" alt="Tu Empresa Fácil" style="height:120px; width:auto; display:block; position:relative; z-index:1; backface-visibility:visible;">
@@ -1336,14 +1336,14 @@
     if(!wrap || !logo) return;
 
     // Genera las capas que simulan el grosor del logo (efecto "extruido")
-    const LAYERS = 14;
+    const LAYERS = 34;
     for(let i = 1; i <= LAYERS; i++){
       const layer = document.createElement("div");
       layer.style.cssText = `
         position:absolute; inset:0;
         background-image:url('logo.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
-        transform:translateZ(${-i * 1.1}px);
-        filter:brightness(${Math.max(0.28, 0.95 - i * 0.05)});
+        transform:translateZ(${-i * 1.3}px);
+        filter:brightness(${Math.max(0.18, 0.95 - i * 0.025)});
       `;
       thickness.appendChild(layer);
     }
@@ -1361,7 +1361,7 @@
       wrap.style.transform = `rotateX(${TILT_X}deg) rotateY(${scrollDeg}deg) translateZ(${sideness * 10}px) scale(${1 + sideness * 0.05})`;
       logo.style.filter = `drop-shadow(${(0.5 - cosAbs * 0.5) * 18}px 6px ${6 + sideness * 10}px rgba(10,37,64,${0.3 + sideness * 0.35}))`;
 
-      if(edge) edge.style.opacity = String(sideness * 0.85);
+      if(edge) edge.style.opacity = String(0.4 + sideness * 0.6);
 
       ticking = false;
     }

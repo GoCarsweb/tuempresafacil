@@ -467,7 +467,10 @@
   <div class="nav-inner">
     <a href="#inicio" class="brand" style="perspective:700px; position:relative;">
       <div id="nav-logo-edge" style="position:absolute; inset:6px; margin:auto; width:70px; height:70px; border-radius:50%; background:radial-gradient(circle, rgba(79,195,247,0.9), rgba(139,92,246,0.7) 55%, transparent 75%); filter:blur(6px); opacity:0; pointer-events:none; z-index:0;"></div>
-      <img id="nav-logo-spin" src="logo.png" alt="Tu Empresa Fácil" style="height:120px; width:auto; display:block; position:relative; z-index:1; will-change:transform, filter; backface-visibility:visible; transform-style:preserve-3d;">
+      <div id="nav-logo-3d" style="position:relative; display:inline-block; height:120px; transform-style:preserve-3d; will-change:transform;">
+        <div id="nav-logo-thickness"></div>
+        <img id="nav-logo-spin" src="logo.png" alt="Tu Empresa Fácil" style="height:120px; width:auto; display:block; position:relative; z-index:1; backface-visibility:visible;">
+      </div>
     </a>
     <div class="nav-links">
       <a href="#que-hacemos">Qué hacemos</a>
@@ -1324,23 +1327,39 @@
     window.open(waLink(msg), "_blank");
   });
 
-  // Logo del navbar gira en su eje 3D al hacer scroll
+  // Logo del navbar: grosor 3D + inclinación fija de 45° + giro al hacer scroll
   (function(){
+    const wrap = document.getElementById("nav-logo-3d");
     const logo = document.getElementById("nav-logo-spin");
     const edge = document.getElementById("nav-logo-edge");
-    if(!logo) return;
+    const thickness = document.getElementById("nav-logo-thickness");
+    if(!wrap || !logo) return;
+
+    // Genera las capas que simulan el grosor del logo (efecto "extruido")
+    const LAYERS = 14;
+    for(let i = 1; i <= LAYERS; i++){
+      const layer = document.createElement("div");
+      layer.style.cssText = `
+        position:absolute; inset:0;
+        background-image:url('logo.png'); background-size:contain; background-repeat:no-repeat; background-position:center;
+        transform:translateZ(${-i * 1.1}px);
+        filter:brightness(${Math.max(0.28, 0.95 - i * 0.05)});
+      `;
+      thickness.appendChild(layer);
+    }
+
+    const TILT_X = 45; // inclinación fija
     const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if(reduceMotion) return;
+
     let ticking = false;
     function updateSpin(){
-      const deg = (window.scrollY || window.pageYOffset || 0) * 0.6;
-      const rad = deg * Math.PI / 180;
+      const scrollDeg = reduceMotion ? 0 : (window.scrollY || window.pageYOffset || 0) * 0.6;
+      const rad = scrollDeg * Math.PI / 180;
       const cosAbs = Math.abs(Math.cos(rad));   // 1 = de frente, 0 = de canto
       const sideness = 1 - cosAbs;               // 0 = de frente, 1 = de canto
 
-      // Perspectiva real (el navegador ya foreshortea con matrix3d) + acento de profundidad
-      logo.style.transform = `rotateY(${deg}deg) translateZ(${sideness * 14}px) scale(${1 + sideness * 0.06})`;
-      logo.style.filter = `drop-shadow(${(0.5 - cosAbs * 0.5) * 22}px 4px ${6 + sideness * 10}px rgba(10,37,64,${0.25 + sideness * 0.35}))`;
+      wrap.style.transform = `rotateX(${TILT_X}deg) rotateY(${scrollDeg}deg) translateZ(${sideness * 10}px) scale(${1 + sideness * 0.05})`;
+      logo.style.filter = `drop-shadow(${(0.5 - cosAbs * 0.5) * 18}px 6px ${6 + sideness * 10}px rgba(10,37,64,${0.3 + sideness * 0.35}))`;
 
       if(edge) edge.style.opacity = String(sideness * 0.85);
 

@@ -465,8 +465,8 @@
 <!-- NAV -->
 <nav class="nav">
   <div class="nav-inner">
-    <a href="#inicio" class="brand">
-      <img src="logo.png" alt="Tu Empresa Fácil" style="height:120px; width:auto; display:block;">
+    <a href="#inicio" class="brand" style="perspective:600px;">
+      <img id="nav-logo-spin" src="logo.png" alt="Tu Empresa Fácil" style="height:120px; width:auto; display:block; will-change:transform; backface-visibility:visible;">
     </a>
     <div class="nav-links">
       <a href="#que-hacemos">Qué hacemos</a>
@@ -1322,6 +1322,27 @@
     if(mensaje) msg += `Mensaje: ${mensaje}`;
     window.open(waLink(msg), "_blank");
   });
+
+  // Logo del navbar gira en su eje al hacer scroll
+  (function(){
+    const logo = document.getElementById("nav-logo-spin");
+    if(!logo) return;
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(reduceMotion) return;
+    let ticking = false;
+    function updateSpin(){
+      const deg = (window.scrollY || window.pageYOffset || 0) * 0.6;
+      logo.style.transform = `rotateY(${deg}deg)`;
+      ticking = false;
+    }
+    window.addEventListener("scroll", () => {
+      if(!ticking){
+        requestAnimationFrame(updateSpin);
+        ticking = true;
+      }
+    }, { passive: true });
+    updateSpin();
+  })();
 
   // Reveal on scroll
   const revealEls = document.querySelectorAll(".reveal");
